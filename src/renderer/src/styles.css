@@ -32,9 +32,15 @@
 
 @layer utilities {
   .bg-image-1 {
-    background-image: url("./assets/background.jpg");
+    background-image: url("http://localhost:3000/backgrounds/background.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+  }
+
+  .shadow-image {
+    display: block;
+    margin: 20px auto;
+    filter: drop-shadow(0 4px 6px #18181b);
   }
 }

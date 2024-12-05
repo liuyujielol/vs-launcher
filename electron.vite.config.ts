@@ -15,10 +15,10 @@ export default defineConfig({
     resolve: {
       alias: {
         "@renderer": resolve(__dirname, "src/renderer/src"),
-        "@config": resolve(__dirname, "src/config"),
         "@components": resolve(__dirname, "src/renderer/src/components"),
         "@routes": resolve(__dirname, "src/renderer/src/routes"),
-        "@assets": resolve(__dirname, "src/renderer/src/assets")
+        "@assets": resolve(__dirname, "src/renderer/src/assets"),
+        "@contexts": resolve(__dirname, "src/renderer/src/contexts")
       }
     },
     plugins: [react()]

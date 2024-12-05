@@ -3,7 +3,9 @@ import { electronAPI } from "@electron-toolkit/preload"
 
 // Custom APIs for renderer
 const api = {
-  testLocalApi: (testData: string): Promise<{ directory: string; files: string[]; test: string }> => ipcRenderer.invoke("test-local-api", testData)
+  testLocalApi: (testData: string): Promise<{ directory: string; files: string[]; test: string }> => ipcRenderer.invoke("test-local-api", testData),
+  getConfig: (): Promise<ConfigType> => ipcRenderer.invoke("get-config"),
+  saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

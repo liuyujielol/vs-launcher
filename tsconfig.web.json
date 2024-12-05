@@ -5,6 +5,7 @@
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.tsx",
     "src/preload/*.d.ts",
+    "src/global.d.ts"
   ],
   "compilerOptions": {
     "composite": true,
@@ -23,8 +24,8 @@
       "@assets/*": [
         "src/renderer/src/assets/*"
       ],
-      "@config/*": [
-        "src/config/*"
+      "@contexts/*": [
+        "src/renderer/src/contexts/*"
       ]
     }
   }

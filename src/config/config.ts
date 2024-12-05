@@ -7,9 +7,11 @@ export const PATH = `${app.getPath("userData")}\\config.json`
 
 export class Config {
   public version: number
+  public installations: InstallationType[]
 
-  constructor(config: { version: number }) {
+  constructor(config: ConfigType) {
     this.version = config.version || defaultConfig.version
+    this.installations = config.installations || defaultConfig.installations
   }
 
   saveConfig(): boolean {
@@ -31,5 +33,12 @@ export class Config {
     }
     const newConfig = new Config(JSON.parse(fs.readFileSync(PATH, "utf-8")))
     return newConfig
+  }
+
+  toJSON(): ConfigType {
+    return {
+      version: this.version,
+      installations: this.installations
+    }
   }
 }

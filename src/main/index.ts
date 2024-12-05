@@ -1,6 +1,7 @@
 import { app, shell, BrowserWindow } from "electron"
 import { join } from "path"
 import { electronApp, optimizer, is } from "@electron-toolkit/utils"
+import { Config } from "@config/config"
 import icon from "../../resources/icon.png?asset"
 import "./ipcs"
 
@@ -54,6 +55,9 @@ app.whenReady().then(() => {
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
+
+  const config = Config.getConfig()
+  config.saveConfig()
 
   createWindow()
 
