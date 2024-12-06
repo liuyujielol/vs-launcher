@@ -1,17 +1,24 @@
 import { app } from "electron"
 import fs from "fs"
 import logger from "electron-log"
-import defaultConfig from "./defaultConfig.json"
 
 export const PATH = `${app.getPath("userData")}\\config.json`
 
+const defaultConfig: ConfigType = {
+  version: 1,
+  installations: [],
+  gameVersions: []
+}
+
 export class Config {
-  public version: number
-  public installations: InstallationType[]
+  private version: number
+  private installations: InstallationType[]
+  private gameVersions: InstalledGameVersionType[]
 
   constructor(config: ConfigType) {
     this.version = config.version || defaultConfig.version
     this.installations = config.installations || defaultConfig.installations
+    this.gameVersions = config.gameVersions || defaultConfig.gameVersions
   }
 
   saveConfig(): boolean {
@@ -38,7 +45,8 @@ export class Config {
   toJSON(): ConfigType {
     return {
       version: this.version,
-      installations: this.installations
+      installations: this.installations,
+      gameVersions: this.gameVersions
     }
   }
 }

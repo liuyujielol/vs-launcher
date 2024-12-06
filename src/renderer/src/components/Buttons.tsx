@@ -5,10 +5,11 @@ interface ButtonProps {
   onClick?: () => void
   className?: string
   title?: string
+  disabled?: boolean
   children: React.ReactNode
 }
 
-const Button: React.FC<ButtonProps> = ({ btnType, onClick, className, title, children }) => {
+const Button: React.FC<ButtonProps> = ({ btnType, onClick, className, title, disabled, children }) => {
   let btnStyles = ""
 
   switch (btnType) {
@@ -30,9 +31,10 @@ const Button: React.FC<ButtonProps> = ({ btnType, onClick, className, title, chi
 
   return (
     <button
-      className={`${btnStyles} p-2 flex items-center justify-center font-bold rounded text-zinc-200 shadow-md shadow-zinc-950 hover:scale-95 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${className}`}
+      className={`${btnStyles} p-2 flex items-center justify-center font-bold rounded text-zinc-200 shadow-md shadow-zinc-950 hover:scale-95 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 disabled:shadow-none disabled:opacity-50 ${className}`}
       onClick={onClick}
       title={title}
+      disabled={disabled}
     >
       {children}
     </button>

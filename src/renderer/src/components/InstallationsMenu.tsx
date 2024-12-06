@@ -1,41 +1,18 @@
-import { useContext, useState, useEffect, useRef } from "react"
+import { useContext, useState } from "react"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6"
 import { InstallationContext } from "@contexts/InstallationContext"
+import { InstallationsContext } from "@contexts/InstallationsContext"
 
 function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
-  const [installations, setInstallations] = useState<InstallationType[]>([])
+  const { installations } = useContext(InstallationsContext)
   const { installation, setInstallation } = useContext(InstallationContext)
-
-  const firstTimeCheckingInstallations = useRef(true)
-  useEffect(() => {
-    ;(async (): Promise<void> => {
-      if (firstTimeCheckingInstallations.current) {
-        firstTimeCheckingInstallations.current = false
-
-        const config = await window.api.getConfig()
-        setInstallations(config.installations)
-
-        const localStorageInstallation = window.localStorage.getItem("installation")
-        if (localStorageInstallation) {
-          const installation = config.installations.find((current) => current.id === localStorageInstallation)
-          if (installation) {
-            setInstallation(installation)
-          } else {
-            setInstallation(config.installations[0])
-          }
-        } else {
-          setInstallation(config.installations[0])
-        }
-      }
-    })()
-  }, [])
 
   return (
     <div className={`min-h-16 max-h-48 flex flex-col text-zinc-200 font-bold bg-zinc-800 rounded ${className}`}>
       {installations.length === 0 ? (
-        <div className="w-full h-16 p-2 flex justify-between items-center rounded ">
-          <p>No tienes ninguna instalación</p>
+        <div className="w-full h-16 p-2 flex justify-center items-center rounded ">
+          <p>You dont have any installations</p>
         </div>
       ) : (
         <>
@@ -43,7 +20,7 @@ function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
             <div className="w-full max-h-64 overflow-y-scroll">
               {installations.map(
                 (current) =>
-                  current.id != installation.id && (
+                  current.id != installation?.id && (
                     <button
                       key={current.id}
                       onClick={() => {
@@ -65,25 +42,41 @@ function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
               )}
             </div>
           )}
-          {installations.map(
-            (current) =>
-              current.id === installation.id && (
-                <button
-                  title={isOpen ? "Close menu" : "Open menu"}
-                  key={current.id}
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="w-full h-16 px-4 py-2 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
-                >
-                  <div className="flex flex-col items-start justify-center">
-                    <span>{current.name}</span>
-                    <span className="text-sm text-zinc-400">
-                      {current.version}
-                      {current.mods.length > 0 && ` (${current.mods.length} mods)`}
-                    </span>
-                  </div>
-                  {isOpen ? <FaAngleDown /> : <FaAngleUp />}
-                </button>
-              )
+          {!installation ? (
+            <button
+              title={isOpen ? "Close menu" : "Open menu"}
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-full h-16 px-4 py-2 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
+            >
+              <div className="flex flex-col items-start justify-center">
+                <span>No installation selected</span>
+                <span className="text-sm text-zinc-400">X.X.X</span>
+              </div>
+              {isOpen ? <FaAngleDown /> : <FaAngleUp />}
+            </button>
+          ) : (
+            <>
+              {installations.map(
+                (current) =>
+                  current.id === installation.id && (
+                    <button
+                      title={isOpen ? "Close menu" : "Open menu"}
+                      key={current.id}
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="w-full h-16 px-4 py-2 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
+                    >
+                      <div className="flex flex-col items-start justify-center">
+                        <span>{current.name}</span>
+                        <span className="text-sm text-zinc-400">
+                          {current.version}
+                          {current.mods.length > 0 && ` (${current.mods.length} mods)`}
+                        </span>
+                      </div>
+                      {isOpen ? <FaAngleDown /> : <FaAngleUp />}
+                    </button>
+                  )
+              )}
+            </>
           )}
         </>
       )}

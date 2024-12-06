@@ -2,10 +2,15 @@ import { contextBridge, ipcRenderer } from "electron"
 import { electronAPI } from "@electron-toolkit/preload"
 
 // Custom APIs for renderer
-const api = {
-  testLocalApi: (testData: string): Promise<{ directory: string; files: string[]; test: string }> => ipcRenderer.invoke("test-local-api", testData),
+const api: LocalAPI = {
+  selectFolderDialog: (): Promise<string> => ipcRenderer.invoke("select-folder-dialog"),
   getConfig: (): Promise<ConfigType> => ipcRenderer.invoke("get-config"),
-  saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson)
+  saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson),
+  getCurrentUserDataPath: (): Promise<string> => ipcRenderer.invoke("get-current-user-data-path"),
+  downloadGameVersion: (gameVersion: GameVersionType, outputPath: string): Promise<string> => ipcRenderer.invoke("download-game-version", gameVersion, outputPath),
+  extractGameVersion: (filePath: string, outputPath: string): Promise<boolean> => ipcRenderer.invoke("extract-game-version", filePath, outputPath),
+  onDownloadGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("download-game-version-progress", callback),
+  onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("extract-game-version-progress", callback)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

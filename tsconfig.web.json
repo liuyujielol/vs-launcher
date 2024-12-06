@@ -26,6 +26,9 @@
       ],
       "@contexts/*": [
         "src/renderer/src/contexts/*"
+      ],
+      "@hooks/*": [
+        "src/renderer/src/hooks/*"
       ]
     }
   }

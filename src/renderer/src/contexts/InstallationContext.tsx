@@ -1,16 +1,26 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect, useContext } from "react"
+import { InstallationsContext } from "@contexts/InstallationsContext"
 
 interface InstallationContextType {
-  installation: InstallationType
-  setInstallation: React.Dispatch<React.SetStateAction<InstallationType>>
+  installation: InstallationType | undefined
+  setInstallation: React.Dispatch<React.SetStateAction<InstallationType | undefined>>
 }
 
-const defaultValue: InstallationContextType = { installation: { id: "", name: "", path: "", version: "", mods: [] }, setInstallation: () => {} }
+const defaultValue: InstallationContextType = { installation: undefined, setInstallation: () => {} }
 
 const InstallationContext = createContext<InstallationContextType>(defaultValue)
 
 const InstallationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const [installation, setInstallation] = useState<InstallationType>(defaultValue.installation)
+  const { installations } = useContext(InstallationsContext)
+  const [installation, setInstallation] = useState<InstallationType | undefined>()
+
+  useEffect(() => {
+    ;(async (): Promise<void> => {
+      const localStorageInstallation = window.localStorage.getItem("installation") || installations[0]?.id
+      const newInstallation = installations.find((current) => current.id === localStorageInstallation)
+      setInstallation(newInstallation)
+    })()
+  }, [installations])
 
   return <InstallationContext.Provider value={{ installation, setInstallation }}>{children}</InstallationContext.Provider>
 }
