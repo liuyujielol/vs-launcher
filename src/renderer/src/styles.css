@@ -5,6 +5,7 @@
 #root {
   width: 100vw;
   height: 100vh;
+  @apply bg-zinc-800;
 }
 
 * {
@@ -32,7 +33,7 @@
 
 @layer utilities {
   .bg-image-1 {
-    background-image: url("http://localhost:3000/backgrounds/background.jpg");
+    background-image: url("./assets/background.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
