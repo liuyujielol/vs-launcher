@@ -9,7 +9,7 @@ interface ButtonProps {
   children: React.ReactNode
 }
 
-const Button: React.FC<ButtonProps> = ({ btnType, onClick, className, title, disabled, children }) => {
+function Button({ btnType, onClick, className, title, disabled, children }: ButtonProps): JSX.Element {
   let btnStyles = ""
 
   switch (btnType) {

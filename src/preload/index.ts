@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer, shell } from "electron"
 import { electronAPI } from "@electron-toolkit/preload"
 import { logMessage } from "@utils/logMessage"
+import { autoUpdater } from "electron-updater"
 
 // Custom APIs for renderer
 const api: LocalAPI = {
@@ -8,6 +9,9 @@ const api: LocalAPI = {
   setPreventAppClose: (value: boolean): void => ipcRenderer.send("set-should-prevent-close", value),
   openOnBrowser: (url: string): Promise<void> => shell.openExternal(url),
   selectFolderDialog: (): Promise<string> => ipcRenderer.invoke("select-folder-dialog"),
+  onUpdateAvailable: (callback) => ipcRenderer.on("update-available", callback),
+  onUpdateDownloaded: (callback) => ipcRenderer.on("update-downloaded", callback),
+  updateAndRestart: () => autoUpdater.quitAndInstall(),
   getConfig: (): Promise<ConfigType> => ipcRenderer.invoke("get-config"),
   saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson),
   getCurrentUserDataPath: (): Promise<string> => ipcRenderer.invoke("get-current-user-data-path"),

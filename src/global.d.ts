@@ -33,6 +33,14 @@ declare global {
     macos: string
   }
 
+  type NotificationType = {
+    id: number
+    title: string
+    body: string
+    type: "success" | "error" | "info"
+    onClick?: () => void
+  }
+
   type ProgressCallback = {
     (event: Electron.IpcRendererEvent, progress: number): void
   }
@@ -42,6 +50,9 @@ declare global {
     setPreventAppClose: (value: boolean) => void
     openOnBrowser: (url: string) => Promise<void>
     selectFolderDialog: () => Promise<string>
+    onUpdateAvailable: (callback) => void
+    onUpdateDownloaded: (callback) => void
+    updateAndRestart: () => void
     getConfig: () => Promise<ConfigType>
     saveConfig: (configJson: ConfigType) => Promise<boolean>
     getCurrentUserDataPath: () => Promise<string>

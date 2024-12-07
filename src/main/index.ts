@@ -1,6 +1,7 @@
 import { app, shell, BrowserWindow } from "electron"
 import { join } from "path"
 import { electronApp, optimizer, is } from "@electron-toolkit/utils"
+import { autoUpdater } from "electron-updater"
 
 const customUserDataPath = app.getPath("appData") + `\\VSLauncher`
 app.setPath("userData", customUserDataPath)
@@ -11,9 +12,11 @@ import icon from "../../resources/icon.png?asset"
 import "./ipcs"
 import { logMessage } from "@utils/logMessage"
 
+let mainWindow: BrowserWindow
+
 function createWindow(): void {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     title: "VS Launcher",
@@ -78,6 +81,16 @@ app.whenReady().then(() => {
   config.saveConfig()
 
   createWindow()
+
+  autoUpdater.checkForUpdatesAndNotify()
+
+  autoUpdater.on("update-available", () => {
+    mainWindow.webContents.send("update-available")
+  })
+
+  autoUpdater.on("update-downloaded", () => {
+    mainWindow.webContents.send("update-downloaded")
+  })
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
