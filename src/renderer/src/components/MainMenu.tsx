@@ -1,4 +1,4 @@
-import MainMenuButton from "@components/MainMenuButton"
+import MainMenuLink from "@renderer/components/MainMenuLink"
 import InstallationsMenu from "@components/InstallationsMenu"
 import icon from "@assets/icon.png"
 import iconVersions from "@assets/icon-versions.png"
@@ -12,11 +12,11 @@ function MainMenu(): JSX.Element {
   return (
     <header className="bg-zinc-900 p-4 gap-4 flex flex-col justify-between relative">
       <div className="flex flex-col gap-2">
-        <MainMenuButton icon={icon} text="Home" link="/" desc="Main page" />
-        <MainMenuButton icon={iconVersions} text="Versions" link="/versions" desc="Manage your game versions" />
-        <MainMenuButton icon={iconModdb} text="Mods" link="/mods" desc="Manage and install mods" />
-        <MainMenuButton icon={iconNews} text="News" link="/news" desc="News about VS Launcher" />
-        <MainMenuButton icon={iconChangelog} text="Changelog" link="/changelog" desc="Game changelogs" />
+        <MainMenuLink icon={icon} text="Home" link="/" desc="Main page" />
+        <MainMenuLink icon={iconVersions} text="Versions" link="/versions" desc="Manage/Install game versions" />
+        <MainMenuLink icon={iconModdb} text="Mods" link="/mods" desc="Manage/Install mods" />
+        <MainMenuLink icon={iconNews} text="News" link="/news" desc="VS Launcher news" />
+        <MainMenuLink icon={iconChangelog} text="Changelog" link="https://www.vintagestory.at/blog.html/news" onBrowser={true} desc="Vintage Story changelog" />
       </div>
 
       <div className="flex flex-col gap-4">

@@ -6,7 +6,6 @@ import MainMenu from "@components/MainMenu"
 import Home from "@routes/Home"
 import Mods from "@routes/Mods"
 import News from "@routes/News"
-import Changelog from "@routes/Changelog"
 import Versions from "@routes/Versions"
 
 function App(): JSX.Element {
@@ -22,7 +21,6 @@ function App(): JSX.Element {
                 <Route path="/versions" element={<Versions />} />
                 <Route path="/mods" element={<Mods />} />
                 <Route path="/news" element={<News />} />
-                <Route path="/changelog" element={<Changelog />} />
               </Routes>
             </div>
           </Router>

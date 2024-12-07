@@ -17,6 +17,7 @@ const InstallationsProvider = ({ children }: { children: React.ReactNode }): JSX
     ;(async (): Promise<void> => {
       if (firstExecuted.current) {
         firstExecuted.current = false
+        window.api.logMessage("info", `[context] [InstallationsContext] Setting installations from config file`)
         const config = await window.api.getConfig()
         setInstallations(config.installations)
       }

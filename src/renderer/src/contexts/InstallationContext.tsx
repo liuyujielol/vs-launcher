@@ -16,6 +16,7 @@ const InstallationProvider = ({ children }: { children: React.ReactNode }): JSX.
 
   useEffect(() => {
     ;(async (): Promise<void> => {
+      window.api.logMessage("info", `[context] [InstallationContext] Setting local stored or latest created installation`)
       const localStorageInstallation = window.localStorage.getItem("installation") || installations[0]?.id
       const newInstallation = installations.find((current) => current.id === localStorageInstallation)
       setInstallation(newInstallation)

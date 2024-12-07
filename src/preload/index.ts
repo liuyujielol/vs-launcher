@@ -1,8 +1,12 @@
-import { contextBridge, ipcRenderer } from "electron"
+import { contextBridge, ipcRenderer, shell } from "electron"
 import { electronAPI } from "@electron-toolkit/preload"
+import { logMessage } from "@utils/logMessage"
 
 // Custom APIs for renderer
 const api: LocalAPI = {
+  logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string): void => ipcRenderer.send("log-message", mode, message),
+  setPreventAppClose: (value: boolean): void => ipcRenderer.send("set-should-prevent-close", value),
+  openOnBrowser: (url: string): Promise<void> => shell.openExternal(url),
   selectFolderDialog: (): Promise<string> => ipcRenderer.invoke("select-folder-dialog"),
   getConfig: (): Promise<ConfigType> => ipcRenderer.invoke("get-config"),
   saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson),
@@ -20,7 +24,9 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld("electron", electronAPI)
     contextBridge.exposeInMainWorld("api", api)
+    logMessage("info", "[preload] Exposed Electron APIs")
   } catch (error) {
+    logMessage("error", "[preload] Failed to expose Electron APIs")
     console.error(error)
   }
 } else {
@@ -28,6 +34,8 @@ if (process.contextIsolated) {
   window.electron = electronAPI
   // @ts-ignore (define in dts)
   window.api = api
+
+  logMessage("info", "[preload] Exposed Electron APIs")
 }
 
 export type ApiType = typeof api

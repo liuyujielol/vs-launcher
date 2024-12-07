@@ -1,9 +1,15 @@
 import { app, shell, BrowserWindow } from "electron"
 import { join } from "path"
 import { electronApp, optimizer, is } from "@electron-toolkit/utils"
+
+const customUserDataPath = app.getPath("appData") + `\\VSLauncher`
+app.setPath("userData", customUserDataPath)
+
 import { Config } from "@config/config"
+import { getShouldPreventClose } from "@utils/shouldPreventClose"
 import icon from "../../resources/icon.png?asset"
 import "./ipcs"
+import { logMessage } from "@utils/logMessage"
 
 function createWindow(): void {
   // Create the browser window.
@@ -25,12 +31,22 @@ function createWindow(): void {
   })
 
   mainWindow.on("ready-to-show", () => {
+    logMessage("info", "[main] Main window ready to show")
     mainWindow.show()
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: "deny" }
+  })
+
+  mainWindow.on("close", (e) => {
+    logMessage("info", "[main] Main window closing")
+    if (getShouldPreventClose()) {
+      e.preventDefault()
+      return false
+    }
+    return true
   })
 
   // HMR for renderer base on electron-vite cli.
@@ -46,6 +62,8 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  logMessage("info", "[main] Electron ready")
+
   // Set app user model id for windows
   electronApp.setAppUserModelId("xyz.xurxomf")
 
@@ -72,6 +90,7 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
+  logMessage("info", "[main] All windows closed")
   if (process.platform !== "darwin") {
     app.quit()
   }

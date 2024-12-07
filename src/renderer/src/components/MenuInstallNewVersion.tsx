@@ -16,9 +16,11 @@ function MenuInstallNewVersion({ installRef, setInstallRef }: { installRef: bool
 
   useEffect(() => {
     ;(async (): Promise<void> => {
+      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Fetching available game versions`)
       const { data }: { data: GameVersionType[] } = await axios("http://localhost:3000/versions")
       setAvailableGameVersions(data)
 
+      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Adding donwload and extract progress listeners`)
       window.api.onDownloadGameVersionProgress((_event, progress) => {
         setDownloadProgress(progress)
       })
@@ -35,32 +37,40 @@ function MenuInstallNewVersion({ installRef, setInstallRef }: { installRef: bool
   }, [downloadProgress, extractProgress])
 
   useEffect(() => {
+    window.api.logMessage("info", `[component] [MenuInstallNewVersion] Available game versions setted. Setting new selected game version`)
     setSelectedGameVersion(availableGameVersions[0])
   }, [availableGameVersions])
 
   useEffect(() => {
     ;(async (): Promise<void> => {
+      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Selected game version changed. Setting new default selected folder`)
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(`${currentUserDataPath}\\vsl-gameversions\\${selectedGameVersion?.version}`)
+      setSelectedFolder(`${currentUserDataPath}\\VSLGameVersions\\${selectedGameVersion?.version}`)
     })()
   }, [selectedGameVersion])
 
   const handleInstallation = async (): Promise<void> => {
     try {
+      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Starting version installation`)
       setInstalling(true)
+      window.api.setPreventAppClose(true)
 
       const filePath = await window.api.downloadGameVersion(selectedGameVersion as GameVersionType, selectedFolder)
       const result = await window.api.extractGameVersion(filePath, selectedFolder)
 
       if (result) {
+        window.api.logMessage("info", `[component] [MenuInstallNewVersion] Game version installed successfully. Updating installed game versions and changin selected game version`)
         setInstalledGameVersions([...installedGameVersions, { version: selectedGameVersion?.version as string, path: selectedFolder }])
+        setSelectedGameVersion(availableGameVersions[0])
       }
 
-      setSelectedGameVersion(availableGameVersions[0])
+      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished`)
       setInstalling(false)
+      window.api.setPreventAppClose(false)
     } catch (error) {
+      window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version: ${error}`)
       setInstalling(false)
-      console.error("Error while installing:", error)
+      window.api.setPreventAppClose(false)
     }
   }
 
@@ -134,7 +144,7 @@ function MenuInstallNewVersion({ installRef, setInstallRef }: { installRef: bool
             Install
           </Button>
           <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setInstallRef(false)} disabled={installing}>
-            Cancel
+            Close
           </Button>
         </div>
       </div>

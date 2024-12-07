@@ -18,6 +18,7 @@ const InstalledGameVersionsProvider = ({ children }: { children: React.ReactNode
     ;(async (): Promise<void> => {
       if (firstExecuted.current) {
         firstExecuted.current = false
+        window.api.logMessage("info", `[context] [InstalledGameVersionsContext] Setting installed game versions from config file`)
         const config = await window.api.getConfig()
         setInstalledGameVersions(config.gameVersions)
       }

@@ -1,5 +1,4 @@
 import { ElectronAPI } from "@electron-toolkit/preload"
-
 declare global {
   type ConfigType = {
     version: number
@@ -39,6 +38,9 @@ declare global {
   }
 
   type LocalAPI = {
+    logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string) => void
+    setPreventAppClose: (value: boolean) => void
+    openOnBrowser: (url: string) => Promise<void>
     selectFolderDialog: () => Promise<string>
     getConfig: () => Promise<ConfigType>
     saveConfig: (configJson: ConfigType) => Promise<boolean>
