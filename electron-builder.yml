@@ -1,5 +1,5 @@
 appId: xyz.xurzxomf.vslauncher
-productName: VSLauncher
+productName: VS Launcher
 directories:
   buildResources: build
 files:
@@ -13,6 +13,7 @@ asarUnpack:
   - resources/**
 win:
   executableName: VSLauncher
+  icon: resources/icon.ico
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -35,11 +36,13 @@ linux:
     - deb
   maintainer: xurxomf.xyz
   category: Utility
+  icon: resources/icon.ico
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: XurxoMF
+  repo: https://github.com/XurxoMF/vs-launcher
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
