@@ -43,6 +43,6 @@ npmRebuild: false
 publish:
   provider: github
   owner: XurxoMF
-  repo: https://github.com/XurxoMF/vs-launcher
+  repo: vs-launcher
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/

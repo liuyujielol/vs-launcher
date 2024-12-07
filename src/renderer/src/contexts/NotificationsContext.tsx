@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useEffect } from "react"
+import { createContext, useState, useCallback, useEffect, useRef } from "react"
 
 interface NotificationsContextType {
   notifications: NotificationType[]
@@ -12,17 +12,22 @@ const NotificationsContext = createContext<NotificationsContextType>(defaultValu
 const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [notifications, setNotifications] = useState<NotificationType[]>([])
 
+  const firstExecuted = useRef(true)
   useEffect(() => {
-    window.api.onUpdateAvailable(() => {
-      addNotification("Update Available", "A new version is available. Donwloading...", "info")
-    })
+    if (firstExecuted.current) {
+      firstExecuted.current = false
 
-    window.api.onUpdateDownloaded(() => {
-      addNotification("Update Downloaded", "Update downloaded successfully. Click to restart and install...", "info", () => {
-        window.api.updateAndRestart()
+      window.api.onUpdateAvailable(() => {
+        addNotification("Update Available", "A new version is available. Donwloading...", "info")
       })
-    })
-  })
+
+      window.api.onUpdateDownloaded(() => {
+        addNotification("Update Downloaded", "Update downloaded successfully. Click to update and restart!", "success", () => {
+          window.api.updateAndRestart()
+        })
+      })
+    }
+  }, [])
 
   const addNotification = useCallback((title: string, body: string, type: "success" | "error" | "info" = "info", onClick?: () => void) => {
     const id = Date.now()
@@ -30,7 +35,7 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX
 
     setTimeout(() => {
       setNotifications((prev) => prev.filter((notification) => notification.id !== id))
-    }, 5000)
+    }, 10000)
   }, [])
 
   return <NotificationsContext.Provider value={{ notifications, addNotification }}>{children}</NotificationsContext.Provider>

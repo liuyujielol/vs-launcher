@@ -5,7 +5,7 @@ function NotificationsOVerlay(): JSX.Element {
   const { notifications } = useContext(NotificationsContext)
 
   return (
-    <div className="w-fit h-fit absolute flex flex-col items-end top-0 left-0 z-[1000] p-2">
+    <div className="w-fit h-fit absolute flex flex-col items-end top-0 right-0 z-[1000] p-2">
       {notifications.map(({ id, title, body, type, onClick }) => (
         <div
           key={id}
