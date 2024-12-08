@@ -8,7 +8,7 @@ function MainMenuLink({ icon, text, link, desc, onBrowser }: { icon: string; tex
     <a
       href={onBrowser ? undefined : link}
       onClick={() => onBrowser && window.api.openOnBrowser(link)}
-      className={`p-1 cursor-pointer rounded flex gap-2 items-center text-zinc-200 hover:bg-zinc-950 border-l-4 ${location.pathname === link ? "border-vs" : " border-transparent"}`}
+      className={`p-1 cursor-pointer rounded flex gap-2 items-center hover:bg-zinc-950 border-l-4 ${location.pathname === link ? "border-vs" : " border-transparent"}`}
     >
       <img src={icon} className="w-10" />
       <div className="flex flex-col">
@@ -20,7 +20,7 @@ function MainMenuLink({ icon, text, link, desc, onBrowser }: { icon: string; tex
       </div>
     </a>
   ) : (
-    <Link to={link} className={`p-1 cursor-pointer rounded flex gap-2 items-center text-zinc-200 hover:bg-zinc-950 border-l-4 ${location.pathname === link ? "border-vs" : " border-transparent"}`}>
+    <Link to={link} className={`p-1 cursor-pointer rounded flex gap-2 items-center hover:bg-zinc-950 border-l-4 ${location.pathname === link ? "border-vs" : " border-transparent"}`}>
       <img src={icon} className="w-10" />
       <div className="flex flex-col">
         <div className="flex flex-row gap-2 items-center">

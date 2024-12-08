@@ -35,7 +35,7 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX
 
     setTimeout(() => {
       setNotifications((prev) => prev.filter((notification) => notification.id !== id))
-    }, 10000)
+    }, 6000)
   }, [])
 
   return <NotificationsContext.Provider value={{ notifications, addNotification }}>{children}</NotificationsContext.Provider>

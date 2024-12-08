@@ -9,7 +9,7 @@ function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
   const { installation, setInstallation } = useContext(InstallationContext)
 
   return (
-    <div className={`min-h-16 max-h-48 flex flex-col text-zinc-200 font-bold bg-zinc-800 rounded ${className}`}>
+    <div className={`min-h-16 max-h-48 flex flex-col font-bold bg-zinc-800 rounded ${className}`}>
       {installations.length === 0 ? (
         <div className="w-full h-16 p-2 flex justify-center items-center rounded ">
           <p>You dont have any installations</p>

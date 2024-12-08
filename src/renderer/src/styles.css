@@ -6,6 +6,8 @@
   width: 100vw;
   height: 100vh;
   @apply bg-zinc-800;
+  @apply text-zinc-200;
+  overflow: hidden;
 }
 
 * {
