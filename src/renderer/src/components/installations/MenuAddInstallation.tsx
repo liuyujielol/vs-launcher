@@ -14,7 +14,6 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
 
   useEffect(() => {
     ;(async (): Promise<void> => {
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Selected game version changed. Setting new default selected folder`)
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
       setSelectedFolder(`${currentUserDataPath}\\VSLInstallations\\${installationName.replace(/[^a-zA-Z0-9-]+/g, "-")}`)
     })()
@@ -45,10 +44,10 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
 
       window.api.logMessage("info", `[component] [MenuAddInstallation] Added installation ${installationName} with path ${selectedFolder}`)
       addNotification("Successfully added installation", `Installation ${installationName} added successfully`, "success")
-      setIsMenuOpen(false)
     } catch (err) {
       window.api.logMessage("error", `[component] [MenuAddInstallation] Error while adding installation ${installationName} with path ${selectedFolder}: ${err}`)
       addNotification("Error adding installation", `An error ocurred while adding installation ${installationName}`, "error")
+    } finally {
       setIsMenuOpen(false)
     }
   }

@@ -21,7 +21,9 @@ const api: LocalAPI = {
   onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("extract-game-version-progress", callback),
   uninstallGameVersion: (gameVersion: InstalledGameVersionType): Promise<boolean> => ipcRenderer.invoke("uninstall-game-version", gameVersion),
   deletePath: (path: string): Promise<boolean> => ipcRenderer.invoke("delete-path", path),
-  checkEmptyPath: (path: string): Promise<boolean> => ipcRenderer.invoke("check-empty-path", path)
+  checkEmptyPath: (path: string): Promise<boolean> => ipcRenderer.invoke("check-empty-path", path),
+  openPathOnFileExplorer: (path: string): Promise<string> => ipcRenderer.invoke("open-path-on-file-explorer", path),
+  executeGame: (version: InstalledGameVersionType, installation: InstallationType): Promise<boolean> => ipcRenderer.invoke("execute-game", version, installation)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

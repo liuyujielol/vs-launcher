@@ -1,16 +1,15 @@
-import { useEffect, useContext } from "react"
-import { NotificationsContext } from "@contexts/NotificationsContext"
+import { useContext } from "react"
+import { LanguageContext } from "@contexts/LanguageContext"
 
 function Mods(): JSX.Element {
-  const { addNotification } = useContext(NotificationsContext)
+  const { getKey } = useContext(LanguageContext)
 
-  useEffect(() => {
-    addNotification("Cargada page mods", "Cargada página mods", "info")
-    addNotification("Cargada page mods", "Cargada página mods", "error")
-    addNotification("Cargada page mods", "Cargada página mods", "success")
-  }, [])
-
-  return <h1>Mods</h1>
+  return (
+    <main className="flex flex-col items-center justify-center gap-2">
+      <h1 className="text-3xl">{getKey("page-general-notReadyYet")}</h1>
+      <p>{getKey("page-general-comeBackLater")}</p>
+    </main>
+  )
 }
 
 export default Mods

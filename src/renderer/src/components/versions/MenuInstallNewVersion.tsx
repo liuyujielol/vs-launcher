@@ -66,13 +66,10 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       }
 
       window.api.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
-      setInstalling(false)
-      setPreventClosing(false)
-      setDownloadProgress(0)
-      setExtractProgress(0)
     } catch (error) {
       window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
       addNotification("Error installing version", `An error ocurred while installing game version ${selectedGameVersion?.version}`, "error")
+    } finally {
       setInstalling(false)
       setPreventClosing(false)
       setDownloadProgress(0)

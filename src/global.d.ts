@@ -63,11 +63,17 @@ declare global {
     uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
     deletePath: (path: string) => Promise<boolean>
     checkEmptyPath: (path: string) => Promise<boolean>
+    openPathOnFileExplorer: (path: string) => Promise<string>
+    executeGame: (version: InstalledGameVersionType, installation: InstallationType) => Promise<boolean>
   }
 
   interface Window {
     electron: ElectronAPI
     api: LocalAPI
+  }
+
+  type LangFileType = {
+    [key: string]: string
   }
 }
 

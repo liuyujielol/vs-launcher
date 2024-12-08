@@ -1,0 +1,25 @@
+{
+  "credits": "XurxoMF",
+
+  "page-general-notReadyYet": "Esta sección aún no está lista!",
+  "page-general-comeBackLater": "Pasa por aquí en unos días e igual ya está lista ^^",
+  "page-home-title": "Vintage Story Launcher",
+
+  "component-mainMenu-homeTitle": "Inicio",
+  "component-mainMenu-homeDesc": "Página principal",
+  "component-mainMenu-versionsTitle": "Versiones",
+  "component-mainMenu-versionsDesc": "Gestiona/Instala versiones",
+  "component-mainMenu-modsTitle": "Mods",
+  "component-mainMenu-modsDesc": "Gestiona/Instala mods",
+  "component-mainMenu-newsTitle": "Novedades",
+  "component-mainMenu-newsDesc": "Novedades sobre VS Launcher",
+  "component-mainMenu-changelogTitle": "Notas de parche",
+  "component-mainMenu-changelogDesc": "Notas de parche de VS",
+  "component-mainMenu-playButtonName": "Jugar",
+
+  "notification-title-errorExecutingGame": "Error ejecutando el juego",
+  "notification-title-gameClosedWithError": "Error del juego",
+  "notification-body-errorVersionNotInstalled": "La versión {version} del juego no está instalada",
+  "notification-body-gameClosedWithError": "El juego se cerró por un error",
+  "notification-body-errorExecutingGame": "Ocurrió un error al ejecutar el juego"
+}

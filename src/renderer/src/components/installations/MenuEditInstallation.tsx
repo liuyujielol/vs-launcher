@@ -31,10 +31,10 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
 
       window.api.logMessage("info", `[component] [MenuEditInstallation] Edited installation ${installationName}`)
       addNotification("Successfully edited installation", `Installation ${installationName} added successfully`, "success")
-      setIsMenuOpen(false)
     } catch (err) {
       window.api.logMessage("error", `[component] [MenuEditInstallation] Error while editing installation ${installationName}: ${err}`)
       addNotification("Error editing installation", `An error ocurred while editing installation ${installationName}`, "error")
+    } finally {
       setIsMenuOpen(false)
     }
   }

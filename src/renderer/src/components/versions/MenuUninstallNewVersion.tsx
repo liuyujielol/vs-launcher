@@ -22,7 +22,7 @@ function MenuUninstallNewVersion({
 
   const handleUninstalling = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuDeleteNewVersion] Starting game version instalaltion: ${selectedInstalledVersion?.version}`)
+      window.api.logMessage("info", `[component] [MenuUninstallNewVersion] Starting game version instalaltion: ${selectedInstalledVersion?.version}`)
       setIsUninstalling(true)
       setPreventClosing(true)
       const result = await window.api.uninstallGameVersion(selectedInstalledVersion as InstalledGameVersionType)
@@ -30,20 +30,17 @@ function MenuUninstallNewVersion({
       if (result) {
         window.api.logMessage(
           "info",
-          `[component] [MenuDeleteNewVersion] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
+          `[component] [MenuUninstallNewVersion] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
         )
         addNotification("Successfully uninstalled", `Game version ${selectedInstalledVersion?.version} uninstalled successfully`, "success")
         setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))
       }
 
-      window.api.logMessage("info", `[component] [MenuDeleteNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
-      setIsUninstalling(false)
-      setPreventClosing(false)
-      setIsMenuOpen(false)
-      setSelectedInstalledVersion(undefined)
+      window.api.logMessage("info", `[component] [MenuUninstallNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
     } catch (err) {
-      window.api.logMessage("error", `[component] [MenuDeleteNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
+      window.api.logMessage("error", `[component] [MenuUninstallNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
       addNotification("Error uninstalling", `An error ocurred while uninstalling game version ${selectedInstalledVersion?.version}`, "error")
+    } finally {
       setIsUninstalling(false)
       setPreventClosing(false)
       setIsMenuOpen(false)
