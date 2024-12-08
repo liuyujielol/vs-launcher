@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import { motion, AnimatePresence } from "motion/react"
+import { PreventClosingContext } from "@contexts/PreventClosingContext"
 
 /**
  * This menu has a width of 600px but height is not fixed so make sure to control the height manually
@@ -7,21 +9,21 @@ function AbsoluteMenu({
   title,
   isMenuOpen,
   setIsMenuOpen,
-  preventClose,
   children
 }: {
   title: string
   isMenuOpen: boolean
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
-  preventClose?: boolean
   children: React.ReactNode
 }): JSX.Element {
+  const { preventClosing } = useContext(PreventClosingContext)
+
   return (
     <AnimatePresence>
       {isMenuOpen && (
         <motion.div
-          onClick={() => !preventClose && setIsMenuOpen(false)}
-          className={`absolute w-full h-full top-0 left-0 flex items-center justify-center bg-zinc-950/90`}
+          onClick={() => !preventClosing && setIsMenuOpen(false)}
+          className={`absolute z-[100] w-full h-full top-0 left-0 flex items-center justify-center bg-zinc-950/90`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

@@ -1,50 +1,18 @@
 import { useState, useContext } from "react"
-import { motion } from "motion/react"
 import Button from "@components/Buttons"
-import { FaPlus, FaTrashCan, FaSpinner } from "react-icons/fa6"
+import { FaPlus, FaTrashCan } from "react-icons/fa6"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
-import MenuInstallNewVersion from "@components/MenuInstallNewVersion"
+import MenuInstallNewVersion from "@components/versions/MenuInstallNewVersion"
+import MenuUninstallNewVersion from "@renderer/components/versions/MenuUninstallNewVersion"
 import AbsoluteMenu from "@components/AbsoluteMenu"
 
 function Versions(): JSX.Element {
-  const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
+  const { installedGameVersions } = useContext(InstalledGameVersionsContext)
   const { addNotification } = useContext(NotificationsContext)
   const [selectedInstalledVersion, setSelectedInstalledVersion] = useState<InstalledGameVersionType>()
   const [isInstallMenuOpen, setIsInstallMenuOpen] = useState(false)
   const [isUninstallMenuOpen, setIsUninstallMenuOpen] = useState(false)
-  const [isUninstalling, setIsUninstalling] = useState(false)
-
-  const handleUninstalling = async (): Promise<void> => {
-    try {
-      window.api.logMessage("info", `[component] [Versions] Starting game version instalaltion: ${selectedInstalledVersion?.version}`)
-      setIsUninstalling(true)
-      window.api.setPreventAppClose(true)
-      const result = await window.api.uninstallGameVersion(selectedInstalledVersion as InstalledGameVersionType)
-
-      if (result) {
-        window.api.logMessage(
-          "info",
-          `[component] [Versions] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
-        )
-        addNotification("Successfully uninstalled", `Game version ${selectedInstalledVersion?.version} uninstalled successfully`, "success")
-        setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))
-      }
-
-      window.api.logMessage("info", `[component] [Versions] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
-      setIsUninstalling(false)
-      window.api.setPreventAppClose(false)
-      setIsUninstallMenuOpen(false)
-      setSelectedInstalledVersion(undefined)
-    } catch (err) {
-      window.api.logMessage("error", `[component] [Versions] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
-      addNotification("Error uninstalling", `An error ocurred while uninstalling game version ${selectedInstalledVersion?.version}`, "error")
-      setIsUninstalling(false)
-      window.api.setPreventAppClose(false)
-      setIsUninstallMenuOpen(false)
-      setSelectedInstalledVersion(undefined)
-    }
-  }
 
   return (
     <main className="flex flex-col gap-4 p-4 bg-zinc-800">
@@ -93,30 +61,12 @@ function Versions(): JSX.Element {
         </Button>
       </div>
 
-      {/* MENUS */}
-
-      <AbsoluteMenu title="Are you sure?" isMenuOpen={isUninstallMenuOpen} setIsMenuOpen={setIsUninstallMenuOpen} preventClose={isUninstalling}>
-        <p>
-          Are you sure you want to uninstall this version? <span className="font-bold">{selectedInstalledVersion?.version}</span>
-        </p>
-        <p>Uninstalling is not reversible!</p>
-        <div className="flex gap-4">
-          <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={isUninstalling} onClick={handleUninstalling}>
-            {isUninstalling ? (
-              <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
-                <FaSpinner />
-              </motion.div>
-            ) : (
-              "Uninstall"
-            )}
-          </Button>
-          <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsUninstallMenuOpen(false)} disabled={isUninstalling}>
-            Cancel
-          </Button>
-        </div>
+      <AbsoluteMenu title="Are you sure?" isMenuOpen={isUninstallMenuOpen} setIsMenuOpen={setIsUninstallMenuOpen}>
+        <MenuUninstallNewVersion setIsMenuOpen={setIsUninstallMenuOpen} selectedInstalledVersion={selectedInstalledVersion} setSelectedInstalledVersion={setSelectedInstalledVersion} />
       </AbsoluteMenu>
-
-      <MenuInstallNewVersion isInstallMenuOpen={isInstallMenuOpen} setIsInstallMenuOpen={setIsInstallMenuOpen} />
+      <AbsoluteMenu title="Install new version" isMenuOpen={isInstallMenuOpen} setIsMenuOpen={setIsInstallMenuOpen}>
+        <MenuInstallNewVersion setIsMenuOpen={setIsInstallMenuOpen} />
+      </AbsoluteMenu>
     </main>
   )
 }

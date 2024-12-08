@@ -13,11 +13,11 @@ const InstalledGameVersionsContext = createContext<InstalledGameVersionsContextT
 const InstalledGameVersionsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [installedGameVersions, setInstalledGameVersions] = useInstalledGameVersions()
 
-  const firstExecuted = useRef(true)
+  const firstExecutedInstalledGameVersions = useRef(true)
   useEffect(() => {
     ;(async (): Promise<void> => {
-      if (firstExecuted.current) {
-        firstExecuted.current = false
+      if (firstExecutedInstalledGameVersions.current) {
+        firstExecutedInstalledGameVersions.current = false
         window.api.logMessage("info", `[context] [InstalledGameVersionsContext] Setting installed game versions from config file`)
         const config = await window.api.getConfig()
         setInstalledGameVersions(config.gameVersions)

@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect, useRef } from "react"
+import { createContext, useEffect, useRef } from "react"
+import { useInstallations } from "@hooks/useInstallations"
 
 interface InstallationsContextType {
   installations: InstallationType[]
@@ -10,13 +11,13 @@ const defaultValue: InstallationsContextType = { installations: [], setInstallat
 const InstallationsContext = createContext<InstallationsContextType>(defaultValue)
 
 const InstallationsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const [installations, setInstallations] = useState<InstallationType[]>(defaultValue.installations)
+  const [installations, setInstallations] = useInstallations()
 
-  const firstExecuted = useRef(true)
+  const firstExecutedInstallationsProvider = useRef(true)
   useEffect(() => {
     ;(async (): Promise<void> => {
-      if (firstExecuted.current) {
-        firstExecuted.current = false
+      if (firstExecutedInstallationsProvider.current) {
+        firstExecutedInstallationsProvider.current = false
         window.api.logMessage("info", `[context] [InstallationsContext] Setting installations from config file`)
         const config = await window.api.getConfig()
         setInstallations(config.installations)

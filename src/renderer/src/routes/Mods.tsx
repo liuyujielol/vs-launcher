@@ -6,6 +6,8 @@ function Mods(): JSX.Element {
 
   useEffect(() => {
     addNotification("Cargada page mods", "Cargada página mods", "info")
+    addNotification("Cargada page mods", "Cargada página mods", "error")
+    addNotification("Cargada page mods", "Cargada página mods", "success")
   }, [])
 
   return <h1>Mods</h1>

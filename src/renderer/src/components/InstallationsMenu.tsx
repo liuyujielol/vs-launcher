@@ -3,7 +3,7 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6"
 import { InstallationContext } from "@contexts/InstallationContext"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 
-function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
+function InstallationsMenu({ className }: { className?: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
   const { installations } = useContext(InstallationsContext)
   const { installation, setInstallation } = useContext(InstallationContext)
@@ -84,4 +84,4 @@ function InstallarionsMenu({ className }: { className?: string }): JSX.Element {
   )
 }
 
-export default InstallarionsMenu
+export default InstallationsMenu

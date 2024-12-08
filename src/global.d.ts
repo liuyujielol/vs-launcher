@@ -61,6 +61,8 @@ declare global {
     onDownloadGameVersionProgress: (callback: ProgressCallback) => void
     onExtractGameVersionProgress: (callback: ProgressCallback) => void
     uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
+    deletePath: (path: string) => Promise<boolean>
+    checkEmptyPath: (path: string) => Promise<boolean>
   }
 
   interface Window {

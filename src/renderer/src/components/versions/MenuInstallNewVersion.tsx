@@ -1,15 +1,16 @@
 import { useEffect, useState, useContext } from "react"
 import axios from "axios"
 import Button from "@components/Buttons"
-import AbsoluteMenu from "@components/AbsoluteMenu"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
+import { PreventClosingContext } from "@contexts/PreventClosingContext"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
 
-function MenuInstallNewVersion({ isInstallMenuOpen, setIsInstallMenuOpen }: { isInstallMenuOpen: boolean; setIsInstallMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
+function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
+  const { setPreventClosing } = useContext(PreventClosingContext)
   const [availableGameVersions, setAvailableGameVersions] = useState<GameVersionType[]>([])
   const [selectedGameVersion, setSelectedGameVersion] = useState<GameVersionType>()
   const [selectedFolder, setSelectedFolder] = useState<string>("")
@@ -35,13 +36,11 @@ function MenuInstallNewVersion({ isInstallMenuOpen, setIsInstallMenuOpen }: { is
   }, [])
 
   useEffect(() => {
-    window.api.logMessage("info", `[component] [MenuInstallNewVersion] Available game versions setted. Setting new selected game version`)
     setSelectedGameVersion(availableGameVersions.find((agv) => !installedGameVersions.some((igv) => igv.version === agv.version)))
   }, [availableGameVersions])
 
   useEffect(() => {
     ;(async (): Promise<void> => {
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Selected game version changed. Setting new default selected folder`)
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
       setSelectedFolder(`${currentUserDataPath}\\VSLGameVersions\\${selectedGameVersion?.version}`)
     })()
@@ -51,7 +50,7 @@ function MenuInstallNewVersion({ isInstallMenuOpen, setIsInstallMenuOpen }: { is
     try {
       window.api.logMessage("info", `[component] [MenuInstallNewVersion] Starting version installation: ${selectedGameVersion?.version}`)
       setInstalling(true)
-      window.api.setPreventAppClose(true)
+      setPreventClosing(true)
 
       const filePath = await window.api.downloadGameVersion(selectedGameVersion as GameVersionType, selectedFolder)
       const result = await window.api.extractGameVersion(filePath, selectedFolder)
@@ -68,21 +67,21 @@ function MenuInstallNewVersion({ isInstallMenuOpen, setIsInstallMenuOpen }: { is
 
       window.api.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
       setInstalling(false)
+      setPreventClosing(false)
       setDownloadProgress(0)
       setExtractProgress(0)
-      window.api.setPreventAppClose(false)
     } catch (error) {
       window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
       addNotification("Error installing version", `An error ocurred while installing game version ${selectedGameVersion?.version}`, "error")
       setInstalling(false)
+      setPreventClosing(false)
       setDownloadProgress(0)
       setExtractProgress(0)
-      window.api.setPreventAppClose(false)
     }
   }
 
   return (
-    <AbsoluteMenu title="Install a new version" isMenuOpen={isInstallMenuOpen} setIsMenuOpen={setIsInstallMenuOpen} preventClose={installing}>
+    <>
       <div className="w-full max-h-[200px] flex flex-col gap-2">
         <h3 className="font-bold">Select version</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
@@ -148,11 +147,11 @@ function MenuInstallNewVersion({ isInstallMenuOpen, setIsInstallMenuOpen }: { is
             "Install"
           )}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsInstallMenuOpen(false)} disabled={installing}>
+        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={installing}>
           Close
         </Button>
       </div>
-    </AbsoluteMenu>
+    </>
   )
 }
 

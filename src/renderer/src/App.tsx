@@ -3,6 +3,7 @@ import { InstallationProvider } from "@contexts/InstallationContext"
 import { InstalledGameVersionsProvider } from "@contexts/InstalledGameVersionsContext"
 import { InstallationsProvider } from "@contexts/InstallationsContext"
 import { NotificationsProvider } from "@contexts/NotificationsContext"
+import { PreventClosingProvider } from "@contexts/PreventClosingContext"
 import MainMenu from "@components/MainMenu"
 import NotificationsOverlay from "@components/NotificationsOverlay"
 import Home from "@routes/Home"
@@ -16,18 +17,20 @@ function App(): JSX.Element {
       <InstallationsProvider>
         <InstallationProvider>
           <NotificationsProvider>
-            <Router>
-              <div className="w-full h-full relative grid grid-cols-[18rem_auto]">
-                <NotificationsOverlay />
-                <MainMenu />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/versions" element={<Versions />} />
-                  <Route path="/mods" element={<Mods />} />
-                  <Route path="/news" element={<News />} />
-                </Routes>
-              </div>
-            </Router>
+            <PreventClosingProvider>
+              <Router>
+                <div className="w-full h-full relative grid grid-cols-[18rem_auto]">
+                  <NotificationsOverlay />
+                  <MainMenu />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/versions" element={<Versions />} />
+                    <Route path="/mods" element={<Mods />} />
+                    <Route path="/news" element={<News />} />
+                  </Routes>
+                </div>
+              </Router>
+            </PreventClosingProvider>
           </NotificationsProvider>
         </InstallationProvider>
       </InstallationsProvider>
