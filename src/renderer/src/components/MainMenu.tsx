@@ -85,7 +85,7 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsEditInstallationMenuOpen(true)
                   } else {
-                    addNotification("No installation selected", "Please, select an installation to edit", "error")
+                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToEdit"), "error")
                   }
                 }}
                 btnType="sm"
@@ -104,7 +104,7 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsDeleteInstallationMenuOpen(true)
                   } else {
-                    addNotification("No installation selected", "Please, select an installation to delete", "error")
+                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToDelete"), "error")
                   }
                 }}
                 btnType="sm"
@@ -118,7 +118,7 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     window.api.openPathOnFileExplorer(installation!.path)
                   } else {
-                    addNotification("No installation selected", "Please, select an installation to open on the file explorer", "error")
+                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
                   }
                 }}
                 btnType="sm"
@@ -148,13 +148,13 @@ function MainMenu(): JSX.Element {
         )}
       </AnimatePresence>
 
-      <AbsoluteMenu title={getKey("component-menuAddInstallation-title")} isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
+      <AbsoluteMenu title={getKey("component-addInstallationMenu-title")} isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
         <MenuAddInstallation setIsMenuOpen={setIsAddInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={getKey("component-menuEditInstallation-title")} isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
+      <AbsoluteMenu title={getKey("component-editInstallationMenu-title")} isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
         <MenuEditInstallation setIsMenuOpen={setIsEditInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={getKey("component-menuDeleteInstallation-title")} isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
+      <AbsoluteMenu title={getKey("component-deleteInstallationMenu-title")} isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
         <MenuDeleteInstallation setIsMenuOpen={setIsDeleteInstallationMenuOpen} />
       </AbsoluteMenu>
     </header>

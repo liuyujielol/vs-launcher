@@ -1,4 +1,5 @@
 import { useState, useContext } from "react"
+import { LanguageContext } from "@contexts/LanguageContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { InstallationContext } from "@contexts/InstallationContext"
@@ -10,6 +11,7 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
   const { installedGameVersions } = useContext(InstalledGameVersionsContext)
   const { installations, setInstallations } = useContext(InstallationsContext)
   const { installation } = useContext(InstallationContext)
+  const { getKey } = useContext(LanguageContext)
   const [selectedInstalledVersion, setSelectedInstalledVersion] = useState<InstalledGameVersionType>(
     installedGameVersions.find((igv) => igv.version === installation!.version) || installedGameVersions[0]
   )
@@ -30,10 +32,10 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
       window.localStorage.setItem("installation", newInstallation.id)
 
       window.api.logMessage("info", `[component] [MenuEditInstallation] Edited installation ${installationName}`)
-      addNotification("Successfully edited installation", `Installation ${installationName} added successfully`, "success")
+      addNotification(getKey("notification-title-installationSuccesfullyEdited"), getKey("notification-body-installationSuccesfullyEdited").replace("{installation}", installationName), "success")
     } catch (err) {
       window.api.logMessage("error", `[component] [MenuEditInstallation] Error while editing installation ${installationName}: ${err}`)
-      addNotification("Error editing installation", `An error ocurred while editing installation ${installationName}`, "error")
+      addNotification(getKey("notification-title-installationErrorEditing"), getKey("notification-body-installationErrorEditing").replace("{installation}", installationName), "error")
     } finally {
       setIsMenuOpen(false)
     }
@@ -43,8 +45,8 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
     <>
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <h3 className="font-bold">Name</h3>
-          <span className="text-zinc-400">(5 to 50 characters)</span>
+          <h3 className="font-bold">{getKey("component-edditInstallationMenu-changeName")}</h3>
+          <span className="text-zinc-400">({getKey("component-addInstallationMenu-minMaxCharacters").replace("{min}", "5").replace("{max}", "50")})</span>
         </div>
         <input
           type="text"
@@ -56,11 +58,11 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
       </div>
 
       <div className="w-full max-h-[200px] flex flex-col gap-2">
-        <h3 className="font-bold">Select version</h3>
+        <h3 className="font-bold">{getKey("component-edditInstallationMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
             <div className="w-full h-full flex justify-center items-center">
-              <p>No versions found</p>
+              <p>{getKey("component-edditInstallationMenu-noVersionsFound")}</p>
             </div>
           ) : (
             <>
@@ -85,10 +87,10 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
           disabled={installationName.length < 5 || installationName.length > 50 || !selectedInstalledVersion}
           onClick={() => handleEditInstallation()}
         >
-          Edit
+          {getKey("component-edditInstallationMenu-edit")}
         </Button>
         <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
-          Close
+          {getKey("component-edditInstallationMenu-close")}
         </Button>
       </div>
     </>

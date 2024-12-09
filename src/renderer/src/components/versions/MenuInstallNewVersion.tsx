@@ -1,16 +1,18 @@
 import { useEffect, useState, useContext } from "react"
 import axios from "axios"
-import Button from "@components/Buttons"
+import { motion } from "motion/react"
+import { FaSpinner } from "react-icons/fa6"
+import { LanguageContext } from "@contexts/LanguageContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import { motion } from "motion/react"
-import { FaSpinner } from "react-icons/fa6"
+import Button from "@components/Buttons"
 
 function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
   const { setPreventClosing } = useContext(PreventClosingContext)
+  const { getKey } = useContext(LanguageContext)
   const [availableGameVersions, setAvailableGameVersions] = useState<GameVersionType[]>([])
   const [selectedGameVersion, setSelectedGameVersion] = useState<GameVersionType>()
   const [selectedFolder, setSelectedFolder] = useState<string>("")
@@ -60,7 +62,11 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           "info",
           `[component] [MenuInstallNewVersion] Game version ${selectedGameVersion?.version} installed successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification("Successfully installed", `Game version ${selectedGameVersion?.version} installed successfully`, "success")
+        addNotification(
+          getKey("notification-title-versionSuccesfullyInstalled"),
+          getKey("niotification-body-versionSuccesfullyInstalled").replace("{version}", `${selectedGameVersion?.version}`),
+          "success"
+        )
         setInstalledGameVersions([...installedGameVersions, { version: selectedGameVersion?.version as string, path: selectedFolder }])
         setSelectedGameVersion(availableGameVersions.find((agv) => !installedGameVersions.some((igv) => igv.version === agv.version)))
       }
@@ -68,7 +74,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       window.api.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
     } catch (error) {
       window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
-      addNotification("Error installing version", `An error ocurred while installing game version ${selectedGameVersion?.version}`, "error")
+      addNotification(getKey("notification-title-versionErrorInstalling"), getKey("notification-body-versionErrorInstalling").replace("{version}", `${selectedGameVersion?.version}`), "error")
     } finally {
       setInstalling(false)
       setPreventClosing(false)
@@ -80,11 +86,11 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
   return (
     <>
       <div className="w-full max-h-[200px] flex flex-col gap-2">
-        <h3 className="font-bold">Select version</h3>
+        <h3 className="font-bold">{getKey("component-installNewVersionMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {availableGameVersions.length < 1 ? (
             <div className="w-full h-full flex justify-center items-center">
-              <p>No versions found</p>
+              <p>{getKey("component-installNewVersionMenu-noVersionsFound")}</p>
             </div>
           ) : (
             <>
@@ -96,7 +102,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
                   disabled={installedGameVersions.some((igv) => igv.version === current.version) || installing}
                 >
                   <span>{current.version}</span>
-                  <span>{installedGameVersions.find((igv) => igv.version === current.version) ? "Installed" : ""}</span>
+                  <span>{installedGameVersions.find((igv) => igv.version === current.version) ? getKey("component-installNewVersionMenu-installed") : ""}</span>
                 </button>
               ))}
             </>
@@ -105,7 +111,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       </div>
 
       <div className="w-full flex flex-col gap-2">
-        <h3 className="font-bold">Select folder</h3>
+        <h3 className="font-bold">{getKey("component-installNewVersionMenu-selectFolder")}</h3>
         <div className="w-full flex gap-4 items-center">
           <Button
             btnType="custom"
@@ -116,19 +122,19 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
               setSelectedFolder(userSelectedFolder)
             }}
           >
-            Select
+            {getKey("component-installNewVersionMenu-select")}
           </Button>
           <p className="w-full h-10 px-2 flex items-center rounded-md shadow-inner shadow-zinc-950 bg-zinc-900 select-none overflow-x-scroll whitespace-nowrap">{selectedFolder}</p>
         </div>
       </div>
 
       <div className="w-full flex flex-col gap-2">
-        <h3 className="font-bold">Downloaded</h3>
+        <h3 className="font-bold">{getKey("component-installNewVersionMenu-downloaded")}</h3>
         <div className="w-full h-2 bg-zinc-900 rounded-full">
           <motion.div className={`h-full bg-vs rounded-full`} initial={{ width: 0 }} animate={{ width: `${downloadProgress}%` }} transition={{ ease: "easeInOut", duration: 0.2 }}></motion.div>
         </div>
 
-        <h3 className="font-bold">Extracted</h3>
+        <h3 className="font-bold">{getKey("component-installNewVersionMenu-extracted")}</h3>
         <div className="w-full h-2 bg-zinc-900 rounded-full">
           <motion.div className={`h-full bg-vs rounded-full`} initial={{ width: 0 }} animate={{ width: `${extractProgress}%` }} transition={{ ease: "easeInOut", duration: 0.2 }}></motion.div>
         </div>
@@ -141,11 +147,11 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
               <FaSpinner />
             </motion.div>
           ) : (
-            "Install"
+            getKey("component-installNewVersionMenu-install")
           )}
         </Button>
         <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={installing}>
-          Close
+          {getKey("component-installNewVersionMenu-close")}
         </Button>
       </div>
     </>
