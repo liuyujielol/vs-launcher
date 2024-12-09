@@ -14,7 +14,7 @@
   "component-general-openMenu": "Abrir menú",
   "component-general-closeMenu": "Cerrar menú",
 
-  "component-translationMenu-deffaultTitle": "Predeterminada",
+  "component-translationMenu-deffaultTitle": "Predeterminado",
 
   "component-installationsMenu-noInstallationsAvailable": "No tienes ninguna instalación",
   "component-installationsMenu-modsCount": "{count} mods",
