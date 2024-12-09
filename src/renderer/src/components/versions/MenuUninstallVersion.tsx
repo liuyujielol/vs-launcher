@@ -1,7 +1,7 @@
 import { useState, useContext } from "react"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
-import { LanguageContext } from "@contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { PreventClosingContext } from "@contexts/PreventClosingContext"
@@ -20,7 +20,7 @@ function MenuUninstallVersion({
   const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
   const { addNotification } = useContext(NotificationsContext)
   const { setPreventClosing } = useContext(PreventClosingContext)
-  const { getKey } = useContext(LanguageContext)
+  const { t } = useTranslation()
 
   const handleUninstalling = async (): Promise<void> => {
     try {
@@ -35,8 +35,8 @@ function MenuUninstallVersion({
           `[component] [MenuUninstallNewVersion] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
         )
         addNotification(
-          getKey("notification-title-versionSuccesfullyUninstalled"),
-          getKey("niotification-body-versionSuccesfullyUninstalled").replace("{version}", `${selectedInstalledVersion?.version}`),
+          t("notification-title-versionSuccesfullyUninstalled"),
+          t("niotification-body-versionSuccesfullyUninstalled").replace("{version}", `${selectedInstalledVersion?.version}`),
           "success"
         )
         setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))
@@ -45,7 +45,7 @@ function MenuUninstallVersion({
       window.api.logMessage("info", `[component] [MenuUninstallNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
     } catch (err) {
       window.api.logMessage("error", `[component] [MenuUninstallNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
-      addNotification(getKey("notification-title-versionErrorUninstalling"), getKey("notification-body-versionErrorUninstalling").replace("{version}", `${selectedInstalledVersion?.version}`), "error")
+      addNotification(t("notification-title-versionErrorUninstalling"), t("notification-body-versionErrorUninstalling").replace("{version}", `${selectedInstalledVersion?.version}`), "error")
     } finally {
       setIsUninstalling(false)
       setPreventClosing(false)
@@ -57,9 +57,9 @@ function MenuUninstallVersion({
   return (
     <>
       <p>
-        {getKey("component-uninstallVersionMenu-areYouSure")} <span className="font-bold">{selectedInstalledVersion?.version}</span>
+        {t("component-uninstallVersionMenu-areYouSure")} <span className="font-bold">{selectedInstalledVersion?.version}</span>
       </p>
-      <p>{getKey("component-uninstallVersionMenu-uninstallingNotReversible")}</p>
+      <p>{t("component-uninstallVersionMenu-uninstallingNotReversible")}</p>
       <div className="flex gap-4">
         <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={isUninstalling} onClick={handleUninstalling}>
           {isUninstalling ? (
@@ -67,11 +67,11 @@ function MenuUninstallVersion({
               <FaSpinner />
             </motion.div>
           ) : (
-            getKey("component-uninstallVersionMenu-uninstall")
+            t("component-uninstallVersionMenu-uninstall")
           )}
         </Button>
         <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={isUninstalling}>
-          {getKey("component-uninstallVersionMenu-cancel")}
+          {t("component-uninstallVersionMenu-cancel")}
         </Button>
       </div>
     </>

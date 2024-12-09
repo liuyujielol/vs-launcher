@@ -12,6 +12,11 @@ export default defineConfig({
     resolve: { alias: { "@config": resolve(__dirname, "src/config"), "@utils": resolve(__dirname, "src/utils") } }
   },
   renderer: {
+    build: {
+      rollupOptions: {
+        external: ["*.json"]
+      }
+    },
     resolve: {
       alias: {
         "@renderer": resolve(__dirname, "src/renderer/src"),

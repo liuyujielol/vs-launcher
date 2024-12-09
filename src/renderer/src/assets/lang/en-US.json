@@ -1,5 +1,5 @@
 {
-  "credits": "XurxoMF",
+  "credits": "by XurxoMF",
 
   "page-general-notReadyYet": "This section is not ready yet!",
   "page-general-comeBackLater": "Come back on the next update and it may be ready ^^",
@@ -13,7 +13,6 @@
 
   "component-general-openMenu": "Open menu",
   "component-general-closeMenu": "Close menu",
-  "component-general-byPerson": "by {person}",
 
   "component-translationMenu-deffaultTitle": "Deffault",
 
@@ -24,7 +23,7 @@
   "component-mainMenu-homeTitle": "Home",
   "component-mainMenu-homeDesc": "Main page",
   "component-mainMenu-versionsTitle": "Versions",
-  "component-mainMenu-versionsDesc": "Manage/Install game versions",
+  "component-mainMenu-versionsDesc": "Manage game versions",
   "component-mainMenu-modsTitle": "Mods",
   "component-mainMenu-modsDesc": "Manage/Install mods",
   "component-mainMenu-newsTitle": "News",
@@ -46,8 +45,8 @@
   "component-installNewVersionMenu-installed": "Installed",
   "component-installNewVersionMenu-selectFolder": "Select folder",
   "component-installNewVersionMenu-select": "Select",
-  "component-installNewVersionMenu-downloaded": "Descargado",
-  "component-installNewVersionMenu-extracted": "Instalado",
+  "component-installNewVersionMenu-downloaded": "Downloaded",
+  "component-installNewVersionMenu-extracted": "Installed",
   "component-installNewVersionMenu-install": "Install",
   "component-installNewVersionMenu-close": "Close",
 
@@ -112,8 +111,8 @@
   "notification-body-installationErrorDeleted": "An error ocurred while deleting installation {installation}",
   "notification-body-installationSuccesfullyEdited": "Installation {installation} edited successfully",
   "notification-body-installationErrorEditing": "An error ocurred while editing installation {installation}",
-  "notification-body-noVersionSelectedToUnistall": "Please select a version to uninstall",
-  "notification-body-noInstallationSelectedToDelete": "Please select an installation to delete",
+  "notification-body-noVersionSelectedToUnistall": "Please, select a version to uninstall",
+  "notification-body-noInstallationSelectedToDelete": "Please, select an installation to delete",
   "notification-body-noInstallationSelectedToEdit": "Please, select an installation to edit",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "Please, select an installation to open on the file explorer"
 }

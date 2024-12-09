@@ -12,6 +12,7 @@ ipcMain.handle("download-game-version", async (event, gameVersion: GameVersionTy
   logMessage("info", `[ipcMain] [download-game-version] Downloading game version ${gameVersion.version} to ${pathToDownload}`)
 
   const url = gameVersion.windows
+
   const { data, headers } = await axios({
     url,
     method: "GET",

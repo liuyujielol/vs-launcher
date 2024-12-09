@@ -11,7 +11,7 @@ import { NotificationsContext } from "@contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { PreventClosingContext } from "@contexts/PreventClosingContext"
 import { PlayingContext } from "@contexts/PlayingContext"
-import { LanguageContext } from "@contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import LanguagesMenu from "@components/LanguagesMenu"
 import AbsoluteMenu from "@components/AbsoluteMenu"
 import MainMenuLink from "@components/MainMenuLink"
@@ -27,7 +27,7 @@ function MainMenu(): JSX.Element {
   const { installedGameVersions } = useContext(InstalledGameVersionsContext)
   const { setPreventClosing } = useContext(PreventClosingContext)
   const { playing, setPlaying } = useContext(PlayingContext)
-  const { getKey } = useContext(LanguageContext)
+  const { t } = useTranslation()
   const [isAddInstallationMenuOpen, setIsAddInstallationMenuOpen] = useState(false)
   const [isEditInstallationMenuOpen, setIsEditInstallationMenuOpen] = useState(false)
   const [isDeleteInstallationMenuOpen, setIsDeleteInstallationMenuOpen] = useState(false)
@@ -35,7 +35,7 @@ function MainMenu(): JSX.Element {
   const executeGameManager = async (): Promise<void> => {
     try {
       if (!installedGameVersions.some((igv) => igv.version === installation?.version)) {
-        addNotification(getKey("notification-title-errorExecutingGame"), getKey("notification-body-errorVersionNotInstalled").replace("{version}", `${installation?.version}`), "error")
+        addNotification(t("notification-title-errorExecutingGame"), t("notification-body-errorVersionNotInstalled").replace("{version}", `${installation?.version}`), "error")
         return
       }
 
@@ -45,10 +45,10 @@ function MainMenu(): JSX.Element {
       const res = await window.api.executeGame(installedGameVersions.find((igv) => igv.version === installation?.version) as InstalledGameVersionType, installation as InstallationType)
 
       if (!res) {
-        addNotification(getKey("notification-title-gameClosedWithError"), getKey("notification-body-gameClosedWithError"), "error")
+        addNotification(t("notification-title-gameClosedWithError"), t("notification-body-gameClosedWithError"), "error")
       }
     } catch (err) {
-      addNotification(getKey("notification-title-gameClosedWithError"), getKey("notification-body-errorExecutingGame"), "error")
+      addNotification(t("notification-title-gameClosedWithError"), t("notification-body-errorExecutingGame"), "error")
     } finally {
       setPreventClosing(false)
       setPlaying(false)
@@ -59,24 +59,24 @@ function MainMenu(): JSX.Element {
     <header className="bg-zinc-900 p-4 gap-4 flex flex-col justify-between">
       <LanguagesMenu />
       <div className="flex flex-col gap-2 mt-10">
-        <MainMenuLink icon={icon} text={getKey("component-mainMenu-homeTitle")} link="/" desc={getKey("component-mainMenu-homeDesc")} />
-        <MainMenuLink icon={iconVersions} text={getKey("component-mainMenu-versionsTitle")} link="/versions" desc={getKey("component-mainMenu-versionsDesc")} />
-        <MainMenuLink icon={iconModdb} text={getKey("component-mainMenu-modsTitle")} link="/mods" desc={getKey("component-mainMenu-modsDesc")} />
-        <MainMenuLink icon={iconNews} text={getKey("component-mainMenu-newsTitle")} link="/news" desc={getKey("component-mainMenu-newsDesc")} />
+        <MainMenuLink icon={icon} text={t("component-mainMenu-homeTitle")} link="/" desc={t("component-mainMenu-homeDesc")} />
+        <MainMenuLink icon={iconVersions} text={t("component-mainMenu-versionsTitle")} link="/versions" desc={t("component-mainMenu-versionsDesc")} />
+        <MainMenuLink icon={iconModdb} text={t("component-mainMenu-modsTitle")} link="/mods" desc={t("component-mainMenu-modsDesc")} />
+        <MainMenuLink icon={iconNews} text={t("component-mainMenu-newsTitle")} link="/news" desc={t("component-mainMenu-newsDesc")} />
         <MainMenuLink
           icon={iconChangelog}
-          text={getKey("component-mainMenu-changelogTitle")}
+          text={t("component-mainMenu-changelogTitle")}
           link="https://www.vintagestory.at/blog.html/news"
           onBrowser={true}
-          desc={getKey("component-mainMenu-changelogDesc")}
+          desc={t("component-mainMenu-changelogDesc")}
         />
       </div>
 
       <div className="flex flex-col gap-4">
         <InstallationsMenu className="w-full" />
         <div className="flex gap-4">
-          <Button onClick={executeGameManager} disabled={!installation} btnType="lg" title={getKey("component-mainMenu-playButtonName")} className="w-full bg-vs font-bold text-2xl">
-            {getKey("component-mainMenu-playButtonName")}
+          <Button onClick={executeGameManager} disabled={!installation} btnType="lg" title={t("component-mainMenu-playButtonName")} className="w-full bg-vs font-bold text-2xl">
+            {t("component-mainMenu-playButtonName")}
           </Button>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
@@ -85,16 +85,16 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsEditInstallationMenuOpen(true)
                   } else {
-                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToEdit"), "error")
+                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToEdit"), "error")
                   }
                 }}
                 btnType="sm"
-                title={getKey("component-mainMenu-modifyInstallationButtonName")}
+                title={t("component-mainMenu-modifyInstallationButtonName")}
                 className="shrink-0 bg-zinc-800"
               >
                 <FaWhmcs />
               </Button>
-              <Button onClick={() => setIsAddInstallationMenuOpen(true)} btnType="sm" title={getKey("component-mainMenu-addInstallationButtonName")} className="shrink-0 bg-zinc-800">
+              <Button onClick={() => setIsAddInstallationMenuOpen(true)} btnType="sm" title={t("component-mainMenu-addInstallationButtonName")} className="shrink-0 bg-zinc-800">
                 <FaPlus />
               </Button>
             </div>
@@ -104,11 +104,11 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsDeleteInstallationMenuOpen(true)
                   } else {
-                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToDelete"), "error")
+                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToDelete"), "error")
                   }
                 }}
                 btnType="sm"
-                title={getKey("component-mainMenu-deleteInstallationButtonName")}
+                title={t("component-mainMenu-deleteInstallationButtonName")}
                 className="shrink-0 bg-zinc-800"
               >
                 <FaTrashCan />
@@ -118,11 +118,11 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     window.api.openPathOnFileExplorer(installation!.path)
                   } else {
-                    addNotification(getKey("notification-title-noInstallationSelected"), getKey("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
+                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
                   }
                 }}
                 btnType="sm"
-                title={getKey("component-mainMenu-openInstallationFolderButtonName")}
+                title={t("component-mainMenu-openInstallationFolderButtonName")}
                 className="shrink-0 bg-zinc-800"
               >
                 <FaFolderOpen />
@@ -141,20 +141,20 @@ function MainMenu(): JSX.Element {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <h1 className="text-4xl font-bold">{getKey("component-mainMenu-gameRunningTitle")}</h1>
-            <p className="text-xl">{getKey("component-mainMenu-gameRunningDesc")}</p>
-            <p className="text-zinc-400">{getKey("component-mainMenu-gameRunningSubDesc")}</p>
+            <h1 className="text-4xl font-bold">{t("component-mainMenu-gameRunningTitle")}</h1>
+            <p className="text-xl">{t("component-mainMenu-gameRunningDesc")}</p>
+            <p className="text-zinc-400">{t("component-mainMenu-gameRunningSubDesc")}</p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <AbsoluteMenu title={getKey("component-addInstallationMenu-title")} isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
+      <AbsoluteMenu title={t("component-addInstallationMenu-title")} isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
         <MenuAddInstallation setIsMenuOpen={setIsAddInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={getKey("component-editInstallationMenu-title")} isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
+      <AbsoluteMenu title={t("component-editInstallationMenu-title")} isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
         <MenuEditInstallation setIsMenuOpen={setIsEditInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={getKey("component-deleteInstallationMenu-title")} isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
+      <AbsoluteMenu title={t("component-deleteInstallationMenu-title")} isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
         <MenuDeleteInstallation setIsMenuOpen={setIsDeleteInstallationMenuOpen} />
       </AbsoluteMenu>
     </header>

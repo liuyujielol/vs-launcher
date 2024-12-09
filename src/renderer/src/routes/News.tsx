@@ -1,13 +1,12 @@
-import { useContext } from "react"
-import { LanguageContext } from "@contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 
 function News(): JSX.Element {
-  const { getKey } = useContext(LanguageContext)
+  const { t } = useTranslation()
 
   return (
     <main className="flex flex-col items-center justify-center gap-2">
-      <h1 className="text-3xl">{getKey("page-general-notReadyYet")}</h1>
-      <p>{getKey("page-general-comeBackLater")}</p>
+      <h1 className="text-3xl">{t("page-general-notReadyYet")}</h1>
+      <p>{t("page-general-comeBackLater")}</p>
     </main>
   )
 }

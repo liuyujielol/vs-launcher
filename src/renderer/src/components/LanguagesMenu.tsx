@@ -1,15 +1,28 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6"
-import { LanguageContext } from "@contexts/LanguageContext"
-
-const AVAILABLE_LANGS = [
-  { name: "English", code: "en-US" },
-  { name: "Español", code: "es-ES" }
-]
+import { useTranslation } from "react-i18next"
+import { ResourceKey } from "i18next"
 
 function LanguagesMenu({ className }: { className?: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
-  const { changeLang, getKey } = useContext(LanguageContext)
+  const { t, i18n } = useTranslation()
+
+  const getLanguages = (): { code: string; name: ResourceKey }[] => {
+    const resources = i18n.options.resources
+    if (!resources) return []
+    return Object.keys(resources).map((code) => ({
+      code,
+      name: resources[code]?.name || code
+    }))
+  }
+
+  const languages = getLanguages()
+
+  const handleLanguageChange = (lang): void => {
+    window.api.logMessage("info", `[component] [LanguagesMenu] Changing language to ${lang}`)
+    i18n.changeLanguage(lang)
+    localStorage.setItem("lang", lang)
+  }
 
   return (
     <>
@@ -17,30 +30,30 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
         <>
           {!window.localStorage.getItem("lang") ? (
             <button
-              title={isOpen ? getKey("component-general-closeMenu") : getKey("component-general-openMenu")}
+              title={isOpen ? t("component-general-closeMenu") : t("component-general-openMenu")}
               onClick={() => setIsOpen(!isOpen)}
               className="w-full px-2 py-1 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
             >
               <div className="flex gap-4 items-center">
-                <span>{getKey("component-translationMenu-deffaultTitle")}</span>
-                <span className="text-zinc-400 text-xs">{getKey("component-general-byPerson").replace("{person}", "XurxoMF")}</span>
+                <span>{t("component-translationMenu-deffaultTitle")}</span>
+                <span className="text-zinc-400 text-xs">{t("credits")}</span>
               </div>
               {isOpen ? <FaAngleUp /> : <FaAngleDown />}
             </button>
           ) : (
             <>
-              {AVAILABLE_LANGS.map(
-                (current) =>
-                  current.code === window.localStorage.getItem("lang") && (
+              {languages.map(
+                (lang) =>
+                  lang.code === window.localStorage.getItem("lang") && (
                     <button
-                      title={isOpen ? getKey("component-general-closeMenu") : getKey("component-general-openMenu")}
-                      key={current.code}
+                      title={isOpen ? t("component-general-closeMenu") : t("component-general-openMenu")}
+                      key={lang.code}
                       onClick={() => setIsOpen(!isOpen)}
                       className="w-full px-2 py-1 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
                     >
                       <div className="flex gap-4 items-center">
-                        <span>{current.name}</span>
-                        <span className="text-zinc-400 text-xs">{getKey("component-general-byPerson").replace("{person}", getKey("credits"))}</span>
+                        <span>{lang.name.toString()}</span>
+                        <span className="text-zinc-400 text-xs">{t("credits")}</span>
                       </div>
                       {isOpen ? <FaAngleUp /> : <FaAngleDown />}
                     </button>
@@ -48,23 +61,22 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
               )}
             </>
           )}
-
           {isOpen && (
             <div className="w-full max-h-64 overflow-y-scroll">
-              {AVAILABLE_LANGS.map(
-                (current) =>
-                  current.code != window.localStorage.getItem("lang") && (
+              {languages.map(
+                (lang) =>
+                  lang.code != window.localStorage.getItem("lang") && (
                     <button
-                      key={current.code}
+                      key={lang.code}
                       onClick={() => {
-                        changeLang(current.code)
+                        handleLanguageChange(lang.code)
                         setIsOpen(false)
                       }}
                       className="w-full px-2 py-1 flex justify-between items-center rounded shrink-0"
                     >
                       <div className="flex gap-4 items-center">
-                        <span>{current.name}</span>
-                        <span className="text-zinc-400 text-xs">{getKey("component-general-byPerson").replace("{person}", getKey("credits"))}</span>
+                        <span>{lang.name.toString()}</span>
+                        <span className="text-zinc-400 text-xs">{t("credits")}</span>
                       </div>
                     </button>
                   )

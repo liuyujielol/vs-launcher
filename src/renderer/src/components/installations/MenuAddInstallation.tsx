@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { LanguageContext } from "@contexts/LanguageContext"
+import { useTranslation } from "react-i18next"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
@@ -9,7 +9,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions } = useContext(InstalledGameVersionsContext)
   const { installations, setInstallations } = useContext(InstallationsContext)
-  const { getKey } = useContext(LanguageContext)
+  const { t } = useTranslation()
   const [selectedInstalledVersion, setSelectedInstalledVersion] = useState<InstalledGameVersionType>()
   const [selectedFolder, setSelectedFolder] = useState<string>("")
   const [installationName, setInstallationName] = useState<string>(``)
@@ -45,10 +45,10 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       window.localStorage.setItem("installation", newInstallation.id)
 
       window.api.logMessage("info", `[component] [MenuAddInstallation] Added installation ${installationName} with path ${selectedFolder}`)
-      addNotification(getKey("notification-title-installationSuccesfullyAdded"), getKey("notification-body-installationSuccesfullyAdded").replace("{installation}", installationName), "success")
+      addNotification(t("notification-title-installationSuccesfullyAdded"), t("notification-body-installationSuccesfullyAdded").replace("{installation}", installationName), "success")
     } catch (err) {
       window.api.logMessage("error", `[component] [MenuAddInstallation] Error while adding installation ${installationName} with path ${selectedFolder}: ${err}`)
-      addNotification(getKey("notification-title-installationErrorAdding"), getKey("notification-body-installationErrorAdding").replace("{installation}", installationName), "error")
+      addNotification(t("notification-title-installationErrorAdding"), t("notification-body-installationErrorAdding").replace("{installation}", installationName), "error")
     } finally {
       setIsMenuOpen(false)
     }
@@ -58,8 +58,8 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
     <>
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
-          <h3 className="font-bold">{getKey("component-addInstallationMenu-nameInstallation")}</h3>
-          <span className="text-zinc-400">({getKey("component-addInstallationMenu-minMaxCharacters").replace("{min}", "5").replace("{max}", "50")})</span>
+          <h3 className="font-bold">{t("component-addInstallationMenu-nameInstallation")}</h3>
+          <span className="text-zinc-400">({t("component-addInstallationMenu-minMaxCharacters").replace("{min}", "5").replace("{max}", "50")})</span>
         </div>
         <input
           type="text"
@@ -71,11 +71,11 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       </div>
 
       <div className="w-full max-h-[200px] flex flex-col gap-2">
-        <h3 className="font-bold">{getKey("component-addInstallationMenu-selectVersion")}</h3>
+        <h3 className="font-bold">{t("component-addInstallationMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
             <div className="w-full h-full flex justify-center items-center">
-              <p>{getKey("component-addInstallationMenu-noVersionsFound")}</p>
+              <p>{t("component-addInstallationMenu-noVersionsFound")}</p>
             </div>
           ) : (
             <>
@@ -94,7 +94,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       </div>
 
       <div className="w-full flex flex-col gap-2">
-        <h3 className="font-bold">{getKey("component-addInstallationMenu-selectFolder")}</h3>
+        <h3 className="font-bold">{t("component-addInstallationMenu-selectFolder")}</h3>
         <div className="w-full flex gap-4 items-center">
           <Button
             btnType="custom"
@@ -104,16 +104,16 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
               setSelectedFolder(userSelectedFolder)
             }}
           >
-            {getKey("component-addInstallationMenu-select")}
+            {t("component-addInstallationMenu-select")}
           </Button>
           <p className="w-full h-10 px-2 flex items-center rounded-md shadow-inner shadow-zinc-950 bg-zinc-900 select-none overflow-x-scroll whitespace-nowrap">{selectedFolder}</p>
         </div>
       </div>
 
-      {installations.some((ins) => ins.path === selectedFolder) ? <p className="text text-red-600">{getKey("component-addInstallationMenu-folderInUse")}</p> : null}
+      {installations.some((ins) => ins.path === selectedFolder) ? <p className="text text-red-600">{t("component-addInstallationMenu-folderInUse")}</p> : null}
 
       <div className="flex flex-col items-center text-center text-sm text-zinc-400">
-        <p>{getKey("component-addInstallationMenu-recomendedNewFolder")}</p>
+        <p>{t("component-addInstallationMenu-recomendedNewFolder")}</p>
       </div>
 
       <div className="flex gap-4">
@@ -123,10 +123,10 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
           disabled={installationName.length < 5 || installationName.length > 50 || !selectedInstalledVersion || !selectedFolder}
           onClick={() => handleAddInstallation()}
         >
-          {getKey("component-addInstallationMenu-add")}
+          {t("component-addInstallationMenu-add")}
         </Button>
         <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
-          {getKey("component-addInstallationMenu-close")}
+          {t("component-addInstallationMenu-close")}
         </Button>
       </div>
     </>
