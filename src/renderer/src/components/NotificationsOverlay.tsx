@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "motion/react"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 
 const types = {
-  success: "bg-green-600",
+  success: "bg-lime-900",
   info: "bg-vs",
-  error: "bg-red-600"
+  error: "bg-red-900"
 }
 
 function NotificationsOVerlay(): JSX.Element {

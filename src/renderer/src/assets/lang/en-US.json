@@ -8,15 +8,18 @@
 
   "page-versions-title": "Version Manager",
   "page-versions-noVersionsFound": "No versions found",
+  "page-versions-noVersionsFoundSub": "Install a new one with the \"plus\" or add an already installed one with the \"magnifying glass\" button at the bottom of this page",
+  "page-versions-btnTitleSearchForVersion": "Search for an installed version",
   "page-versions-btnTitleAddVersion": "Add version",
   "page-versions-btnTitleDeleteVersion": "Delete selected version",
 
   "component-general-openMenu": "Open menu",
   "component-general-closeMenu": "Close menu",
 
-  "component-translationMenu-deffaultTitle": "Deffault",
+  "component-translationMenu-defaultTitle": "Default",
 
   "component-installationsMenu-noInstallationsAvailable": "You dont have any installations",
+  "component-installationsMenu-noInstallationsAvailableSub": "Create a new one with the \"plus\" button",
   "component-installationsMenu-modsCount": "{count} mods",
   "component-installationsMenu-noInstallationSelected": "No installation selected",
 
@@ -39,6 +42,13 @@
   "component-mainMenu-gameRunningDesc": "The game is running in the background, please, close it to use VS Launcher",
   "component-mainMenu-gameRunningSubDesc": "You cant use VS Launcher while playing to prevent any conflicts with the game!",
 
+  "component-searchForAVersionMenu-titleSearchForAAversion": "Search for an installed version",
+  "component-searchForAVersionMenu-selectFolder": "Select folder",
+  "component-searchForAVersionMenu-select": "Select",
+  "component-searchForAVersionMenu-versionDetected": "Version detected",
+  "component-searchForAVersionMenu-addIt": "Add it",
+  "component-searchForAVersionMenu-close": "Close",
+
   "component-installNewVersionMenu-titleInstallNewVersion": "Install new version",
   "component-installNewVersionMenu-selectVersion": "Select version",
   "component-installNewVersionMenu-noVersionsFound": "No versions found",
@@ -46,7 +56,7 @@
   "component-installNewVersionMenu-selectFolder": "Select folder",
   "component-installNewVersionMenu-select": "Select",
   "component-installNewVersionMenu-downloaded": "Downloaded",
-  "component-installNewVersionMenu-extracted": "Installed",
+  "component-installNewVersionMenu-extracted": "Extracted",
   "component-installNewVersionMenu-install": "Install",
   "component-installNewVersionMenu-close": "Close",
 
@@ -59,12 +69,14 @@
   "component-addInstallationMenu-title": "Add installation",
   "component-addInstallationMenu-nameInstallation": "Name your installation",
   "component-addInstallationMenu-minMaxCharacters": "{min} to {max} caharacters",
+  "component-addInstallationMenu-placeholder": "My new installation",
   "component-addInstallationMenu-selectVersion": "Select version",
   "component-addInstallationMenu-noVersionsFound": "No versions found",
+  "component-addInstallationMenu-noVersionsFoundInstallHere": "First you've to install or add a game version to VS Launcher here:",
   "component-addInstallationMenu-selectFolder": "Select folder",
   "component-addInstallationMenu-select": "Select",
   "component-addInstallationMenu-folderInUse": "Be careful, this folder is in use by another installation!",
-  "component-addInstallationMenu-recomendedNewFolder": "Its recomended to use a clean folder for each installation. You can use a folder from another one but this may break your worlds!",
+  "component-addInstallationMenu-recomendedNewFolder": "Its recomended to use a clean folder for each installation but if you already had the game installed you can select the same folder you was using before and it'll use those worlds, mods and so on.",
   "component-addInstallationMenu-add": "Add",
   "component-addInstallationMenu-close": "Close",
 
@@ -85,6 +97,10 @@
 
   "notification-title-errorExecutingGame": "Error executing game",
   "notification-title-gameClosedWithError": "Game error",
+  "notification-title-versionErrorLookingForAVersion": "Error looking for a version",
+  "notification-title-versionAlreadyInstalled": "Version already installed",
+  "notification-title-versionSuccesfullyFound": "Succesfully added",
+  "notification-title-versionNotFound": "Version not found",
   "notification-title-versionSuccesfullyInstalled": "Successfully installed",
   "notification-title-versionErrorInstalling": "Error installing version",
   "notification-title-versionSuccesfullyUninstalled": "Successfully uninstalled",
@@ -97,13 +113,18 @@
   "notification-title-installationErrorEditing": "Error editing installation",
   "notification-title-noVersionSelected": "No version selected",
   "notification-title-noInstallationSelected": "No installation selected",
+  "notification-title-folderDoesntExists": "There is no folder",
 
   "notification-body-errorVersionNotInstalled": "Game version {version} is not installed",
   "notification-body-gameClosedWithError": "Game closed with an error",
   "notification-body-errorExecutingGame": "An error ocurred while executing game",
-  "niotification-body-versionSuccesfullyInstalled": "Game version {version} installed successfully",
+  "notification-body-versionErrorLookingForAVersion": "No game version was found on that folder",
+  "notification-body-versionAlreadyInstalled": "The version {version} of the game is already installed on VS Launcher",
+  "notification-body-versionSuccesfullyFound": "Game version {version} was found and added successfully",
+  "notification-body-versionNotFound": "No game version was found on that folder",
+  "notification-body-versionSuccesfullyInstalled": "Game version {version} installed successfully",
   "notification-body-versionErrorInstalling": "An error ocurred while installing game version {version}",
-  "niotification-body-versionSuccesfullyUninstalled": "Game version {version} uninstalled successfully",
+  "notification-body-versionSuccesfullyUninstalled": "Game version {version} uninstalled successfully",
   "notification-body-versionErrorUninstalling": "An error ocurred while uninstalling game version {version}",
   "notification-body-installationSuccesfullyAdded": "Installation {installation} added successfully",
   "notification-body-installationErrorAdding": "An error ocurred while adding installation {installation}",
@@ -114,5 +135,6 @@
   "notification-body-noVersionSelectedToUnistall": "Please, select a version to uninstall",
   "notification-body-noInstallationSelectedToDelete": "Please, select an installation to delete",
   "notification-body-noInstallationSelectedToEdit": "Please, select an installation to edit",
-  "notification-body-noInstallationSelectedToOpenInFileExlorer": "Please, select an installation to open on the file explorer"
+  "notification-body-noInstallationSelectedToOpenInFileExlorer": "Please, select an installation to open on the file explorer",
+  "notification-body-folderDoesntExists": "This can happen if you have never opened the game with this installation. Open and close the game to create the necessary folders and files and try again."
 }

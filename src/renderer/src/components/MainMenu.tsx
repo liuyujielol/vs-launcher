@@ -116,7 +116,11 @@ function MainMenu(): JSX.Element {
               <Button
                 onClick={async () => {
                   if (installation) {
-                    window.api.openPathOnFileExplorer(installation!.path)
+                    if (!(await window.api.checkPathExists(installation!.path))) {
+                      addNotification(t("notification-title-folderDoesntExists"), t("notification-body-folderDoesntExists"), "error")
+                    } else {
+                      window.api.openPathOnFileExplorer(installation!.path)
+                    }
                   } else {
                     addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
                   }

@@ -62,7 +62,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           "info",
           `[component] [MenuInstallNewVersion] Game version ${selectedGameVersion?.version} installed successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification(t("notification-title-versionSuccesfullyInstalled"), t("niotification-body-versionSuccesfullyInstalled").replace("{version}", `${selectedGameVersion?.version}`), "success")
+        addNotification(t("notification-title-versionSuccesfullyInstalled"), t("notification-body-versionSuccesfullyInstalled").replace("{version}", `${selectedGameVersion?.version}`), "success")
         setInstalledGameVersions([...installedGameVersions, { version: selectedGameVersion?.version as string, path: selectedFolder }])
         setSelectedGameVersion(availableGameVersions.find((agv) => !installedGameVersions.some((igv) => igv.version === agv.version)))
       }
@@ -137,7 +137,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       </div>
 
       <div className="flex gap-4">
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={!selectedGameVersion || installing} onClick={handleInstallation}>
+        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={!selectedGameVersion || installing || !selectedFolder} onClick={handleInstallation}>
           {installing ? (
             <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
               <FaSpinner />

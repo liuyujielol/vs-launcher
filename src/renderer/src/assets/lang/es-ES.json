@@ -8,15 +8,18 @@
 
   "page-versions-title": "Gestor de Versiones",
   "page-versions-noVersionsFound": "No se encontraron versiones",
+  "page-versions-noVersionsFoundSub": "Instala una nueva con el botón \"más\" o añade una ya instalada con el botón \"lupa\" al final de esta página",
+  "page-versions-btnTitleSearchForVersion": "Buscar una versión instalada",
   "page-versions-btnTitleAddVersion": "Añadir versión",
   "page-versions-btnTitleDeleteVersion": "Eliminar versión seleccionada",
 
   "component-general-openMenu": "Abrir menú",
   "component-general-closeMenu": "Cerrar menú",
 
-  "component-translationMenu-deffaultTitle": "Predeterminado",
+  "component-translationMenu-defaultTitle": "Predeterminado",
 
   "component-installationsMenu-noInstallationsAvailable": "No tienes ninguna instalación",
+  "component-installationsMenu-noInstallationsAvailableSub": "Crea una nueva en el botón \"más\"",
   "component-installationsMenu-modsCount": "{count} mods",
   "component-installationsMenu-noInstallationSelected": "No hay ninguna instalación seleccionada",
 
@@ -39,6 +42,13 @@
   "component-mainMenu-gameRunningDesc": "El juego se está abierto, por favor, ciéralo para usar VS Launcher!",
   "component-mainMenu-gameRunningSubDesc": "No puedes usar VS Launcher mientras juegas para evitar cualquier conflicto con el juego!",
 
+  "component-searchForAVersionMenu-titleSearchForAAversion": "Busca una versión isntalada",
+  "component-searchForAVersionMenu-selectFolder": "Selecciona la carpeta",
+  "component-searchForAVersionMenu-select": "Seleccionar",
+  "component-searchForAVersionMenu-versionDetected": "Versión detectada",
+  "component-searchForAVersionMenu-addIt": "Añadir",
+  "component-searchForAVersionMenu-close": "Cerrar",
+
   "component-installNewVersionMenu-titleInstallNewVersion": "Instala una nueva versión",
   "component-installNewVersionMenu-selectVersion": "Selecciona una versión",
   "component-installNewVersionMenu-noVersionsFound": "No se encontraron versiones",
@@ -59,12 +69,14 @@
   "component-addInstallationMenu-title": "Añadir instalación",
   "component-addInstallationMenu-nameInstallation": "Pon nombre a la instalación",
   "component-addInstallationMenu-minMaxCharacters": "{min} a {max} caracteres",
+  "component-addInstallationMenu-placeholder": "Mi nueva instalación",
   "component-addInstallationMenu-selectVersion": "Selecciona una versión",
   "component-addInstallationMenu-noVersionsFound": "No se encontraron versiones",
+  "component-addInstallationMenu-noVersionsFoundInstallHere": "Primero tienes que instalar o añadir una versión del juego a VS Launcher aqui:",
   "component-addInstallationMenu-selectFolder": "Selecciona una carpeta",
   "component-addInstallationMenu-select": "Seleccionar",
   "component-addInstallationMenu-folderInUse": "Ten cuidado, esa carpeta está en uso por otra instalación!",
-  "component-addInstallationMenu-recomendedNewFolder": "Recomendamos usar una carpeta limpia para cada instalación. Puedes usar una carpeta de otra instalación pero esto puede romper tus partidas!",
+  "component-addInstallationMenu-recomendedNewFolder": "Es recomendado usar una carpeta limpia para cada instalación pero si ya teniás el juego  instalado, puedes seleccionar la misma carpeta que usabas antes para usar los mismos mundos, mods y demás.",
   "component-addInstallationMenu-add": "Añadir",
   "component-addInstallationMenu-close": "Cerrar",
 
@@ -85,6 +97,8 @@
 
   "notification-title-errorExecutingGame": "Error ejecutando juego",
   "notification-title-gameClosedWithError": "Error del jeugo",
+  "notification-title-versionErrorLookingForAVersion": "Error al buscar la versión",
+  "notification-title-versionAlreadyInstalled": "Versión ya instalada",
   "notification-title-versionSuccesfullyInstalled": "Instalado correctamente",
   "notification-title-versionErrorInstalling": "Error instalando la versión",
   "notification-title-versionSuccesfullyUninstalled": "Desinstalado correctamente",
@@ -97,13 +111,16 @@
   "notification-title-installationErrorEditing": "Error editando instalación",
   "notification-title-noVersionSelected": "No hay ninguna versión seleccionada",
   "notification-title-noInstallationSelected": "No hay ninguna instalación seleccionada",
+  "notification-title-folderDoesntExists": "No hay ninguna carpeta",
 
   "notification-body-errorVersionNotInstalled": "La versión {version} del jeugo no esta instalada",
   "notification-body-gameClosedWithError": "El juego se cerro con un error",
   "notification-body-errorExecutingGame": "Ocurrio un error al ejecutar el juego",
-  "niotification-body-versionSuccesfullyInstalled": "Versión {version} del juego instalada correctamente",
+  "notification-body-versionErrorLookingForAVersion": "No se encontraron versiones del juego en esa carpeta",
+  "notification-body-versionAlreadyInstalled": "La versión {version} del juego ya está instalada en VS Launcher",
+  "notification-body-versionSuccesfullyInstalled": "Versión {version} del juego instalada correctamente",
   "notification-body-versionErrorInstalling": "Ocurrio un error al instalar la versión {version} del juego",
-  "niotification-body-versionSuccesfullyUninstalled": "Versión {version} del juego desinstalada correctamente",
+  "notification-body-versionSuccesfullyUninstalled": "Versión {version} del juego desinstalada correctamente",
   "notification-body-versionErrorUninstalling": "Ocurrio un error al desinstalar la versión {version} del juego",
   "notification-body-installationSuccesfullyAdded": "Instalación {installation} añadida correctamente",
   "notification-body-installationErrorAdding": "Ocurrio un error al anadir la instalación {installation}",
@@ -114,5 +131,6 @@
   "notification-body-noVersionSelectedToUnistall": "Por favor, selecciona una versión para desinstalar",
   "notification-body-noInstallationSelectedToDelete": "Por favor, selecciona una instalación para eliminar",
   "notification-body-noInstallationSelectedToEdit": "Por favor, selecciona una instalación para editar",
-  "notification-body-noInstallationSelectedToOpenInFileExlorer": "Por favor, selecciona una instalación para abrir en el explorador de archivos"
+  "notification-body-noInstallationSelectedToOpenInFileExlorer": "Por favor, selecciona una instalación para abrir en el explorador de archivos",
+  "notification-body-folderDoesntExists": "Esto puede deverse a que no has abierto nunca el juego con esta instalación. Abre y cierra el juego para que este cree las carpetas y archivos necesarios."
 }

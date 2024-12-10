@@ -1,11 +1,11 @@
 import { useState, useContext } from "react"
-import { FaPlus, FaTrashCan } from "react-icons/fa6"
+import { FaPlus, FaTrashCan, FaMagnifyingGlass } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
-
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import MenuInstallNewVersion from "@components/versions/MenuInstallNewVersion"
 import MenuUninstallVersion from "@components/versions/MenuUninstallVersion"
+import MenuSearchForAVersion from "@components/versions/MenuSearchForAVersion"
 import AbsoluteMenu from "@components/AbsoluteMenu"
 import Button from "@components/Buttons"
 
@@ -14,6 +14,7 @@ function Versions(): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
   const { t } = useTranslation()
   const [selectedInstalledVersion, setSelectedInstalledVersion] = useState<InstalledGameVersionType>()
+  const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false)
   const [isInstallMenuOpen, setIsInstallMenuOpen] = useState(false)
   const [isUninstallMenuOpen, setIsUninstallMenuOpen] = useState(false)
 
@@ -24,8 +25,9 @@ function Versions(): JSX.Element {
 
         <div className="w-full h-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
-            <div className="w-full h-full flex justify-center items-center">
-              <p>{t("page-versions-noVersionsFound")}</p>
+            <div className="w-full h-full flex flex-col justify-center items-center gap-2 text-center px-24">
+              <h2 className="text-2xl">{t("page-versions-noVersionsFound")}</h2>
+              <p className="text-zinc-400">{t("page-versions-noVersionsFoundSub")}</p>
             </div>
           ) : (
             <>
@@ -48,6 +50,9 @@ function Versions(): JSX.Element {
         <Button btnType="sm" title={t("page-versions-btnTitleAddVersion")} className="bg-zinc-900" onClick={() => setIsInstallMenuOpen(true)}>
           <FaPlus />
         </Button>
+        <Button btnType="sm" title={t("page-versions-btnTitleSearchForVersion")} className="bg-zinc-900" onClick={() => setIsSearchMenuOpen(true)}>
+          <FaMagnifyingGlass />
+        </Button>
         <Button
           btnType="sm"
           title={t("page-versions-btnTitleDeleteVersion")}
@@ -66,6 +71,9 @@ function Versions(): JSX.Element {
 
       <AbsoluteMenu title={t("component-uninstallVersionMenu-titleAreyouSure")} isMenuOpen={isUninstallMenuOpen} setIsMenuOpen={setIsUninstallMenuOpen}>
         <MenuUninstallVersion setIsMenuOpen={setIsUninstallMenuOpen} selectedInstalledVersion={selectedInstalledVersion} setSelectedInstalledVersion={setSelectedInstalledVersion} />
+      </AbsoluteMenu>
+      <AbsoluteMenu title={t("component-searchForAVersionMenu-titleSearchForAAversion")} isMenuOpen={isSearchMenuOpen} setIsMenuOpen={setIsSearchMenuOpen}>
+        <MenuSearchForAVersion setIsMenuOpen={setIsSearchMenuOpen} />
       </AbsoluteMenu>
       <AbsoluteMenu title={t("component-installNewVersionMenu-titleInstallNewVersion")} isMenuOpen={isInstallMenuOpen} setIsMenuOpen={setIsInstallMenuOpen}>
         <MenuInstallNewVersion setIsMenuOpen={setIsInstallMenuOpen} />

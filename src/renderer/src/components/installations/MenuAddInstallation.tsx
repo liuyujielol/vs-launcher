@@ -4,6 +4,7 @@ import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsCon
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import Button from "@components/Buttons"
+import { Link } from "react-router-dom"
 
 function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
@@ -64,7 +65,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
         <input
           type="text"
           className={`w-full h-10 px-2 flex items-center rounded-md shadow-inner shadow-zinc-950 ${installationName.length < 5 || installationName.length > 50 ? "bg-red-800" : "bg-zinc-900"} select-none overflow-x-scroll whitespace-nowrap`}
-          placeholder="Installation name"
+          placeholder={t("component-addInstallationMenu-placeholder")}
           value={installationName}
           onChange={(e) => setInstallationName(e.target.value)}
         />
@@ -74,8 +75,14 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
         <h3 className="font-bold">{t("component-addInstallationMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
-            <div className="w-full h-full flex justify-center items-center">
-              <p>{t("component-addInstallationMenu-noVersionsFound")}</p>
+            <div className="w-full h-full flex flex-col justify-center gap-2 p-2 items-center">
+              <p className="font-bold">{t("component-addInstallationMenu-noVersionsFound")}</p>
+              <p className="text-zinc-400 text-xs">
+                {t("component-addInstallationMenu-noVersionsFoundInstallHere")}{" "}
+                <Link to={"/versions"} className="text-vs" onClick={() => setIsMenuOpen(false)}>
+                  {t("component-mainMenu-versionsTitle")}
+                </Link>
+              </p>
             </div>
           ) : (
             <>
@@ -112,7 +119,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
 
       {installations.some((ins) => ins.path === selectedFolder) ? <p className="text text-red-600">{t("component-addInstallationMenu-folderInUse")}</p> : null}
 
-      <div className="flex flex-col items-center text-center text-sm text-zinc-400">
+      <div className="flex flex-col items-center text-center gap-2 text-sm text-zinc-400">
         <p>{t("component-addInstallationMenu-recomendedNewFolder")}</p>
       </div>
 

@@ -32,7 +32,7 @@ function AbsoluteMenu({
             onClick={(e) => {
               e.stopPropagation()
             }}
-            className="w-[600px] flex flex-col items-center p-4 gap-4 bg-zinc-800 rounded-md shadow-xl shadow-zinc-950"
+            className="w-[600px] flex flex-col items-center p-4 gap-6 bg-zinc-800 rounded-md shadow-xl shadow-zinc-950"
             initial={{ scale: 0.1 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}

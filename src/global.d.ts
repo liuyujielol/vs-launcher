@@ -63,6 +63,8 @@ declare global {
     uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
     deletePath: (path: string) => Promise<boolean>
     checkEmptyPath: (path: string) => Promise<boolean>
+    checkPathExists: (path: string) => Promise<boolean>
+    lookForAGameVersion: (path: string) => Promise<{ exists: boolean; installedGameVersion: InstalledGameVersionType | undefined }>
     openPathOnFileExplorer: (path: string) => Promise<string>
     executeGame: (version: InstalledGameVersionType, installation: InstallationType) => Promise<boolean>
   }

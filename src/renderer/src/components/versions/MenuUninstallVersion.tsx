@@ -36,7 +36,7 @@ function MenuUninstallVersion({
         )
         addNotification(
           t("notification-title-versionSuccesfullyUninstalled"),
-          t("niotification-body-versionSuccesfullyUninstalled").replace("{version}", `${selectedInstalledVersion?.version}`),
+          t("notification-body-versionSuccesfullyUninstalled").replace("{version}", `${selectedInstalledVersion?.version}`),
           "success"
         )
         setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))

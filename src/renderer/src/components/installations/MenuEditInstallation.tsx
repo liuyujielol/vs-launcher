@@ -5,6 +5,7 @@ import { InstallationsContext } from "@contexts/InstallationsContext"
 import { InstallationContext } from "@contexts/InstallationContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import Button from "@components/Buttons"
+import { Link } from "react-router-dom"
 
 function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
@@ -61,8 +62,14 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
         <h3 className="font-bold">{t("component-edditInstallationMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
-            <div className="w-full h-full flex justify-center items-center">
-              <p>{t("component-edditInstallationMenu-noVersionsFound")}</p>
+            <div className="w-full h-full flex flex-col justify-center gap-2 p-2 items-center">
+              <p className="font-bold">{t("component-edditInstallationMenu-noVersionsFound")}</p>
+              <p className="text-zinc-400 text-xs">
+                {t("component-addInstallationMenu-noVersionsFoundInstallHere")}{" "}
+                <Link to={"/versions"} className="text-vs" onClick={() => setIsMenuOpen(false)}>
+                  {t("component-mainMenu-versionsTitle")}
+                </Link>
+              </p>
             </div>
           ) : (
             <>

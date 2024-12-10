@@ -35,7 +35,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
               className="w-full px-2 py-1 flex justify-between items-center rounded shrink-0 shadow-md shadow-zinc-950 hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950"
             >
               <div className="flex gap-4 items-center">
-                <span>{t("component-translationMenu-deffaultTitle")}</span>
+                <span>{t("component-translationMenu-defaultTitle")}</span>
                 <span className="text-zinc-400 text-xs">{t("credits")}</span>
               </div>
               {isOpen ? <FaAngleUp /> : <FaAngleDown />}
