@@ -8,3 +8,7 @@ ipcMain.handle("get-current-user-data-path", (): string => {
 ipcMain.on("set-should-prevent-close", (_event, value: boolean) => {
   setShouldPreventClose(value)
 })
+
+ipcMain.handle("get-version", () => {
+  return app.getVersion()
+})

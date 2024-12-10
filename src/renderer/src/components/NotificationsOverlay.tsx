@@ -15,7 +15,7 @@ function NotificationsOVerlay(): JSX.Element {
     <div className="w-[300px] h-fit absolute flex flex-col items-end top-0 right-0 z-[1000] p-2 gap-2">
       <AnimatePresence>
         {notifications.map(({ id, title, body, type, onClick }) => (
-          <motion.div key={id} onClick={onClick} className={`w-[300px] flex flex-col p-2 rounded-md ${types[type] || ""}`} initial={{ x: 320 }} animate={{ x: 0 }} exit={{ x: 320 }}>
+          <motion.div key={id} onClick={onClick} className={`w-[300px] flex flex-col p-2 rounded-md text-center ${types[type] || ""}`} initial={{ x: 320 }} animate={{ x: 0 }} exit={{ x: 320 }}>
             <h3 className="font-bold select-none">{title}</h3>
             <p className="select-none">{body}</p>
           </motion.div>

@@ -40,22 +40,22 @@ function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispat
 
   return (
     <>
-      <p>
+      <p className="text-center">
         {t("component-deleteInstallationMenu-areYouSure")} <span className="font-bold">{installation?.name}</span>
       </p>
-      <div className="flex gap-2 justify-end">
+      <div className="flex gap-2 justify-end text-center">
         <span>{t("component-deleteInstallationMenu-deleteData")}</span>
         <input type="checkbox" name="Delete data?" onChange={(e) => setDeleteData(e.target.checked)} />
       </div>
-      <div className="flex flex-col items-center text-sm text-zinc-400">
+      <div className="flex flex-col items-center text-sm text-zinc-400 text-center">
         <p>{t("component-deleteInstallationMenu-ifDontDeleteData")}</p>
         <p>{installation?.path}</p>
       </div>
       <div className="flex gap-4">
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={handleDeleting}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={handleDeleting}>
           {t("component-deleteInstallationMenu-delete")}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
           {t("component-deleteInstallationMenu-cancel")}
         </Button>
       </div>

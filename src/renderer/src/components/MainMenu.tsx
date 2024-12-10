@@ -58,11 +58,17 @@ function MainMenu(): JSX.Element {
   return (
     <header className="bg-zinc-900 p-4 gap-4 flex flex-col justify-between">
       <LanguagesMenu />
-      <div className="flex flex-col gap-2 mt-10">
+      <div className="flex flex-col gap-2 mt-10 overflow-y-scroll">
         <MainMenuLink icon={icon} text={t("component-mainMenu-homeTitle")} link="/" desc={t("component-mainMenu-homeDesc")} />
         <MainMenuLink icon={iconVersions} text={t("component-mainMenu-versionsTitle")} link="/versions" desc={t("component-mainMenu-versionsDesc")} />
         <MainMenuLink icon={iconModdb} text={t("component-mainMenu-modsTitle")} link="/mods" desc={t("component-mainMenu-modsDesc")} />
-        <MainMenuLink icon={iconNews} text={t("component-mainMenu-newsTitle")} link="/news" desc={t("component-mainMenu-newsDesc")} />
+        <MainMenuLink
+          icon={iconNews}
+          text={t("component-mainMenu-newsTitle")}
+          link="https://github.com/XurxoMF/vs-launcher/discussions/categories/announcements-news"
+          onBrowser={true}
+          desc={t("component-mainMenu-newsDesc")}
+        />
         <MainMenuLink
           icon={iconChangelog}
           text={t("component-mainMenu-changelogTitle")}

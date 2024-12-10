@@ -56,12 +56,12 @@ function MenuUninstallVersion({
 
   return (
     <>
-      <p>
+      <p className="text-center">
         {t("component-uninstallVersionMenu-areYouSure")} <span className="font-bold">{selectedInstalledVersion?.version}</span>
       </p>
-      <p>{t("component-uninstallVersionMenu-uninstallingNotReversible")}</p>
-      <div className="flex gap-4">
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={isUninstalling} onClick={handleUninstalling}>
+      <p className="text-center">{t("component-uninstallVersionMenu-uninstallingNotReversible")}</p>
+      <div className="flex gap-4 text-center">
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={isUninstalling} onClick={handleUninstalling}>
           {isUninstalling ? (
             <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
               <FaSpinner />
@@ -70,7 +70,7 @@ function MenuUninstallVersion({
             t("component-uninstallVersionMenu-uninstall")
           )}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={isUninstalling}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={isUninstalling}>
           {t("component-uninstallVersionMenu-cancel")}
         </Button>
       </div>

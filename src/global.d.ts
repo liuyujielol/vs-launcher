@@ -46,6 +46,7 @@ declare global {
   }
 
   type LocalAPI = {
+    getVersion: () => Promise<string>
     logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string) => void
     setPreventAppClose: (value: boolean) => void
     openOnBrowser: (url: string) => Promise<void>

@@ -1,10 +1,15 @@
 {
   "credits": "by XurxoMF",
 
+  "top-minimenu-issues": "Help & Bugs",
+  "top-minimenu-guides": "Guides",
+  "top-minimenu-source": "Source",
+
   "page-general-notReadyYet": "This section is not ready yet!",
   "page-general-comeBackLater": "Come back on the next update and it may be ready ^^",
 
-  "page-home-title": "Vintage Story Launcher",
+  "page-home-title": "Wellcome to VS Launcher",
+  "page-home-description": "The unofficial Vintage Story Launcher with all the features you need.",
 
   "page-versions-title": "Version Manager",
   "page-versions-noVersionsFound": "No versions found",

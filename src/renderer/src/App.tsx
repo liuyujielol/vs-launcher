@@ -10,7 +10,6 @@ import MainMenu from "@components/MainMenu"
 import NotificationsOverlay from "@components/NotificationsOverlay"
 import Home from "@routes/Home"
 import Mods from "@routes/Mods"
-import News from "@routes/News"
 import Versions from "@routes/Versions"
 import "./i18n"
 import i18n from "./i18n"
@@ -29,14 +28,13 @@ function App(): JSX.Element {
             <PreventClosingProvider>
               <PlayingProvider>
                 <Router>
-                  <div className="w-full h-full relative grid grid-cols-[18rem_auto]">
+                  <div className="w-full h-full relative grid grid-cols-[20rem_auto] font-mono">
                     <NotificationsOverlay />
                     <MainMenu />
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/versions" element={<Versions />} />
                       <Route path="/mods" element={<Mods />} />
-                      <Route path="/news" element={<News />} />
                     </Routes>
                   </div>
                 </Router>

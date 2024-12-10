@@ -54,7 +54,7 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
         <div className="w-full flex gap-4 items-center">
           <Button
             btnType="custom"
-            className="w-24 h-10 bg-zinc-900"
+            className="w-fit h-10 bg-zinc-900"
             onClick={async () => {
               const userSelectedFolder = await window.api.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
@@ -74,10 +74,10 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       </div>
 
       <div className="flex gap-4">
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={!selectedFolder || !gameVersionFound} onClick={handleSelection}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={!selectedFolder || !gameVersionFound} onClick={handleSelection}>
           {t("component-searchForAVersionMenu-addIt")}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
           {t("component-searchForAVersionMenu-close")}
         </Button>
       </div>

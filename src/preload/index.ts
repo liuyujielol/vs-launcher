@@ -5,6 +5,7 @@ import { autoUpdater } from "electron-updater"
 
 // Custom APIs for renderer
 const api: LocalAPI = {
+  getVersion: (): Promise<string> => ipcRenderer.invoke("get-version"),
   logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string): void => ipcRenderer.send("log-message", mode, message),
   setPreventAppClose: (value: boolean): void => ipcRenderer.send("set-should-prevent-close", value),
   openOnBrowser: (url: string): Promise<void> => shell.openExternal(url),

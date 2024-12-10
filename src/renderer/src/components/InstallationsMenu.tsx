@@ -13,7 +13,7 @@ function InstallationsMenu({ className }: { className?: string }): JSX.Element {
   return (
     <div className={`min-h-16 max-h-48 flex flex-col font-bold bg-zinc-800 rounded ${className}`}>
       {installations.length === 0 ? (
-        <div className="w-full h-16 p-2 flex flex-col justify-center items-center rounded text-center">
+        <div className="w-full h-fit p-2 flex flex-col justify-center items-center rounded text-center">
           <p>{t("component-installationsMenu-noInstallationsAvailable")}</p>
           <p className="text-zinc-400 text-xs">{t("component-installationsMenu-noInstallationsAvailableSub")}</p>
         </div>

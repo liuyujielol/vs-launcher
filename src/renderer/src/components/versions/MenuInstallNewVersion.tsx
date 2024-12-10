@@ -85,7 +85,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
         <h3 className="font-bold">{t("component-installNewVersionMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {availableGameVersions.length < 1 ? (
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-center items-center text-center">
               <p>{t("component-installNewVersionMenu-noVersionsFound")}</p>
             </div>
           ) : (
@@ -111,7 +111,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
         <div className="w-full flex gap-4 items-center">
           <Button
             btnType="custom"
-            className="w-24 h-10 bg-zinc-900"
+            className="w-fit h-10 bg-zinc-900"
             disabled={installing}
             onClick={async () => {
               const userSelectedFolder = await window.api.selectFolderDialog()
@@ -137,7 +137,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       </div>
 
       <div className="flex gap-4">
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" disabled={!selectedGameVersion || installing || !selectedFolder} onClick={handleInstallation}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={!selectedGameVersion || installing || !selectedFolder} onClick={handleInstallation}>
           {installing ? (
             <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
               <FaSpinner />
@@ -146,7 +146,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
             t("component-installNewVersionMenu-install")
           )}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={installing}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={installing}>
           {t("component-installNewVersionMenu-close")}
         </Button>
       </div>

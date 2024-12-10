@@ -26,7 +26,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
 
   return (
     <>
-      <div className={`absolute top-4 left-4 min-h-6 max-h-48 w-64 flex flex-col text-sm bg-zinc-800 rounded ${className}`}>
+      <div className={`absolute top-4 left-4 min-h-6 max-h-48 w-[18rem] flex flex-col text-sm bg-zinc-800 rounded ${className}`}>
         <>
           {!window.localStorage.getItem("lang") ? (
             <button

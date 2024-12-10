@@ -75,7 +75,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
         <h3 className="font-bold">{t("component-addInstallationMenu-selectVersion")}</h3>
         <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
-            <div className="w-full h-full flex flex-col justify-center gap-2 p-2 items-center">
+            <div className="w-full h-full flex flex-col justify-center gap-2 p-2 items-center text-center">
               <p className="font-bold">{t("component-addInstallationMenu-noVersionsFound")}</p>
               <p className="text-zinc-400 text-xs">
                 {t("component-addInstallationMenu-noVersionsFoundInstallHere")}{" "}
@@ -105,7 +105,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
         <div className="w-full flex gap-4 items-center">
           <Button
             btnType="custom"
-            className="w-24 h-10 bg-zinc-900"
+            className="w-fit h-10 bg-zinc-900"
             onClick={async () => {
               const userSelectedFolder = await window.api.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
@@ -132,7 +132,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
         >
           {t("component-addInstallationMenu-add")}
         </Button>
-        <Button btnType="custom" className="w-24 h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)}>
           {t("component-addInstallationMenu-close")}
         </Button>
       </div>
