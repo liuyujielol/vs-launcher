@@ -45,7 +45,7 @@ export default Home
 
 const MiniLinks = ({ to, text }: { to: string; text: string }): JSX.Element => {
   return (
-    <a href={to} className="flex flex-row flex-nowrap items-center gap-1">
+    <a onClick={() => window.api.openOnBrowser(to)} className="flex flex-row flex-nowrap items-center gap-1">
       {text} <FiExternalLink />
     </a>
   )
