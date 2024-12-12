@@ -47,7 +47,7 @@ ipcMain.handle("look-for-a-game-version", async (_event, path: string) => {
           })
         })
 
-        return { exists: true, installedGameVersion: { path, version } }
+        return { exists: true, installedGameVersion: version }
       } catch (error) {
         logMessage("error", `[component] [look-for-a-game-version] Error: ${error}`)
         return { exists: false }

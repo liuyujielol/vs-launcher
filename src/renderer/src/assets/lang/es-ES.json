@@ -1,6 +1,4 @@
 {
-  "credits": "por XurxoMF",
-
   "top-minimenu-issues": "Ayuda y Bugs",
   "top-minimenu-guides": "Guías",
   "top-minimenu-source": "Fuente",
@@ -51,6 +49,7 @@
   "component-searchForAVersionMenu-selectFolder": "Selecciona la carpeta",
   "component-searchForAVersionMenu-select": "Seleccionar",
   "component-searchForAVersionMenu-versionDetected": "Versión detectada",
+  "component-searchForAVersionMenu-info": "Asegurate de que la versión detectada es la que has seleccionado y si no edítala en el campo de arriba asegurándote de seguir la convención X.X.X y si es rc o pre X.X.X-rc.X o X.X.X-pre.X",
   "component-searchForAVersionMenu-addIt": "Añadir",
   "component-searchForAVersionMenu-close": "Cerrar",
 
@@ -103,6 +102,8 @@
   "notification-title-errorExecutingGame": "Error ejecutando juego",
   "notification-title-gameClosedWithError": "Error del jeugo",
   "notification-title-versionErrorLookingForAVersion": "Error al buscar la versión",
+  "notification-title-versionSuccesfullyFound": "Añadida correctamente",
+  "notification-title-versionNotFound": "Versión no encontrada",
   "notification-title-versionAlreadyInstalled": "Versión ya instalada",
   "notification-title-versionSuccesfullyInstalled": "Instalado correctamente",
   "notification-title-versionErrorInstalling": "Error instalando la versión",
@@ -122,6 +123,7 @@
   "notification-body-gameClosedWithError": "El juego se cerro con un error",
   "notification-body-errorExecutingGame": "Ocurrio un error al ejecutar el juego",
   "notification-body-versionErrorLookingForAVersion": "No se encontraron versiones del juego en esa carpeta",
+  "notification-body-versionSuccesfullyFound": "La versión {version} del juego ha sido encontrada y añadida correctamente",
   "notification-body-versionAlreadyInstalled": "La versión {version} del juego ya está instalada en VS Launcher",
   "notification-body-versionSuccesfullyInstalled": "Versión {version} del juego instalada correctamente",
   "notification-body-versionErrorInstalling": "Ocurrio un error al instalar la versión {version} del juego",

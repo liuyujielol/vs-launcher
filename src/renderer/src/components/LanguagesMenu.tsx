@@ -7,12 +7,13 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
   const { t, i18n } = useTranslation()
 
-  const getLanguages = (): { code: string; name: ResourceKey }[] => {
+  const getLanguages = (): { code: string; name: ResourceKey; credits: ResourceKey }[] => {
     const resources = i18n.options.resources
     if (!resources) return []
     return Object.keys(resources).map((code) => ({
       code,
-      name: resources[code]?.name || code
+      name: resources[code]?.name || code,
+      credits: resources[code]?.credits || "by anonymous"
     }))
   }
 
@@ -36,7 +37,6 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
             >
               <div className="flex gap-4 items-center">
                 <span>{t("component-translationMenu-defaultTitle")}</span>
-                <span className="text-zinc-400 text-xs">{t("credits")}</span>
               </div>
               {isOpen ? <FaAngleUp /> : <FaAngleDown />}
             </button>
@@ -53,7 +53,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
                     >
                       <div className="flex gap-4 items-center">
                         <span>{lang.name.toString()}</span>
-                        <span className="text-zinc-400 text-xs">{t("credits")}</span>
+                        <span className="text-zinc-400 text-xs">{lang.credits.toString()}</span>
                       </div>
                       {isOpen ? <FaAngleUp /> : <FaAngleDown />}
                     </button>
@@ -76,7 +76,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
                     >
                       <div className="flex gap-4 items-center">
                         <span>{lang.name.toString()}</span>
-                        <span className="text-zinc-400 text-xs">{t("credits")}</span>
+                        <span className="text-zinc-400 text-xs">{lang.credits.toString()}</span>
                       </div>
                     </button>
                   )

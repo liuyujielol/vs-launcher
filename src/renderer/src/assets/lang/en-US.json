@@ -1,6 +1,4 @@
 {
-  "credits": "by XurxoMF",
-
   "top-minimenu-issues": "Help & Bugs",
   "top-minimenu-guides": "Guides",
   "top-minimenu-source": "Source",
@@ -51,6 +49,7 @@
   "component-searchForAVersionMenu-selectFolder": "Select folder",
   "component-searchForAVersionMenu-select": "Select",
   "component-searchForAVersionMenu-versionDetected": "Version detected",
+  "component-searchForAVersionMenu-info": "Make sure the detected version is the one you've selected and if it's not edit it on the above field making sure it follows the convetion X.X.X and if it's rc or pre X.X.X-rc.X or X.X.X-pre.X.",
   "component-searchForAVersionMenu-addIt": "Add it",
   "component-searchForAVersionMenu-close": "Close",
 
