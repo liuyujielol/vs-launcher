@@ -49,7 +49,7 @@
   "component-searchForAVersionMenu-selectFolder": "选择文件夹",
   "component-searchForAVersionMenu-select": "选择",
   "component-searchForAVersionMenu-versionDetected": "检测到版本",
-  "component-searchForAVersionMenu-info": "Make sure the detected version is the one you've selected and if it's not edit it on the above field making sure it follows the convetion X.X.X and if it's rc or pre X.X.X-rc.X or X.X.X-pre.X.",
+  "component-searchForAVersionMenu-info": "请确保检测到的版本是您选择的版本，如果不是，请在上面的字段中编辑它。请确保版本号遵循X.X.X，如果是rc版本或者pre版本则是X.X.X-rc.X 或 X.X.X-pre.X。",
   "component-searchForAVersionMenu-addIt": "添加此版本",
   "component-searchForAVersionMenu-close": "关闭",
 
