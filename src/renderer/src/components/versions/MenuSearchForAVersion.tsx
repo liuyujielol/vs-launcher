@@ -47,6 +47,7 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
     } finally {
       setGameVersionFound("")
       setSelectedFolder("")
+      setIsMenuOpen(false)
     }
   }
 

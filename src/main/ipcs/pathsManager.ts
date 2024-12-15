@@ -31,7 +31,7 @@ ipcMain.handle("look-for-a-game-version", async (_event, path: string) => {
 
       try {
         const version = await new Promise((resolve, reject) => {
-          const child = spawn("powershell", ["-NoProfile", "-Command", `(Get-Item '${`${path}\\${file}`}').VersionInfo.ProductVersion`])
+          const child = spawn(`${path}\\${file}`, [`-v`])
 
           child.stdout.on("data", (data) => {
             const version = data.toString().trim()
