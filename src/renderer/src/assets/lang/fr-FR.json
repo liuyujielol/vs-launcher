@@ -49,7 +49,7 @@
   "component-searchForAVersionMenu-selectFolder": "Sélectionner le dossier",
   "component-searchForAVersionMenu-select": "Sélectionner",
   "component-searchForAVersionMenu-versionDetected": "Version détectée",
-  "component-searchForAVersionMenu-info": "Make sure the detected version is the one you've selected and if it's not edit it on the above field making sure it follows the convetion X.X.X and if it's rc or pre X.X.X-rc.X or X.X.X-pre.X.",
+  "component-searchForAVersionMenu-info": "Vérifiez que la version détectée est celle que vous avez sélectionnée. Si cela n'est pas le cas, modifiez le sur le ci-dessus en étant sûr qu'elle soit notée sous la forme X.X.X et si c'est une verion rc ou pre --> X.X.X-rc.X ou X.X.X-pre.X",
   "component-searchForAVersionMenu-addIt": "Ajouter",
   "component-searchForAVersionMenu-close": "Fermer",
 
@@ -80,7 +80,7 @@
   "component-addInstallationMenu-selectFolder": "Sélectionner le dossier",
   "component-addInstallationMenu-select": "Sélectionner",
   "component-addInstallationMenu-folderInUse": "Attention, ce dossier est actuellement utilisé par une autre installation!",
-  "component-addInstallationMenu-recomendedNewFolder": "Its recomended to use a clean folder for each installation but if you already had the game installed you can select the same folder you was using before and it'll use those worlds, mods and so on. Il est préférable d'utiliser un dossier vide pour chaque installation, mais si vous avez déjà installé le jeu auparavant, vous pouvez sélectionner le même dossier et le launcher utilisera ces mondes, mods, etc...",
+  "component-addInstallationMenu-recomendedNewFolder": "Il est préférable d'utiliser un dossier vide pour chaque installation, mais si vous avez déjà installé le jeu auparavant, vous pouvez sélectionner le même dossier et le launcher utilisera ces mondes, mods, etc...",
   "component-addInstallationMenu-add": "Ajouter",
   "component-addInstallationMenu-close": "Fermer",
 
@@ -93,7 +93,7 @@
 
   "component-editInstallationMenu-title": "Modifier installation",
   "component-edditInstallationMenu-changeName": "Renommer l'installation",
-  "component-edditInstallationMenu-minMaxCharacters": "{min} a {max} caractères",
+  "component-edditInstallationMenu-minMaxCharacters": "{min} à {max} caractères",
   "component-edditInstallationMenu-selectVersion": "Sélectionner la version",
   "component-edditInstallationMenu-noVersionsFound": "Aucune version trouvée",
   "component-edditInstallationMenu-edit": "Modifier",
