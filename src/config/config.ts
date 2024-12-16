@@ -1,5 +1,6 @@
 import { app } from "electron"
 import fs from "fs"
+import { join } from "path"
 import { logMessage } from "@utils/logMessage"
 
 const defaultConfig: ConfigType = {
@@ -20,23 +21,25 @@ export class Config {
   }
 
   saveConfig(): boolean {
+    const path = join(app.getPath("userData"), "config.json")
     try {
-      fs.writeFileSync(`${app.getPath("userData")}\\config.json`, JSON.stringify(this, null, 2))
-      logMessage("info", `Config saved at ${app.getPath("userData")}\\config.json`)
+      fs.writeFileSync(path, JSON.stringify(this, null, 2))
+      logMessage("info", `Config saved at ${path}`)
       return true
     } catch (err) {
-      logMessage("error", `Error saving config at ${app.getPath("userData")}\\config.json`)
+      logMessage("error", `Error saving config at ${path}`)
       return false
     }
   }
 
   static getConfig(): Config {
-    if (!fs.existsSync(`${app.getPath("userData")}\\config.json`)) {
+    const path = join(app.getPath("userData"), "config.json")
+    if (!fs.existsSync(path)) {
       const newConfig = new Config(defaultConfig)
       newConfig.saveConfig()
       return newConfig
     }
-    const newConfig = new Config(JSON.parse(fs.readFileSync(`${app.getPath("userData")}\\config.json`, "utf-8")))
+    const newConfig = new Config(JSON.parse(fs.readFileSync(path, "utf-8")))
     return newConfig
   }
 

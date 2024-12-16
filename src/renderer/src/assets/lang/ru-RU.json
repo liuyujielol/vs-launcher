@@ -118,6 +118,8 @@
   "notification-title-noVersionSelected": "Версия не выбрана",
   "notification-title-noInstallationSelected": "Установленная версия не выбрана",
   "notification-title-folderDoesntExists": "Папка не найдена",
+  "notification-title-updateAvailable": "Update available",
+  "notification-title-updateDownloaded": "Update downloaded",
 
   "notification-body-errorVersionNotInstalled": "Версия игры {version} не установлена",
   "notification-body-gameClosedWithError": "Игра закрылась с ошибкой",
@@ -140,5 +142,7 @@
   "notification-body-noInstallationSelectedToDelete": "Пожалуйста, выберите сборку для удаления",
   "notification-body-noInstallationSelectedToEdit": "Пожалуйста, выберите установленную версию для редактирования",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "Пожалуйста, выберите сборку через проводник",
-  "notification-body-folderDoesntExists": "Такое может произойти если вы никогда не запускали игру после установки. Включите и выключите её для того чтобы Vintage Story создала все необходимые файлы после первого запуска."
+  "notification-body-folderDoesntExists": "Такое может произойти если вы никогда не запускали игру после установки. Включите и выключите её для того чтобы Vintage Story создала все необходимые файлы после первого запуска.",
+  "notification-body-updateAvailable": "A new update is available! Downloading on the background...",
+  "notification-body-updateDownloaded": "Update downloaded succesfully! Close VS Launcher and wait 1 minute for it tu update."
 }

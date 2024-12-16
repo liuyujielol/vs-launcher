@@ -1,4 +1,5 @@
 import { createContext, useState, useCallback, useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 
 interface NotificationsContextType {
   notifications: NotificationType[]
@@ -11,6 +12,7 @@ const NotificationsContext = createContext<NotificationsContextType>(defaultValu
 
 const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [notifications, setNotifications] = useState<NotificationType[]>([])
+  const { t } = useTranslation()
 
   const firstExecuted = useRef(true)
   useEffect(() => {
@@ -18,11 +20,11 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX
       firstExecuted.current = false
 
       window.api.onUpdateAvailable(() => {
-        addNotification("Update Available", "A new version is available. Donwloading...", "info")
+        addNotification(t("notification-title-updateAvailable"), t("notification-body-updateAvailable"), "info")
       })
 
       window.api.onUpdateDownloaded(() => {
-        addNotification("Update Downloaded", "Update downloaded successfully. Click to update and restart!", "success", () => {
+        addNotification(t("notification-title-updateDownloaded"), t("notification-body-updateDownloaded"), "success", () => {
           window.api.updateAndRestart()
         })
       })

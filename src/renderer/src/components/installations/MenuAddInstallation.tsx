@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useTranslation } from "react-i18next"
+import { join } from "path"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
@@ -18,7 +19,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
   useEffect(() => {
     ;(async (): Promise<void> => {
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(`${currentUserDataPath}\\VSLInstallations\\${installationName.replace(/[^a-zA-Z0-9-]+/g, "-")}`)
+      setSelectedFolder(join(currentUserDataPath, "VSLInstallations", installationName.replace(/[^a-zA-Z0-9-]+/g, "-")))
     })()
   }, [installationName])
 

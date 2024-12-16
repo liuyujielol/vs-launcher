@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import axios from "axios"
+import { join } from "path"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
@@ -11,12 +12,11 @@ import Button from "@components/Buttons"
 function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
-  const { setPreventClosing } = useContext(PreventClosingContext)
+  const { preventClosing, setPreventClosing } = useContext(PreventClosingContext)
   const { t } = useTranslation()
   const [availableGameVersions, setAvailableGameVersions] = useState<GameVersionType[]>([])
   const [selectedGameVersion, setSelectedGameVersion] = useState<GameVersionType>()
   const [selectedFolder, setSelectedFolder] = useState<string>("")
-  const [installing, setInstalling] = useState<boolean>(false)
   const [downloadProgress, setDownloadProgress] = useState<number>(0)
   const [extractProgress, setExtractProgress] = useState<number>(0)
 
@@ -43,15 +43,15 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
 
   useEffect(() => {
     ;(async (): Promise<void> => {
+      if (selectedGameVersion === undefined) return
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(`${currentUserDataPath}\\VSLGameVersions\\${selectedGameVersion?.version}`)
+      setSelectedFolder(join(currentUserDataPath, "VSLGameVersions", selectedGameVersion.version))
     })()
   }, [selectedGameVersion])
 
   const handleInstallation = async (): Promise<void> => {
     try {
       window.api.logMessage("info", `[component] [MenuInstallNewVersion] Starting version installation: ${selectedGameVersion?.version}`)
-      setInstalling(true)
       setPreventClosing(true)
 
       const filePath = await window.api.downloadGameVersion(selectedGameVersion as GameVersionType, selectedFolder)
@@ -72,7 +72,6 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
       addNotification(t("notification-title-versionErrorInstalling"), t("notification-body-versionErrorInstalling").replace("{version}", `${selectedGameVersion?.version}`), "error")
     } finally {
-      setInstalling(false)
       setPreventClosing(false)
       setDownloadProgress(0)
       setExtractProgress(0)
@@ -95,7 +94,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
                   key={current.version}
                   className={`flex justify-between px-2 py-1 font-bold rounded-md shadow-md shadow-zinc-950 disabled:shadow-none disabled:opacity-50  hover:scale-[.99] hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${current.version === selectedGameVersion?.version ? "bg-vs text-zinc-900" : "bg-zinc-800"}`}
                   onClick={() => setSelectedGameVersion(current)}
-                  disabled={installedGameVersions.some((igv) => igv.version === current.version) || installing}
+                  disabled={installedGameVersions.some((igv) => igv.version === current.version) || preventClosing}
                 >
                   <span>{current.version}</span>
                   <span>{installedGameVersions.find((igv) => igv.version === current.version) ? t("component-installNewVersionMenu-installed") : ""}</span>
@@ -112,7 +111,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           <Button
             btnType="custom"
             className="w-fit h-10 bg-zinc-900"
-            disabled={installing}
+            disabled={preventClosing}
             onClick={async () => {
               const userSelectedFolder = await window.api.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
@@ -137,8 +136,8 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       </div>
 
       <div className="flex gap-4">
-        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={!selectedGameVersion || installing || !selectedFolder} onClick={handleInstallation}>
-          {installing ? (
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={!selectedGameVersion || preventClosing || !selectedFolder} onClick={handleInstallation}>
+          {preventClosing ? (
             <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
               <FaSpinner />
             </motion.div>
@@ -146,7 +145,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
             t("component-installNewVersionMenu-install")
           )}
         </Button>
-        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={installing}>
+        <Button btnType="custom" className="w-fit h-10 bg-zinc-900" onClick={() => setIsMenuOpen(false)} disabled={preventClosing}>
           {t("component-installNewVersionMenu-close")}
         </Button>
       </div>

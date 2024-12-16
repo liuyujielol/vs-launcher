@@ -3,7 +3,7 @@ import { join } from "path"
 import { electronApp, optimizer, is } from "@electron-toolkit/utils"
 import { autoUpdater } from "electron-updater"
 
-const customUserDataPath = app.getPath("appData") + `\\VSLauncher`
+const customUserDataPath = join(app.getPath("appData"), "VSLauncher")
 app.setPath("userData", customUserDataPath)
 
 import { Config } from "@config/config"
@@ -19,7 +19,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
-    title: `VS Launcher | ${app.getVersion()}`,
+    title: `VS Launcher`,
     show: false,
     autoHideMenuBar: true,
     fullscreenable: false,

@@ -2,12 +2,12 @@ import { ipcMain } from "electron"
 import axios from "axios"
 import yauzl from "yauzl"
 import fs from "fs"
-import path from "path"
+import { join, dirname } from "path"
 import fsExtra from "fs-extra"
 import { logMessage } from "@utils/logMessage"
 
 ipcMain.handle("download-game-version", async (event, gameVersion: GameVersionType, outputPath: string) => {
-  const pathToDownload = `${outputPath}\\${gameVersion.version}.zip`
+  const pathToDownload = join(outputPath, `${gameVersion.version}.zip`)
 
   logMessage("info", `[ipcMain] [download-game-version] Downloading game version ${gameVersion.version} to ${pathToDownload}`)
 
@@ -65,7 +65,7 @@ ipcMain.handle("extract-game-version", async (event, filePath: string, outputPat
       zipfile.readEntry() // Comenzar la lectura
 
       zipfile.on("entry", (entry) => {
-        const fullPath = path.join(outputPath, entry.fileName)
+        const fullPath = join(outputPath, entry.fileName)
 
         // Si la entrada es un directorio, lo creamos
         if (/\/$/.test(entry.fileName)) {
@@ -81,7 +81,7 @@ ipcMain.handle("extract-game-version", async (event, filePath: string, outputPat
             return reject(`Error opening file ${entry.fileName}: ${err}`)
           }
 
-          fsExtra.ensureDirSync(path.dirname(fullPath)) // Aseguramos que el directorio exista antes de escribir el archivo
+          fsExtra.ensureDirSync(dirname(fullPath)) // Aseguramos que el directorio exista antes de escribir el archivo
 
           const writeStream = fs.createWriteStream(fullPath)
 

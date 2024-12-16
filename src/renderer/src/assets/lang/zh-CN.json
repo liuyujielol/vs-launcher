@@ -118,6 +118,8 @@
   "notification-title-noVersionSelected": "未选择任何版本",
   "notification-title-noInstallationSelected": "未选择任何安装",
   "notification-title-folderDoesntExists": "文件夹不存在",
+  "notification-title-updateAvailable": "Update available",
+  "notification-title-updateDownloaded": "Update downloaded",
 
   "notification-body-errorVersionNotInstalled": "游戏版本 {version} 未安装",
   "notification-body-gameClosedWithError": "游戏因错误而关闭",
@@ -140,5 +142,7 @@
   "notification-body-noInstallationSelectedToDelete": "请选择要删除的安装",
   "notification-body-noInstallationSelectedToEdit": "请选择要编辑的安装",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "请选择要在文件资源管理器中打开的安装",
-  "notification-body-folderDoesntExists": "如果您从未使用此游戏版本打开过游戏，则可能会发生这种情况。打开并关闭游戏以创建必要的文件夹和文件，然后重试。"
+  "notification-body-folderDoesntExists": "如果您从未使用此游戏版本打开过游戏，则可能会发生这种情况。打开并关闭游戏以创建必要的文件夹和文件，然后重试。",
+  "notification-body-updateAvailable": "A new update is available! Downloading on the background...",
+  "notification-body-updateDownloaded": "Update downloaded succesfully! Close VS Launcher and wait 1 minute for it tu update."
 }

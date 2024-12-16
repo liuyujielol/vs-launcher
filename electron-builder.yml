@@ -30,12 +30,9 @@ mac:
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
-  target:
-    - AppImage
-    - snap
-    - deb
+  target: AppImage
   maintainer: xurxomf.xyz
-  category: Utility
+  category: Game
   icon: resources/icon.ico
 appImage:
   artifactName: ${name}-${version}.${ext}

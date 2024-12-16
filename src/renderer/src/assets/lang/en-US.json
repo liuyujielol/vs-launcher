@@ -118,6 +118,8 @@
   "notification-title-noVersionSelected": "No version selected",
   "notification-title-noInstallationSelected": "No installation selected",
   "notification-title-folderDoesntExists": "There is no folder",
+  "notification-title-updateAvailable": "Update available",
+  "notification-title-updateDownloaded": "Update downloaded",
 
   "notification-body-errorVersionNotInstalled": "Game version {version} is not installed",
   "notification-body-gameClosedWithError": "Game closed with an error",
@@ -140,5 +142,7 @@
   "notification-body-noInstallationSelectedToDelete": "Please, select an installation to delete",
   "notification-body-noInstallationSelectedToEdit": "Please, select an installation to edit",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "Please, select an installation to open on the file explorer",
-  "notification-body-folderDoesntExists": "This can happen if you have never opened the game with this installation. Open and close the game to create the necessary folders and files and try again."
+  "notification-body-folderDoesntExists": "This can happen if you have never opened the game with this installation. Open and close the game to create the necessary folders and files and try again.",
+  "notification-body-updateAvailable": "A new update is available! Downloading on the background...",
+  "notification-body-updateDownloaded": "Update downloaded succesfully! Close VS Launcher and wait 1 minute for it tu update."
 }
