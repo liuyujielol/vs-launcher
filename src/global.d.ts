@@ -62,6 +62,7 @@ declare global {
     onDownloadGameVersionProgress: (callback: ProgressCallback) => void
     onExtractGameVersionProgress: (callback: ProgressCallback) => void
     uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
+    formatPath: (parts: string[]) => Promise<string>
     deletePath: (path: string) => Promise<boolean>
     checkEmptyPath: (path: string) => Promise<boolean>
     checkPathExists: (path: string) => Promise<boolean>

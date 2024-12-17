@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react"
 import axios from "axios"
-import { join } from "path"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
@@ -45,7 +44,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
     ;(async (): Promise<void> => {
       if (selectedGameVersion === undefined) return
       const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(join(currentUserDataPath, "VSLGameVersions", selectedGameVersion.version))
+      setSelectedFolder(await window.api.formatPath([currentUserDataPath, "VSLGameVersions", selectedGameVersion.version]))
     })()
   }, [selectedGameVersion])
 

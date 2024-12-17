@@ -1,9 +1,9 @@
 import { ipcMain } from "electron"
+import os from "os"
 import axios from "axios"
 import yauzl from "yauzl"
-import fs from "fs"
 import { join, dirname } from "path"
-import fsExtra from "fs-extra"
+import fse from "fs-extra"
 import { logMessage } from "@utils/logMessage"
 
 ipcMain.handle("download-game-version", async (event, gameVersion: GameVersionType, outputPath: string) => {
@@ -11,7 +11,15 @@ ipcMain.handle("download-game-version", async (event, gameVersion: GameVersionTy
 
   logMessage("info", `[ipcMain] [download-game-version] Downloading game version ${gameVersion.version} to ${pathToDownload}`)
 
-  const url = gameVersion.windows
+  let url: string
+
+  if (os.platform() === "linux") {
+    logMessage("info", `[ipcMain] [download-game-version] Detected Linux platform`)
+    url = gameVersion.linux
+  } else {
+    logMessage("info", `[ipcMain] [download-game-version] Detected Windows platform`)
+    url = gameVersion.windows
+  }
 
   const { data, headers } = await axios({
     url,
@@ -21,12 +29,12 @@ ipcMain.handle("download-game-version", async (event, gameVersion: GameVersionTy
 
   const totalLength = headers["content-length"]
 
-  if (!fs.existsSync(outputPath)) {
-    fs.mkdirSync(outputPath, { recursive: true })
+  if (!fse.existsSync(outputPath)) {
+    fse.mkdirSync(outputPath, { recursive: true })
     logMessage("info", `[ipcMain] [download-game-version] Created output directory ${outputPath}`)
   }
 
-  const writer = fs.createWriteStream(pathToDownload)
+  const writer = fse.createWriteStream(pathToDownload)
 
   let downloadedLength = 0
   data.on("data", (chunk) => {
@@ -69,7 +77,7 @@ ipcMain.handle("extract-game-version", async (event, filePath: string, outputPat
 
         // Si la entrada es un directorio, lo creamos
         if (/\/$/.test(entry.fileName)) {
-          fsExtra.ensureDirSync(fullPath)
+          fse.ensureDirSync(fullPath)
           extractedCount++
           return zipfile.readEntry() // Leer siguiente entrada
         }
@@ -81,9 +89,9 @@ ipcMain.handle("extract-game-version", async (event, filePath: string, outputPat
             return reject(`Error opening file ${entry.fileName}: ${err}`)
           }
 
-          fsExtra.ensureDirSync(dirname(fullPath)) // Aseguramos que el directorio exista antes de escribir el archivo
+          fse.ensureDirSync(dirname(fullPath)) // Aseguramos que el directorio exista antes de escribir el archivo
 
-          const writeStream = fs.createWriteStream(fullPath)
+          const writeStream = fse.createWriteStream(fullPath)
 
           readStream.pipe(writeStream) // Cuando el archivo se escribe completamente
 
@@ -94,7 +102,20 @@ ipcMain.handle("extract-game-version", async (event, filePath: string, outputPat
 
             if (extractedCount === totalFiles) {
               zipfile.close()
-              fs.unlink(filePath, (err) => {
+
+              if (os.platform() === "linux") {
+                logMessage("info", `[ipcMain] [extract-game-version] Linux platform detected`)
+
+                if (fse.existsSync(join(outputPath, "Vintagestory"))) {
+                  fse.chmodSync(join(outputPath, "Vintagestory"), 0o755)
+                  logMessage("info", `[ipcMain] [extract-game-version] Changed perms to 755 to ${join(outputPath, "Vintagestory")}`)
+                } else if (fse.existsSync(join(outputPath, "Vintagestory.exe"))) {
+                  fse.chmodSync(join(outputPath, "Vintagestory.exe"), 0o755)
+                  logMessage("info", `[ipcMain] [extract-game-version] Changed perms to 755 to ${join(outputPath, "Vintagestory.exe")}`)
+                }
+              }
+
+              fse.unlink(filePath, (err) => {
                 if (err) {
                   logMessage("error", `[ipcMain] [extract-game-version] Error deleting ZIP file ${filePath}: ${err}`)
                   return reject(`Error deleting ZIP: ${err}`)

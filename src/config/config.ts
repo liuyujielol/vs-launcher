@@ -24,10 +24,10 @@ export class Config {
     const path = join(app.getPath("userData"), "config.json")
     try {
       fs.writeFileSync(path, JSON.stringify(this, null, 2))
-      logMessage("info", `Config saved at ${path}`)
+      logMessage("info", `[config] Config saved at ${path}`)
       return true
     } catch (err) {
-      logMessage("error", `Error saving config at ${path}`)
+      logMessage("error", `[config] Error saving config at ${path}`)
       return false
     }
   }

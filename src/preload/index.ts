@@ -22,6 +22,7 @@ const api: LocalAPI = {
   onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("extract-game-version-progress", callback),
   uninstallGameVersion: (gameVersion: InstalledGameVersionType): Promise<boolean> => ipcRenderer.invoke("uninstall-game-version", gameVersion),
   deletePath: (path: string): Promise<boolean> => ipcRenderer.invoke("delete-path", path),
+  formatPath: (parts: string[]): Promise<string> => ipcRenderer.invoke("format-path", parts),
   checkEmptyPath: (path: string): Promise<boolean> => ipcRenderer.invoke("check-empty-path", path),
   checkPathExists: (path: string): Promise<boolean> => ipcRenderer.invoke("check-path-exists", path),
   lookForAGameVersion: (path: string): Promise<{ exists: boolean; installedGameVersion: string | undefined }> => ipcRenderer.invoke("look-for-a-game-version", path),

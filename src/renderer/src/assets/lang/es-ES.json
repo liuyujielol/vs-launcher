@@ -118,10 +118,10 @@
   "notification-title-noVersionSelected": "No hay ninguna versión seleccionada",
   "notification-title-noInstallationSelected": "No hay ninguna instalación seleccionada",
   "notification-title-folderDoesntExists": "No hay ninguna carpeta",
-  "notification-title-updateAvailable": "Update available",
-  "notification-title-updateDownloaded": "Update downloaded",
+  "notification-title-updateAvailable": "Actualización disponible",
+  "notification-title-updateDownloaded": "Actualización descargada",
 
-  "notification-body-errorVersionNotInstalled": "La versión {version} del jeugo no esta instalada",
+  "notification-body-errorVersionNotInstalled": "La versión {version} del jeugo no está instalada",
   "notification-body-gameClosedWithError": "El juego se cerro con un error",
   "notification-body-errorExecutingGame": "Ocurrio un error al ejecutar el juego",
   "notification-body-versionErrorLookingForAVersion": "No se encontraron versiones del juego en esa carpeta",
@@ -142,6 +142,6 @@
   "notification-body-noInstallationSelectedToEdit": "Por favor, selecciona una instalación para editar",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "Por favor, selecciona una instalación para abrir en el explorador de archivos",
   "notification-body-folderDoesntExists": "Esto puede deverse a que no has abierto nunca el juego con esta instalación. Abre y cierra el juego para que este cree las carpetas y archivos necesarios.",
-  "notification-body-updateAvailable": "A new update is available! Downloading on the background...",
-  "notification-body-updateDownloaded": "Update downloaded succesfully! Close VS Launcher and wait 1 minute for it tu update."
+  "notification-body-updateAvailable": "Hay una nueva actualización disponible! Descargándola de fondo...",
+  "notification-body-updateDownloaded": "Actualización descargada correctamente! Cierra VS Launcher y espera 1 minuto para que se actualice."
 }
