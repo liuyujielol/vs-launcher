@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow } from "electron"
 import { join } from "path"
 import { electronApp, optimizer, is } from "@electron-toolkit/utils"
 import { autoUpdater } from "electron-updater"
+import log from "electron-log"
 
 const customUserDataPath = join(app.getPath("appData"), "VSLauncher")
 app.setPath("userData", customUserDataPath)
@@ -11,6 +12,9 @@ import { getShouldPreventClose } from "@utils/shouldPreventClose"
 import icon from "../../resources/icon.png?asset"
 import "./ipcs"
 import { logMessage } from "@utils/logMessage"
+
+autoUpdater.logger = log
+autoUpdater.logger.info("Logger configured for auto-updater")
 
 let mainWindow: BrowserWindow
 
