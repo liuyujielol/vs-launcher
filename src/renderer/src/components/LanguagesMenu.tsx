@@ -29,7 +29,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
     <>
       <div className={`absolute top-4 left-4 min-h-6 max-h-48 w-[18rem] flex flex-col text-sm bg-zinc-800 rounded ${className}`}>
         <>
-          {!window.localStorage.getItem("lang") ? (
+          {!window.localStorage.getItem("lang") || !languages.some((lang) => lang.code === window.localStorage.getItem("lang")) ? (
             <button
               title={isOpen ? t("component-general-closeMenu") : t("component-general-openMenu")}
               onClick={() => setIsOpen(!isOpen)}

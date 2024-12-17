@@ -6,7 +6,7 @@ import esES from "@assets/lang/es-ES.json"
 import ruRU from "@assets/lang/ru-RU.json"
 import zhCN from "@assets/lang/zh-CN.json"
 import frFR from "@assets/lang/fr-FR.json"
-import csCS from "@assets/lang/cs-CS.json"
+import cs from "@assets/lang/cs.json"
 import deDE from "@assets/lang/de-DE.json"
 
 i18n.use(initReactI18next).init({
@@ -16,11 +16,11 @@ i18n.use(initReactI18next).init({
     "ru-RU": { translation: ruRU, name: "Русский", credits: "by megabezdelnik" },
     "zh-CN": { translation: zhCN, name: "简体中文", credits: "by liuyujielol" },
     "fr-FR": { translation: frFR, name: "Français", credits: "by LorIlcs" },
-    "cs-CS": { translation: csCS, name: "Čeština", credits: "by DejFidOFF" },
+    cs: { translation: cs, name: "Čeština", credits: "by DejFidOFF" },
     "de-DE": { translation: deDE, name: "Deutsch", credits: "by Brady_The" }
   },
   lng: "en-US",
-  fallbackLng: "es-ES",
+  fallbackLng: "en-US",
   interpolation: {
     escapeValue: false
   }
