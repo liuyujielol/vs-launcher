@@ -13,10 +13,10 @@ import { PreventClosingContext } from "@contexts/PreventClosingContext"
 import { PlayingContext } from "@contexts/PlayingContext"
 import { useTranslation } from "react-i18next"
 import LanguagesMenu from "@components/LanguagesMenu"
-import AbsoluteMenu from "@components/AbsoluteMenu"
+import AbsoluteMenu from "@components/utils/AbsoluteMenu"
 import MainMenuLink from "@components/MainMenuLink"
 import InstallationsMenu from "@components/InstallationsMenu"
-import Button from "@components/Buttons"
+import Button from "@components/utils/Buttons"
 import MenuAddInstallation from "@components/installations/MenuAddInstallation"
 import MenuEditInstallation from "@components/installations/MenuEditInstallation"
 import MenuDeleteInstallation from "@components/installations/MenuDeleteInstallation"
@@ -158,13 +158,13 @@ function MainMenu(): JSX.Element {
         )}
       </AnimatePresence>
 
-      <AbsoluteMenu title={t("component-addInstallationMenu-title")} isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
+      <AbsoluteMenu isMenuOpen={isAddInstallationMenuOpen} setIsMenuOpen={setIsAddInstallationMenuOpen}>
         <MenuAddInstallation setIsMenuOpen={setIsAddInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={t("component-editInstallationMenu-title")} isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
+      <AbsoluteMenu isMenuOpen={isEditInstallationMenuOpen} setIsMenuOpen={setIsEditInstallationMenuOpen}>
         <MenuEditInstallation setIsMenuOpen={setIsEditInstallationMenuOpen} />
       </AbsoluteMenu>
-      <AbsoluteMenu title={t("component-deleteInstallationMenu-title")} isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
+      <AbsoluteMenu isMenuOpen={isDeleteInstallationMenuOpen} setIsMenuOpen={setIsDeleteInstallationMenuOpen}>
         <MenuDeleteInstallation setIsMenuOpen={setIsDeleteInstallationMenuOpen} />
       </AbsoluteMenu>
     </header>

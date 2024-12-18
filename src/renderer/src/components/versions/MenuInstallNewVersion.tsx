@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext, useRef } from "react"
 import axios from "axios"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
@@ -6,9 +6,11 @@ import { useTranslation } from "react-i18next"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import Button from "@components/Buttons"
+import Button from "@components/utils/Buttons"
+import InViewItem from "@components/utils/InViewItem"
 
 function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
+  const installNewVersionListParentRef = useRef(null)
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions, setInstalledGameVersions } = useContext(InstalledGameVersionsContext)
   const { preventClosing, setPreventClosing } = useContext(PreventClosingContext)
@@ -78,10 +80,11 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
   }
 
   return (
-    <>
+    <div className="w-[600px] flex flex-col items-center p-4 gap-6">
+      <h2 className="text-2xl font-bold">{t("component-installNewVersionMenu-titleInstallNewVersion")}</h2>
       <div className="w-full max-h-[200px] flex flex-col gap-2">
         <h3 className="font-bold">{t("component-installNewVersionMenu-selectVersion")}</h3>
-        <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
+        <div ref={installNewVersionListParentRef} className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {availableGameVersions.length < 1 ? (
             <div className="w-full h-full flex justify-center items-center text-center">
               <p>{t("component-installNewVersionMenu-noVersionsFound")}</p>
@@ -89,15 +92,16 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           ) : (
             <>
               {availableGameVersions.map((current) => (
-                <button
-                  key={current.version}
-                  className={`flex justify-between px-2 py-1 font-bold rounded-md shadow-md shadow-zinc-950 disabled:shadow-none disabled:opacity-50  hover:scale-[.99] hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${current.version === selectedGameVersion?.version ? "bg-vs text-zinc-900" : "bg-zinc-800"}`}
-                  onClick={() => setSelectedGameVersion(current)}
-                  disabled={installedGameVersions.some((igv) => igv.version === current.version) || preventClosing}
-                >
-                  <span>{current.version}</span>
-                  <span>{installedGameVersions.find((igv) => igv.version === current.version) ? t("component-installNewVersionMenu-installed") : ""}</span>
-                </button>
+                <InViewItem key={current.version} parent={installNewVersionListParentRef}>
+                  <button
+                    className={`w-full flex justify-between px-2 py-1 font-bold rounded-md shadow-md shadow-zinc-950 disabled:shadow-none disabled:opacity-50  hover:scale-[.99] hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${current.version === selectedGameVersion?.version ? "bg-vs text-zinc-900" : "bg-zinc-800"}`}
+                    onClick={() => setSelectedGameVersion(current)}
+                    disabled={installedGameVersions.some((igv) => igv.version === current.version) || preventClosing}
+                  >
+                    <span>{current.version}</span>
+                    <span>{installedGameVersions.find((igv) => igv.version === current.version) ? t("component-installNewVersionMenu-installed") : ""}</span>
+                  </button>
+                </InViewItem>
               ))}
             </>
           )}
@@ -137,9 +141,9 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       <div className="flex gap-4">
         <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={!selectedGameVersion || preventClosing || !selectedFolder} onClick={handleInstallation}>
           {preventClosing ? (
-            <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
-              <FaSpinner />
-            </motion.div>
+            <div>
+              <FaSpinner className="animate-spin" />
+            </div>
           ) : (
             t("component-installNewVersionMenu-install")
           )}
@@ -148,7 +152,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           {t("component-installNewVersionMenu-close")}
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 

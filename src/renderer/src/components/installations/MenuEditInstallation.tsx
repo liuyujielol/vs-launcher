@@ -1,13 +1,15 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useRef } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { InstallationContext } from "@contexts/InstallationContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
-import Button from "@components/Buttons"
-import { Link } from "react-router-dom"
+import Button from "@components/utils/Buttons"
+import InViewItem from "@components/utils/InViewItem"
 
 function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
+  const editInstallationListParentRef = useRef(null)
   const { addNotification } = useContext(NotificationsContext)
   const { installedGameVersions } = useContext(InstalledGameVersionsContext)
   const { installations, setInstallations } = useContext(InstallationsContext)
@@ -43,7 +45,8 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
   }
 
   return (
-    <>
+    <div className="w-[600px] flex flex-col items-center p-4 gap-6">
+      <h2 className="text-2xl font-bold">{t("component-editInstallationMenu-title")}</h2>
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <h3 className="font-bold">{t("component-edditInstallationMenu-changeName")}</h3>
@@ -60,7 +63,7 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
 
       <div className="w-full max-h-[200px] flex flex-col gap-2">
         <h3 className="font-bold">{t("component-edditInstallationMenu-selectVersion")}</h3>
-        <div className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
+        <div ref={editInstallationListParentRef} className="w-full flex flex-col p-2 gap-2 bg-zinc-900 rounded-md overflow-y-scroll">
           {installedGameVersions.length < 1 ? (
             <div className="w-full h-full flex flex-col justify-center gap-2 p-2 items-center text-center">
               <p className="font-bold">{t("component-edditInstallationMenu-noVersionsFound")}</p>
@@ -74,13 +77,14 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
           ) : (
             <>
               {installedGameVersions.map((current) => (
-                <button
-                  key={current.version}
-                  className={`flex justify-between px-2 py-1 font-bold rounded-md shadow-md shadow-zinc-950 disabled:shadow-none disabled:opacity-50  hover:scale-[.99] hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${current.version === selectedInstalledVersion?.version ? "bg-vs text-zinc-900" : "bg-zinc-800"}`}
-                  onClick={() => setSelectedInstalledVersion(current)}
-                >
-                  <span>{current.version}</span>
-                </button>
+                <InViewItem key={current.version} parent={editInstallationListParentRef}>
+                  <button
+                    className={`w-full flex justify-between px-2 py-1 font-bold rounded-md shadow-md shadow-zinc-950 disabled:shadow-none disabled:opacity-50  hover:scale-[.99] hover:shadow-sm hover:shadow-zinc-950 active:shadow-inner active:shadow-zinc-950 ${current.version === selectedInstalledVersion?.version ? "bg-vs text-zinc-900" : "bg-zinc-800"}`}
+                    onClick={() => setSelectedInstalledVersion(current)}
+                  >
+                    <span>{current.version}</span>
+                  </button>
+                </InViewItem>
               ))}
             </>
           )}
@@ -100,7 +104,7 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
           {t("component-edditInstallationMenu-close")}
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 

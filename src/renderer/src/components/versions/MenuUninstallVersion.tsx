@@ -1,11 +1,10 @@
 import { useState, useContext } from "react"
-import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import Button from "@components/Buttons"
+import Button from "@components/utils/Buttons"
 
 function MenuUninstallVersion({
   setIsMenuOpen,
@@ -55,7 +54,8 @@ function MenuUninstallVersion({
   }
 
   return (
-    <>
+    <div className="w-[600px] flex flex-col items-center p-4 gap-6">
+      <h2 className="text-2xl font-bold">{t("component-uninstallVersionMenu-titleAreyouSure")}</h2>
       <p className="text-center">
         {t("component-uninstallVersionMenu-areYouSure")} <span className="font-bold">{selectedInstalledVersion?.version}</span>
       </p>
@@ -63,9 +63,9 @@ function MenuUninstallVersion({
       <div className="flex gap-4 text-center">
         <Button btnType="custom" className="w-fit h-10 bg-zinc-900" disabled={isUninstalling} onClick={handleUninstalling}>
           {isUninstalling ? (
-            <motion.div animate={{ rotate: 360 }} transition={{ ease: "linear", duration: 1, repeat: Infinity }}>
-              <FaSpinner />
-            </motion.div>
+            <div>
+              <FaSpinner className="animate-spin" />
+            </div>
           ) : (
             t("component-uninstallVersionMenu-uninstall")
           )}
@@ -74,7 +74,7 @@ function MenuUninstallVersion({
           {t("component-uninstallVersionMenu-cancel")}
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 

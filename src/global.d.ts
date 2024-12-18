@@ -11,11 +11,10 @@ declare global {
     path: string
   }
 
-  type ModsType = {
-    id: string
-    name: string
-    version: string
-    path: string
+  type InstalledModType = {
+    modid: number
+    releaseid: number
+    filename: string
   }
 
   type InstallationType = {

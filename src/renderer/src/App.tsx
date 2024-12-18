@@ -28,7 +28,7 @@ function App(): JSX.Element {
             <PreventClosingProvider>
               <PlayingProvider>
                 <Router>
-                  <div className="w-full h-full relative grid grid-cols-[20rem_auto] font-mono">
+                  <div className="w-screen h-screen relative grid grid-cols-[20rem_auto] font-mono">
                     <NotificationsOverlay />
                     <MainMenu />
                     <Routes>

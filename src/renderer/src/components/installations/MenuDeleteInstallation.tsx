@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { InstallationsContext } from "@contexts/InstallationsContext"
 import { InstallationContext } from "@contexts/InstallationContext"
 import { NotificationsContext } from "@contexts/NotificationsContext"
-import Button from "@components/Buttons"
+import Button from "@components/utils/Buttons"
 
 function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { installations, setInstallations } = useContext(InstallationsContext)
@@ -39,7 +39,8 @@ function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispat
   }
 
   return (
-    <>
+    <div className="w-[600px] flex flex-col items-center p-4 gap-6">
+      <h2 className="text-2xl font-bold">{t("component-deleteInstallationMenu-title")}</h2>
       <p className="text-center">
         {t("component-deleteInstallationMenu-areYouSure")} <span className="font-bold">{installation?.name}</span>
       </p>
@@ -59,7 +60,7 @@ function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispat
           {t("component-deleteInstallationMenu-cancel")}
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 

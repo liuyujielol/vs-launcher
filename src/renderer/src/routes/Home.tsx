@@ -14,7 +14,7 @@ function Home(): JSX.Element {
   }, [])
 
   return (
-    <main className="relative h-screen bg-image-1">
+    <main className="relative h-screen bg-image-1 overflow-hidden">
       <div className="w-full absolute p-1 px-4 select-none bg-gradient-to-b from-zinc-950/60 to-zinc-950/0 flex justify-between items-center text-xs text-zinc-400">
         <span className="flex flex-nowrap gap-1">
           <MiniLinks to="https://github.com/XurxoMF/vs-launcher/issues" text={t("top-minimenu-issues")} />|

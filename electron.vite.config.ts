@@ -12,6 +12,15 @@ export default defineConfig({
     resolve: { alias: { "@config": resolve(__dirname, "src/config"), "@utils": resolve(__dirname, "src/utils") } }
   },
   renderer: {
+    server: {
+      proxy: {
+        "/moddbapi": {
+          target: "https://mods.vintagestory.at/api",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/moddbapi/, "")
+        }
+      }
+    },
     build: {
       rollupOptions: {
         external: ["*.json"]

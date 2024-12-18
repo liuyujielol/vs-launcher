@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import { NotificationsContext } from "@contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import Button from "@components/Buttons"
+import Button from "@components/utils/Buttons"
 
 function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
@@ -52,7 +52,8 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
   }
 
   return (
-    <>
+    <div className="w-[600px] flex flex-col items-center p-4 gap-6">
+      <h2 className="text-2xl font-bold">{t("component-searchForAVersionMenu-titleSearchForAAversion")}</h2>
       <div className="w-full flex flex-col gap-2">
         <h3 className="font-bold">{t("component-searchForAVersionMenu-selectFolder")}</h3>
         <div className="w-full flex gap-4 items-center">
@@ -93,7 +94,7 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           {t("component-searchForAVersionMenu-close")}
         </Button>
       </div>
-    </>
+    </div>
   )
 }
 
