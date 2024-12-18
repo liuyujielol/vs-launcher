@@ -1,5 +1,5 @@
 {
-  "//info": "Localization version: 1.0 (12.12.2024) - Mod Version 0.0.3 - Author: Brady_The",
+  "//info": "Localization version: 1.1.0 (17.12.2024) - Mod Version 0.0.5 - Author: Brady_The",
   "top-minimenu-issues": "Hilfe & Probleme melden",
   "top-minimenu-guides": "Leitfaden",
   "top-minimenu-source": "Quelle",
@@ -7,7 +7,7 @@
   "page-general-notReadyYet": "Dieser Bereich ist noch nicht verfügbar!",
   "page-general-comeBackLater": "Schau bei der nächsten Aktualisierung vorbei, möglicherweise ist dieser dann bereits benutzbar ^^",
 
-  "page-home-title": "Willkommen zum VS Starter",
+  "page-home-title": "Willkommen zum VS Launcher",
   "page-home-description": "Der inoffizielle Vintage Story Starter mit allen Funktionen, die du brauchst.",
 
   "page-versions-title": "Versionsverwalter",
@@ -34,7 +34,7 @@
   "component-mainMenu-modsTitle": "Modifikationen",
   "component-mainMenu-modsDesc": "Verwalte/Installiere Modifikationen",
   "component-mainMenu-newsTitle": "Neuigkeiten",
-  "component-mainMenu-newsDesc": "VS Starter Neuigkeiten",
+  "component-mainMenu-newsDesc": "VS Launcher Neuigkeiten",
   "component-mainMenu-changelogTitle": "Versionshistorie",
   "component-mainMenu-changelogDesc": "Vintage Story Versionshistorie",
   "component-mainMenu-playButtonName": "Starte Vintage Story",
@@ -43,8 +43,8 @@
   "component-mainMenu-deleteInstallationButtonName": "Installation entfernen",
   "component-mainMenu-openInstallationFolderButtonName": "Ordner öffnen",
   "component-mainMenu-gameRunningTitle": "SPIEL AKTIV",
-  "component-mainMenu-gameRunningDesc": "Das Spiel läuft im Hintergrund, bitte schließe es, um den VS Starter benutzen zu können",
-  "component-mainMenu-gameRunningSubDesc": "Du kannst VS Starter während des Spielens nicht benutzen, um Konflikte mit dem Spiel zu vermeiden!",
+  "component-mainMenu-gameRunningDesc": "Das Spiel läuft im Hintergrund, bitte schließe es, um den VS Launcher benutzen zu können",
+  "component-mainMenu-gameRunningSubDesc": "Du kannst VS Launcher während des Spielens nicht benutzen, um Konflikte mit dem Spiel zu vermeiden!",
 
   "component-searchForAVersionMenu-titleSearchForAAversion": "Suche nach einer installierten Version",
   "component-searchForAVersionMenu-selectFolder": "Ordner auswählen",
@@ -77,7 +77,7 @@
   "component-addInstallationMenu-placeholder": "Meine neue Installation",
   "component-addInstallationMenu-selectVersion": "Wähle eine Version aus",
   "component-addInstallationMenu-noVersionsFound": "Keine Versionen gefunden",
-  "component-addInstallationMenu-noVersionsFoundInstallHere": "Zuerst musst du eine Spielversion installieren oder zum VS Starter hier hinzufügen:",
+  "component-addInstallationMenu-noVersionsFoundInstallHere": "Zuerst musst du eine Spielversion installieren oder zum VS Launcher hier hinzufügen:",
   "component-addInstallationMenu-selectFolder": "Ordner auswählen",
   "component-addInstallationMenu-select": "Auswählen",
   "component-addInstallationMenu-folderInUse": "Vorsicht, dieser Ordner wird bereits von einer anderen Installation verwendet!",
@@ -119,14 +119,14 @@
   "notification-title-noVersionSelected": "Keine Version ausgewählt",
   "notification-title-noInstallationSelected": "Keine Instllation ausgewählt",
   "notification-title-folderDoesntExists": "Der Ordner existiert nicht",
-  "notification-title-updateAvailable": "Update available",
-  "notification-title-updateDownloaded": "Update downloaded",
+  "notification-title-updateAvailable": "Aktualisierung verfügbar",
+  "notification-title-updateDownloaded": "Aktualisierung heruntergeladen",
 
   "notification-body-errorVersionNotInstalled": "Spielversion {version} ist nicht installiert",
   "notification-body-gameClosedWithError": "Spiel mit einem Fehler geschlossen",
   "notification-body-errorExecutingGame": "Beim Ausführen des Spiels ist ein Fehler aufgetreten",
   "notification-body-versionErrorLookingForAVersion": "Es wurde keine Spielversion in diesem Ordner gefunden",
-  "notification-body-versionAlreadyInstalled": "Spielversion {version} ist bereits im VS Starter installiert",
+  "notification-body-versionAlreadyInstalled": "Spielversion {version} ist bereits im VS Launcher installiert",
   "notification-body-versionSuccesfullyFound": "Spielversion {version} wurde gefunden und erfolgreich hinzugefügt",
   "notification-body-versionNotFound": "Es wurde keine Spielversion in diesem Ordner gefunden",
   "notification-body-versionSuccesfullyInstalled": "Spielversion {version} erfolgreich installiert",
@@ -144,6 +144,6 @@
   "notification-body-noInstallationSelectedToEdit": "Bitte wähle die zu bearbeitende Installation",
   "notification-body-noInstallationSelectedToOpenInFileExlorer": "Bitte wähle eine Installation aus, um sie im Datei-Explorer zu öffnen",
   "notification-body-folderDoesntExists": "Dies kann passieren, wenn du das Spiel noch nie mit dieser Installation geöffnet hast. Öffne und schließe das Spiel, um die erforderlichen Ordner und Dateien zu erstellen, und versuche es erneut.",
-  "notification-body-updateAvailable": "A new update is available! Downloading on the background...",
-  "notification-body-updateDownloaded": "Update downloaded succesfully! Close VS Launcher and wait 1 minute for it tu update."
+  "notification-body-updateAvailable": "Eine Aktualisierung ist verfügbar und wird im Hintergrund heruntergeladen.",
+  "notification-body-updateDownloaded": "Aktualisierung erfolgreich heruntergeladen. Schließe VS Launcher und warte 1 Minute um den Aktualisierungsprozess abzuschließen."
 }
