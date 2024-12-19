@@ -1,5 +1,5 @@
 import { createContext, useRef, useEffect } from "react"
-import { useInstalledGameVersions } from "@hooks/useInstalledGameVersions"
+import { useInstalledGameVersions } from "@renderer/hooks/useInstalledGameVersions"
 
 interface InstalledGameVersionsContextType {
   installedGameVersions: InstalledGameVersionType[]
@@ -18,8 +18,8 @@ const InstalledGameVersionsProvider = ({ children }: { children: React.ReactNode
     ;(async (): Promise<void> => {
       if (firstExecutedInstalledGameVersions.current) {
         firstExecutedInstalledGameVersions.current = false
-        window.api.logMessage("info", `[context] [InstalledGameVersionsContext] Setting installed game versions from config file`)
-        const config = await window.api.getConfig()
+        window.api.utils.logMessage("info", `[context] [InstalledGameVersionsContext] Setting installed game versions from config file`)
+        const config = await window.api.configManager.getConfig()
         setInstalledGameVersions(config.gameVersions)
       }
     })()

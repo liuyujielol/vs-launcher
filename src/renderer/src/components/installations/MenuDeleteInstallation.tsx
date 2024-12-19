@@ -1,9 +1,9 @@
 import { useState, useContext } from "react"
 import { useTranslation } from "react-i18next"
-import { InstallationsContext } from "@contexts/InstallationsContext"
-import { InstallationContext } from "@contexts/InstallationContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import Button from "@components/utils/Buttons"
+import { InstallationsContext } from "@renderer/contexts/InstallationsContext"
+import { InstallationContext } from "@renderer/contexts/InstallationContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import Button from "@renderer/components/utils/Buttons"
 
 function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { installations, setInstallations } = useContext(InstallationsContext)
@@ -14,25 +14,25 @@ function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispat
 
   const handleDeleting = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuDeleteInstallation] Deleting installation ${installation?.name} with path ${installation?.path}`)
+      window.api.utils.logMessage("info", `[component] [MenuDeleteInstallation] Deleting installation ${installation?.name} with path ${installation?.path}`)
 
       if (deleteData) {
-        window.api.logMessage("info", `[component] [MenuDeleteInstallation] Deleting installation data from ${installation?.name} with path ${installation?.path}`)
-        const deleted = await window.api.deletePath(installation!.path)
+        window.api.utils.logMessage("info", `[component] [MenuDeleteInstallation] Deleting installation data from ${installation?.name} with path ${installation?.path}`)
+        const deleted = await window.api.pathsManager.deletePath(installation!.path)
 
         if (!deleted) {
-          window.api.logMessage("error", `[component] [MenuDeleteInstallation] Error deleting installation data from ${installation?.name} with path ${installation?.path}`)
+          window.api.utils.logMessage("error", `[component] [MenuDeleteInstallation] Error deleting installation data from ${installation?.name} with path ${installation?.path}`)
           throw new Error("Error deleting installation data")
         }
       }
 
       setInstallations(installations.filter((current) => current.id !== installation!.id))
 
-      window.api.logMessage("info", `[component] [MenuDeleteInstallation] Deleted installation ${installation?.name} with path ${installation?.path}`)
-      addNotification(t("notification-title-installationSuccesfullyDeleted"), t("notification-body-installationSuccesfullyDeleted").replace("{installation}", installation!.name), "success")
+      window.api.utils.logMessage("info", `[component] [MenuDeleteInstallation] Deleted installation ${installation?.name} with path ${installation?.path}`)
+      addNotification(t("notification-title-installationSuccesfullyDeleted"), t("notification-body-installationSuccesfullyDeleted", { installation: installation!.name }), "success")
     } catch (err) {
-      window.api.logMessage("error", `[component] [MenuDeleteInstallation] Error while deleting installation ${installation?.name} with path ${installation?.path}: ${err}`)
-      addNotification(t("notification-title-installationErrorDeleting"), t("notification-body-installationErrorDeleting").replace("{installation}", installation!.name), "error")
+      window.api.utils.logMessage("error", `[component] [MenuDeleteInstallation] Error while deleting installation ${installation?.name} with path ${installation?.path}: ${err}`)
+      addNotification(t("notification-title-installationErrorDeleting"), t("notification-body-installationErrorDeleting", { installation: installation!.name }), "error")
     } finally {
       setIsMenuOpen(false)
     }

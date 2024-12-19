@@ -1,33 +1,47 @@
-import { contextBridge, ipcRenderer, shell } from "electron"
-import { electronAPI } from "@electron-toolkit/preload"
-import { logMessage } from "@utils/logMessage"
+import { contextBridge, ipcRenderer } from "electron"
 import { autoUpdater } from "electron-updater"
+import { IPC_CHANNELS } from "@src/ipc"
+
+import { electronAPI } from "@electron-toolkit/preload"
+import { logMessage } from "@src/utils/logManager"
 
 // Custom APIs for renderer
-const api: LocalAPI = {
-  getVersion: (): Promise<string> => ipcRenderer.invoke("get-version"),
-  logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string): void => ipcRenderer.send("log-message", mode, message),
-  setPreventAppClose: (value: boolean): void => ipcRenderer.send("set-should-prevent-close", value),
-  openOnBrowser: (url: string): Promise<void> => shell.openExternal(url),
-  selectFolderDialog: (): Promise<string> => ipcRenderer.invoke("select-folder-dialog"),
-  onUpdateAvailable: (callback) => ipcRenderer.on("update-available", callback),
-  onUpdateDownloaded: (callback) => ipcRenderer.on("update-downloaded", callback),
-  updateAndRestart: () => autoUpdater.quitAndInstall(),
-  getConfig: (): Promise<ConfigType> => ipcRenderer.invoke("get-config"),
-  saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke("save-config", configJson),
-  getCurrentUserDataPath: (): Promise<string> => ipcRenderer.invoke("get-current-user-data-path"),
-  downloadGameVersion: (gameVersion: GameVersionType, outputPath: string): Promise<string> => ipcRenderer.invoke("download-game-version", gameVersion, outputPath),
-  extractGameVersion: (filePath: string, outputPath: string): Promise<boolean> => ipcRenderer.invoke("extract-game-version", filePath, outputPath),
-  onDownloadGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("download-game-version-progress", callback),
-  onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on("extract-game-version-progress", callback),
-  uninstallGameVersion: (gameVersion: InstalledGameVersionType): Promise<boolean> => ipcRenderer.invoke("uninstall-game-version", gameVersion),
-  deletePath: (path: string): Promise<boolean> => ipcRenderer.invoke("delete-path", path),
-  formatPath: (parts: string[]): Promise<string> => ipcRenderer.invoke("format-path", parts),
-  checkEmptyPath: (path: string): Promise<boolean> => ipcRenderer.invoke("check-empty-path", path),
-  checkPathExists: (path: string): Promise<boolean> => ipcRenderer.invoke("check-path-exists", path),
-  lookForAGameVersion: (path: string): Promise<{ exists: boolean; installedGameVersion: string | undefined }> => ipcRenderer.invoke("look-for-a-game-version", path),
-  openPathOnFileExplorer: (path: string): Promise<string> => ipcRenderer.invoke("open-path-on-file-explorer", path),
-  executeGame: (version: InstalledGameVersionType, installation: InstallationType): Promise<boolean> => ipcRenderer.invoke("execute-game", version, installation)
+const api: BridgeAPI = {
+  utils: {
+    getAppVersion: (): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.UTILS.GET_APP_VERSION),
+    logMessage: (mode: ErrorTypes, message: string): void => ipcRenderer.send(IPC_CHANNELS.UTILS.LOG_MESSAGE, mode, message),
+    setPreventAppClose: (value: boolean): void => ipcRenderer.send(IPC_CHANNELS.UTILS.SET_PREVENT_APP_CLOSE, value),
+    openOnBrowser: (url: string): void => ipcRenderer.send(IPC_CHANNELS.UTILS.OPEN_ON_BROWSER, url),
+    selectFolderDialog: (): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.UTILS.SELECT_FOLDER_DIALOG)
+  },
+  appUpdater: {
+    onUpdateAvailable: (callback) => ipcRenderer.on(IPC_CHANNELS.APP_UPDATER.UPDATE_AVAILABLE, callback),
+    onUpdateDownloaded: (callback) => ipcRenderer.on(IPC_CHANNELS.APP_UPDATER.UPDATE_DOWNLOADED, callback),
+    updateAndRestart: () => autoUpdater.quitAndInstall()
+  },
+  configManager: {
+    getConfig: (): Promise<ConfigType> => ipcRenderer.invoke(IPC_CHANNELS.CONFIG_MANAGER.GET_CONFIG),
+    saveConfig: (configJson: ConfigType): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.CONFIG_MANAGER.SAVE_CONFIG, configJson)
+  },
+  pathsManager: {
+    getCurrentUserDataPath: (): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.GET_CURRENT_USER_DATA_PATH),
+    deletePath: (path: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.DELETE_PATH, path),
+    formatPath: (parts: string[]): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.FORMAT_PATH, parts),
+    checkPathEmpty: (path: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.CHECK_PATH_EMPTY, path),
+    checkPathExists: (path: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.CHECK_PATH_EXISTS, path),
+    openPathOnFileExplorer: (path: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.OPEN_PATH_ON_FILE_EXPLORER, path)
+  },
+  gameVersionsManager: {
+    downloadGameVersion: (gameVersion: GameVersionType, outputPath: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.DOWNLOAD_GAME_VERSION, gameVersion, outputPath),
+    extractGameVersion: (filePath: string, outputPath: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.EXTRACT_GAME_VERSION, filePath, outputPath),
+    onDownloadGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.GAME_VERSIONS_MANAGER.DOWNLOAD_GAME_VERSION_PROGRESS, callback),
+    onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.GAME_VERSIONS_MANAGER.EXTRACT_GAME_VERSION_PROGRESS, callback),
+    uninstallGameVersion: (gameVersion: InstalledGameVersionType): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.UNINSTALL_GAME_VERSION, gameVersion),
+    lookForAGameVersion: (path: string): Promise<{ exists: boolean; installedGameVersion: string | undefined }> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.LOOK_FOR_A_GAME_VERSION, path)
+  },
+  gameManager: {
+    executeGame: (version: InstalledGameVersionType, installation: InstallationType): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_MANAGER.EXECUTE_GAME, version, installation)
+  }
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

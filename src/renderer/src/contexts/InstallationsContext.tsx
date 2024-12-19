@@ -1,5 +1,5 @@
 import { createContext, useEffect, useRef } from "react"
-import { useInstallations } from "@hooks/useInstallations"
+import { useInstallations } from "@renderer/hooks/useInstallations"
 
 interface InstallationsContextType {
   installations: InstallationType[]
@@ -18,8 +18,8 @@ const InstallationsProvider = ({ children }: { children: React.ReactNode }): JSX
     ;(async (): Promise<void> => {
       if (firstExecutedInstallationsProvider.current) {
         firstExecutedInstallationsProvider.current = false
-        window.api.logMessage("info", `[context] [InstallationsContext] Setting installations from config file`)
-        const config = await window.api.getConfig()
+        window.api.utils.logMessage("info", `[context] [InstallationsContext] Setting installations from config file`)
+        const config = await window.api.configManager.getConfig()
         setInstallations(config.installations)
       }
     })()

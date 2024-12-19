@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import { FaSpinner, FaDownload, FaStar, FaComment } from "react-icons/fa6"
 // import { useTranslation } from "react-i18next"
-import InViewItem from "@components/utils/InViewItem"
-import AbsoluteMenu from "@components/utils/AbsoluteMenu"
+import InViewItem from "@renderer/components/utils/InViewItem"
+import AbsoluteMenu from "@renderer/components/utils/AbsoluteMenu"
 
 function Mods(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

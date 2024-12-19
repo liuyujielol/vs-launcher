@@ -20,7 +20,7 @@ function LanguagesMenu({ className }: { className?: string }): JSX.Element {
   const languages = getLanguages()
 
   const handleLanguageChange = (lang): void => {
-    window.api.logMessage("info", `[component] [LanguagesMenu] Changing language to ${lang}`)
+    window.api.utils.logMessage("info", `[component] [LanguagesMenu] Changing language to ${lang}`)
     i18n.changeLanguage(lang)
     localStorage.setItem("lang", lang)
   }

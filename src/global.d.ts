@@ -1,4 +1,3 @@
-import { ElectronAPI } from "@electron-toolkit/preload"
 declare global {
   type ConfigType = {
     version: number
@@ -42,37 +41,6 @@ declare global {
 
   type ProgressCallback = {
     (event: Electron.IpcRendererEvent, progress: number): void
-  }
-
-  type LocalAPI = {
-    getVersion: () => Promise<string>
-    logMessage: (mode: "error" | "warn" | "info" | "debug" | "verbose", message: string) => void
-    setPreventAppClose: (value: boolean) => void
-    openOnBrowser: (url: string) => Promise<void>
-    selectFolderDialog: () => Promise<string>
-    onUpdateAvailable: (callback) => void
-    onUpdateDownloaded: (callback) => void
-    updateAndRestart: () => void
-    getConfig: () => Promise<ConfigType>
-    saveConfig: (configJson: ConfigType) => Promise<boolean>
-    getCurrentUserDataPath: () => Promise<string>
-    downloadGameVersion: (gameVersion: GameVersionType, outputPath: string) => Promise<string>
-    extractGameVersion: (filePath: string, outputPath: string) => Promise<boolean>
-    onDownloadGameVersionProgress: (callback: ProgressCallback) => void
-    onExtractGameVersionProgress: (callback: ProgressCallback) => void
-    uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
-    formatPath: (parts: string[]) => Promise<string>
-    deletePath: (path: string) => Promise<boolean>
-    checkEmptyPath: (path: string) => Promise<boolean>
-    checkPathExists: (path: string) => Promise<boolean>
-    lookForAGameVersion: (path: string) => Promise<{ exists: boolean; installedGameVersion: string | undefined }>
-    openPathOnFileExplorer: (path: string) => Promise<string>
-    executeGame: (version: InstalledGameVersionType, installation: InstallationType) => Promise<boolean>
-  }
-
-  interface Window {
-    electron: ElectronAPI
-    api: LocalAPI
   }
 
   type LangFileType = {

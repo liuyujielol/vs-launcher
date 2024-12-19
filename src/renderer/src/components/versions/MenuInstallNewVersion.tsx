@@ -3,11 +3,11 @@ import axios from "axios"
 import { motion } from "motion/react"
 import { FaSpinner } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import Button from "@components/utils/Buttons"
-import InViewItem from "@components/utils/InViewItem"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { PreventClosingContext } from "@renderer/contexts/PreventClosingContext"
+import Button from "@renderer/components/utils/Buttons"
+import InViewItem from "@renderer/components/utils/InViewItem"
 
 function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const installNewVersionListParentRef = useRef(null)
@@ -23,16 +23,16 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
 
   useEffect(() => {
     ;(async (): Promise<void> => {
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Fetching available game versions`)
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Fetching available game versions`)
       const { data }: { data: GameVersionType[] } = await axios("https://vslapi.xurxomf.xyz/versions")
       setAvailableGameVersions(data)
 
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Adding donwload and extract progress listeners`)
-      window.api.onDownloadGameVersionProgress((_event, progress) => {
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Adding donwload and extract progress listeners`)
+      window.api.gameVersionsManager.onDownloadGameVersionProgress((_event, progress) => {
         setDownloadProgress(progress)
       })
 
-      window.api.onExtractGameVersionProgress((_event, progress) => {
+      window.api.gameVersionsManager.onExtractGameVersionProgress((_event, progress) => {
         setExtractProgress(progress)
       })
     })()
@@ -45,33 +45,33 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
   useEffect(() => {
     ;(async (): Promise<void> => {
       if (selectedGameVersion === undefined) return
-      const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(await window.api.formatPath([currentUserDataPath, "VSLGameVersions", selectedGameVersion.version]))
+      const currentUserDataPath = await window.api.pathsManager.getCurrentUserDataPath()
+      setSelectedFolder(await window.api.pathsManager.formatPath([currentUserDataPath, "VSLGameVersions", selectedGameVersion.version]))
     })()
   }, [selectedGameVersion])
 
   const handleInstallation = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Starting version installation: ${selectedGameVersion?.version}`)
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Starting version installation: ${selectedGameVersion?.version}`)
       setPreventClosing(true)
 
-      const filePath = await window.api.downloadGameVersion(selectedGameVersion as GameVersionType, selectedFolder)
-      const result = await window.api.extractGameVersion(filePath, selectedFolder)
+      const filePath = await window.api.gameVersionsManager.downloadGameVersion(selectedGameVersion as GameVersionType, selectedFolder)
+      const result = await window.api.gameVersionsManager.extractGameVersion(filePath, selectedFolder)
 
       if (result) {
-        window.api.logMessage(
+        window.api.utils.logMessage(
           "info",
           `[component] [MenuInstallNewVersion] Game version ${selectedGameVersion?.version} installed successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification(t("notification-title-versionSuccesfullyInstalled"), t("notification-body-versionSuccesfullyInstalled").replace("{version}", `${selectedGameVersion?.version}`), "success")
+        addNotification(t("notification-title-versionSuccesfullyInstalled"), t("notification-body-versionSuccesfullyInstalled", { version: selectedGameVersion?.version }), "success")
         setInstalledGameVersions([...installedGameVersions, { version: selectedGameVersion?.version as string, path: selectedFolder }])
         setSelectedGameVersion(availableGameVersions.find((agv) => !installedGameVersions.some((igv) => igv.version === agv.version)))
       }
 
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
     } catch (error) {
-      window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
-      addNotification(t("notification-title-versionErrorInstalling"), t("notification-body-versionErrorInstalling").replace("{version}", `${selectedGameVersion?.version}`), "error")
+      window.api.utils.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
+      addNotification(t("notification-title-versionErrorInstalling"), t("notification-body-versionErrorInstalling", { version: selectedGameVersion?.version }), "error")
     } finally {
       setPreventClosing(false)
       setDownloadProgress(0)
@@ -116,7 +116,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
             className="w-fit h-10 bg-zinc-900"
             disabled={preventClosing}
             onClick={async () => {
-              const userSelectedFolder = await window.api.selectFolderDialog()
+              const userSelectedFolder = await window.api.utils.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
             }}
           >

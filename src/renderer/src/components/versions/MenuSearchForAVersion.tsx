@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from "react"
 import { useTranslation } from "react-i18next"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import Button from "@components/utils/Buttons"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import Button from "@renderer/components/utils/Buttons"
 
 function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const { addNotification } = useContext(NotificationsContext)
@@ -14,18 +14,18 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
   useEffect(() => {
     if (selectedFolder) {
       ;(async (): Promise<void> => {
-        const res = await window.api.lookForAGameVersion(selectedFolder)
+        const res = await window.api.gameVersionsManager.lookForAGameVersion(selectedFolder)
 
         if (!res.exists) {
-          window.api.logMessage("info", `[component] [MenuInstallNewVersion] Game not found at ${selectedFolder}`)
+          window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game not found at ${selectedFolder}`)
           addNotification(t("notification-title-versionNotFound"), t("notification-body-versionNotFound"), "error")
           setGameVersionFound("")
           return
         }
 
         if (installedGameVersions.some((igv) => igv.version === res.installedGameVersion || igv.path === selectedFolder)) {
-          window.api.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${res.installedGameVersion} already installed`)
-          addNotification(t("notification-title-versionAlreadyInstalled"), t("notification-body-versionAlreadyInstalled").replace("{version}", `${res.installedGameVersion}`), "error")
+          window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${res.installedGameVersion} already installed`)
+          addNotification(t("notification-title-versionAlreadyInstalled"), t("notification-body-versionAlreadyInstalled", { version: res.installedGameVersion }), "error")
           return
         }
 
@@ -36,13 +36,13 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
 
   const handleSelection = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Trying to add the selected version: ${gameVersionFound}`)
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Trying to add the selected version: ${gameVersionFound}`)
 
       setInstalledGameVersions([...installedGameVersions, { version: gameVersionFound as string, path: selectedFolder }])
-      window.api.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${gameVersionFound} found at: ${selectedFolder}`)
-      addNotification(t("notification-title-versionSuccesfullyFound"), t("notification-body-versionSuccesfullyFound").replace("{version}", `${gameVersionFound}`), "success")
+      window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${gameVersionFound} found at: ${selectedFolder}`)
+      addNotification(t("notification-title-versionSuccesfullyFound"), t("notification-body-versionSuccesfullyFound", { version: gameVersionFound }), "success")
     } catch (error) {
-      window.api.logMessage("error", `[component] [MenuInstallNewVersion] Error while looking for the game at ${selectedFolder}: ${error}`)
+      window.api.utils.logMessage("error", `[component] [MenuInstallNewVersion] Error while looking for the game at ${selectedFolder}: ${error}`)
       addNotification(t("notification-title-versionErrorLookingForAVersion"), t("notification-body-versionErrorLookingForAVersion"), "error")
     } finally {
       setGameVersionFound("")
@@ -61,7 +61,7 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
             btnType="custom"
             className="w-fit h-10 bg-zinc-900"
             onClick={async () => {
-              const userSelectedFolder = await window.api.selectFolderDialog()
+              const userSelectedFolder = await window.api.utils.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
             }}
           >

@@ -7,7 +7,7 @@ function MainMenuLink({ icon, text, link, desc, onBrowser }: { icon: string; tex
   return onBrowser ? (
     <a
       href={onBrowser ? undefined : link}
-      onClick={() => onBrowser && window.api.openOnBrowser(link)}
+      onClick={() => onBrowser && window.api.utils.openOnBrowser(link)}
       className={`p-1 cursor-pointer rounded select-none flex gap-2 items-center hover:bg-zinc-950 border-l-4 ${location.pathname === link ? "border-vs" : " border-transparent"}`}
     >
       <img src={icon} className="w-10" />

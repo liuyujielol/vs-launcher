@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { NotificationsContext } from "@contexts/NotificationsContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
 
 const types = {
   success: "bg-lime-900",

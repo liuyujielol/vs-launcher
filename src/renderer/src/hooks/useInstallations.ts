@@ -4,11 +4,11 @@ export const useInstallations = (): [InstallationType[], React.Dispatch<React.Se
   const [installations, setInstallations] = useState<InstallationType[]>([])
 
   const setInstallationsCustom = async (value: React.SetStateAction<InstallationType[]>): Promise<void> => {
-    window.api.logMessage("info", `[hook] [useInstallations] Setting new installations`)
-    const config = await window.api.getConfig()
+    window.api.utils.logMessage("info", `[hook] [useInstallations] Setting new installations`)
+    const config = await window.api.configManager.getConfig()
     const newInstallations = typeof value === "function" ? value(config.installations) : value
     config.installations = newInstallations
-    window.api.saveConfig(config)
+    window.api.configManager.saveConfig(config)
     setInstallations(newInstallations)
   }
 

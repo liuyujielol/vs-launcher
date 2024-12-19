@@ -1,14 +1,14 @@
 import { useState, useContext, useRef } from "react"
 import { FaPlus, FaTrashCan, FaMagnifyingGlass } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import MenuInstallNewVersion from "@components/versions/MenuInstallNewVersion"
-import MenuUninstallVersion from "@components/versions/MenuUninstallVersion"
-import MenuSearchForAVersion from "@components/versions/MenuSearchForAVersion"
-import AbsoluteMenu from "@components/utils/AbsoluteMenu"
-import Button from "@components/utils/Buttons"
-import InViewItem from "@components/utils/InViewItem"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import MenuInstallNewVersion from "@renderer/components/versions/MenuInstallNewVersion"
+import MenuUninstallVersion from "@renderer/components/versions/MenuUninstallVersion"
+import MenuSearchForAVersion from "@renderer/components/versions/MenuSearchForAVersion"
+import AbsoluteMenu from "@renderer/components/utils/AbsoluteMenu"
+import Button from "@renderer/components/utils/Buttons"
+import InViewItem from "@renderer/components/utils/InViewItem"
 
 function Versions(): JSX.Element {
   const installedVersionListParentRef = useRef(null)

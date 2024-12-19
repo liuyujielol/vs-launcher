@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { PreventClosingContext } from "@contexts/PreventClosingContext"
+import { PreventClosingContext } from "@renderer/contexts/PreventClosingContext"
 
 function AbsoluteMenu({ isMenuOpen, setIsMenuOpen, children }: { isMenuOpen: boolean; setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>; children: React.ReactNode }): JSX.Element {
   const { preventClosing } = useContext(PreventClosingContext)

@@ -1,12 +1,12 @@
 import { useState, useContext, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { InstallationsContext } from "@contexts/InstallationsContext"
-import { InstallationContext } from "@contexts/InstallationContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import Button from "@components/utils/Buttons"
-import InViewItem from "@components/utils/InViewItem"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { InstallationsContext } from "@renderer/contexts/InstallationsContext"
+import { InstallationContext } from "@renderer/contexts/InstallationContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import Button from "@renderer/components/utils/Buttons"
+import InViewItem from "@renderer/components/utils/InViewItem"
 
 function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const editInstallationListParentRef = useRef(null)
@@ -22,7 +22,7 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
 
   const handleEditInstallation = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuEditInstallation] Editing installation ${installationName}`)
+      window.api.utils.logMessage("info", `[component] [MenuEditInstallation] Editing installation ${installationName}`)
       const newInstallation: InstallationType = {
         name: installationName,
         version: selectedInstalledVersion.version,
@@ -34,11 +34,11 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
       setInstallations([...installations.filter((ins) => ins.id !== installation!.id), newInstallation])
       window.localStorage.setItem("installation", newInstallation.id)
 
-      window.api.logMessage("info", `[component] [MenuEditInstallation] Edited installation ${installationName}`)
-      addNotification(t("notification-title-installationSuccesfullyEdited"), t("notification-body-installationSuccesfullyEdited").replace("{installation}", installationName), "success")
+      window.api.utils.logMessage("info", `[component] [MenuEditInstallation] Edited installation ${installationName}`)
+      addNotification(t("notification-title-installationSuccesfullyEdited"), t("notification-body-installationSuccesfullyEdited", { installation: installationName }), "success")
     } catch (err) {
-      window.api.logMessage("error", `[component] [MenuEditInstallation] Error while editing installation ${installationName}: ${err}`)
-      addNotification(t("notification-title-installationErrorEditing"), t("notification-body-installationErrorEditing").replace("{installation}", installationName), "error")
+      window.api.utils.logMessage("error", `[component] [MenuEditInstallation] Error while editing installation ${installationName}: ${err}`)
+      addNotification(t("notification-title-installationErrorEditing"), t("notification-body-installationErrorEditing", { installation: installationName }), "error")
     } finally {
       setIsMenuOpen(false)
     }
@@ -50,7 +50,7 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <h3 className="font-bold">{t("component-edditInstallationMenu-changeName")}</h3>
-          <span className="text-zinc-400">({t("component-addInstallationMenu-minMaxCharacters").replace("{min}", "5").replace("{max}", "50")})</span>
+          <span className="text-zinc-400">({t("component-addInstallationMenu-minMaxCharacters", { min: "5", max: "50" })})</span>
         </div>
         <input
           type="text"

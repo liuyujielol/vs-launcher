@@ -1,13 +1,13 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 
-import enUS from "@assets/lang/en-US.json"
-import esES from "@assets/lang/es-ES.json"
-import ruRU from "@assets/lang/ru-RU.json"
-import zhCN from "@assets/lang/zh-CN.json"
-import frFR from "@assets/lang/fr-FR.json"
-import cs from "@assets/lang/cs.json"
-import deDE from "@assets/lang/de-DE.json"
+import enUS from "@renderer/locales/en-US.json"
+import esES from "@renderer/locales/es-ES.json"
+import ruRU from "@renderer/locales/ru-RU.json"
+import zhCN from "@renderer/locales/zh-CN.json"
+import frFR from "@renderer/locales/fr-FR.json"
+import cs from "@renderer/locales/cs.json"
+import deDE from "@renderer/locales/de-DE.json"
 
 i18n.use(initReactI18next).init({
   resources: {

@@ -19,13 +19,13 @@ const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX
     if (firstExecuted.current) {
       firstExecuted.current = false
 
-      window.api.onUpdateAvailable(() => {
+      window.api.appUpdater.onUpdateAvailable(() => {
         addNotification(t("notification-title-updateAvailable"), t("notification-body-updateAvailable"), "info")
       })
 
-      window.api.onUpdateDownloaded(() => {
+      window.api.appUpdater.onUpdateDownloaded(() => {
         addNotification(t("notification-title-updateDownloaded"), t("notification-body-updateDownloaded"), "success", () => {
-          window.api.updateAndRestart()
+          window.api.appUpdater.updateAndRestart()
         })
       })
     }

@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import { usePreventClosing } from "@hooks/usePreventClosing"
+import { usePreventClosing } from "@renderer/hooks/usePreventClosing"
 
 interface PreventClosingType {
   preventClosing: boolean

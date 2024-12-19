@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { InstallationsContext } from "@contexts/InstallationsContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import Button from "@components/utils/Buttons"
-import InViewItem from "@components/utils/InViewItem"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { InstallationsContext } from "@renderer/contexts/InstallationsContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import Button from "@renderer/components/utils/Buttons"
+import InViewItem from "@renderer/components/utils/InViewItem"
 
 function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }): JSX.Element {
   const addInstallationListParentRef = useRef(null)
@@ -19,8 +19,8 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
 
   useEffect(() => {
     ;(async (): Promise<void> => {
-      const currentUserDataPath = await window.api.getCurrentUserDataPath()
-      setSelectedFolder(await window.api.formatPath([currentUserDataPath, "VSLInstallations", installationName.replace(/[^a-zA-Z0-9-]+/g, "-")]))
+      const currentUserDataPath = await window.api.pathsManager.getCurrentUserDataPath()
+      setSelectedFolder(await window.api.pathsManager.formatPath([currentUserDataPath, "VSLInstallations", installationName.replace(/[^a-zA-Z0-9-]+/g, "-")]))
     })()
   }, [installationName])
 
@@ -34,7 +34,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
 
   const handleAddInstallation = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuAddInstallation] Adding installation ${installationName} with path ${selectedFolder}`)
+      window.api.utils.logMessage("info", `[component] [MenuAddInstallation] Adding installation ${installationName} with path ${selectedFolder}`)
 
       const newInstallation: InstallationType = {
         name: installationName,
@@ -47,11 +47,11 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       setInstallations([...installations, newInstallation])
       window.localStorage.setItem("installation", newInstallation.id)
 
-      window.api.logMessage("info", `[component] [MenuAddInstallation] Added installation ${installationName} with path ${selectedFolder}`)
-      addNotification(t("notification-title-installationSuccesfullyAdded"), t("notification-body-installationSuccesfullyAdded").replace("{installation}", installationName), "success")
+      window.api.utils.logMessage("info", `[component] [MenuAddInstallation] Added installation ${installationName} with path ${selectedFolder}`)
+      addNotification(t("notification-title-installationSuccesfullyAdded"), t("notification-body-installationSuccesfullyAdded", { installation: installationName }), "success")
     } catch (err) {
-      window.api.logMessage("error", `[component] [MenuAddInstallation] Error while adding installation ${installationName} with path ${selectedFolder}: ${err}`)
-      addNotification(t("notification-title-installationErrorAdding"), t("notification-body-installationErrorAdding").replace("{installation}", installationName), "error")
+      window.api.utils.logMessage("error", `[component] [MenuAddInstallation] Error while adding installation ${installationName} with path ${selectedFolder}: ${err}`)
+      addNotification(t("notification-title-installationErrorAdding"), t("notification-body-installationErrorAdding", { installation: installationName }), "error")
     } finally {
       setIsMenuOpen(false)
     }
@@ -63,7 +63,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <h3 className="font-bold">{t("component-addInstallationMenu-nameInstallation")}</h3>
-          <span className="text-zinc-400">({t("component-addInstallationMenu-minMaxCharacters").replace("{min}", "5").replace("{max}", "50")})</span>
+          <span className="text-zinc-400">({t("component-addInstallationMenu-minMaxCharacters", { min: 5, max: 50 })})</span>
         </div>
         <input
           type="text"
@@ -111,7 +111,7 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
             btnType="custom"
             className="w-fit h-10 bg-zinc-900"
             onClick={async () => {
-              const userSelectedFolder = await window.api.selectFolderDialog()
+              const userSelectedFolder = await window.api.utils.selectFolderDialog()
               setSelectedFolder(userSelectedFolder)
             }}
           >

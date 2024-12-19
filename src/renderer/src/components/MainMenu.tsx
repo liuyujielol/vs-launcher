@@ -6,20 +6,20 @@ import iconVersions from "@assets/icon-versions.png"
 import iconModdb from "@assets/icon-moddb.png"
 import iconNews from "@assets/icon-news.png"
 import iconChangelog from "@assets/icon-changelog.png"
-import { InstallationContext } from "@contexts/InstallationContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import { PlayingContext } from "@contexts/PlayingContext"
+import { InstallationContext } from "@renderer/contexts/InstallationContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { PreventClosingContext } from "@renderer/contexts/PreventClosingContext"
+import { PlayingContext } from "@renderer/contexts/PlayingContext"
 import { useTranslation } from "react-i18next"
-import LanguagesMenu from "@components/LanguagesMenu"
-import AbsoluteMenu from "@components/utils/AbsoluteMenu"
-import MainMenuLink from "@components/MainMenuLink"
-import InstallationsMenu from "@components/InstallationsMenu"
-import Button from "@components/utils/Buttons"
-import MenuAddInstallation from "@components/installations/MenuAddInstallation"
-import MenuEditInstallation from "@components/installations/MenuEditInstallation"
-import MenuDeleteInstallation from "@components/installations/MenuDeleteInstallation"
+import LanguagesMenu from "@renderer/components/LanguagesMenu"
+import AbsoluteMenu from "@renderer/components/utils/AbsoluteMenu"
+import MainMenuLink from "@renderer/components/MainMenuLink"
+import InstallationsMenu from "@renderer/components/InstallationsMenu"
+import Button from "@renderer/components/utils/Buttons"
+import MenuAddInstallation from "@renderer/components/installations/MenuAddInstallation"
+import MenuEditInstallation from "@renderer/components/installations/MenuEditInstallation"
+import MenuDeleteInstallation from "@renderer/components/installations/MenuDeleteInstallation"
 
 function MainMenu(): JSX.Element {
   const { installation } = useContext(InstallationContext)
@@ -35,14 +35,14 @@ function MainMenu(): JSX.Element {
   const executeGameManager = async (): Promise<void> => {
     try {
       if (!installedGameVersions.some((igv) => igv.version === installation?.version)) {
-        addNotification(t("notification-title-errorExecutingGame"), t("notification-body-errorVersionNotInstalled").replace("{version}", `${installation?.version}`), "error")
+        addNotification(t("notification-title-errorExecutingGame"), t("notification-body-errorVersionNotInstalled", { version: installation?.version }), "error")
         return
       }
 
       setPreventClosing(true)
       setPlaying(true)
 
-      const res = await window.api.executeGame(installedGameVersions.find((igv) => igv.version === installation?.version) as InstalledGameVersionType, installation as InstallationType)
+      const res = await window.api.gameManager.executeGame(installedGameVersions.find((igv) => igv.version === installation?.version) as InstalledGameVersionType, installation as InstallationType)
 
       if (!res) {
         addNotification(t("notification-title-gameClosedWithError"), t("notification-body-gameClosedWithError"), "error")
@@ -122,10 +122,10 @@ function MainMenu(): JSX.Element {
               <Button
                 onClick={async () => {
                   if (installation) {
-                    if (!(await window.api.checkPathExists(installation!.path))) {
+                    if (!(await window.api.pathsManager.checkPathExists(installation!.path))) {
                       addNotification(t("notification-title-folderDoesntExists"), t("notification-body-folderDoesntExists"), "error")
                     } else {
-                      window.api.openPathOnFileExplorer(installation!.path)
+                      window.api.pathsManager.openPathOnFileExplorer(installation!.path)
                     }
                   } else {
                     addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")

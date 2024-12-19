@@ -1,10 +1,10 @@
 import { useState, useContext } from "react"
 import { FaSpinner } from "react-icons/fa6"
 import { useTranslation } from "react-i18next"
-import { InstalledGameVersionsContext } from "@contexts/InstalledGameVersionsContext"
-import { NotificationsContext } from "@contexts/NotificationsContext"
-import { PreventClosingContext } from "@contexts/PreventClosingContext"
-import Button from "@components/utils/Buttons"
+import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { PreventClosingContext } from "@renderer/contexts/PreventClosingContext"
+import Button from "@renderer/components/utils/Buttons"
 
 function MenuUninstallVersion({
   setIsMenuOpen,
@@ -23,28 +23,24 @@ function MenuUninstallVersion({
 
   const handleUninstalling = async (): Promise<void> => {
     try {
-      window.api.logMessage("info", `[component] [MenuUninstallNewVersion] Starting game version instalaltion: ${selectedInstalledVersion?.version}`)
+      window.api.utils.logMessage("info", `[component] [MenuUninstallNewVersion] Starting game version instalaltion: ${selectedInstalledVersion?.version}`)
       setIsUninstalling(true)
       setPreventClosing(true)
-      const result = await window.api.uninstallGameVersion(selectedInstalledVersion as InstalledGameVersionType)
+      const result = await window.api.gameVersionsManager.uninstallGameVersion(selectedInstalledVersion as InstalledGameVersionType)
 
       if (result) {
-        window.api.logMessage(
+        window.api.utils.logMessage(
           "info",
           `[component] [MenuUninstallNewVersion] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification(
-          t("notification-title-versionSuccesfullyUninstalled"),
-          t("notification-body-versionSuccesfullyUninstalled").replace("{version}", `${selectedInstalledVersion?.version}`),
-          "success"
-        )
+        addNotification(t("notification-title-versionSuccesfullyUninstalled"), t("notification-body-versionSuccesfullyUninstalled", { version: selectedInstalledVersion?.version }), "success")
         setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))
       }
 
-      window.api.logMessage("info", `[component] [MenuUninstallNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
+      window.api.utils.logMessage("info", `[component] [MenuUninstallNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
     } catch (err) {
-      window.api.logMessage("error", `[component] [MenuUninstallNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
-      addNotification(t("notification-title-versionErrorUninstalling"), t("notification-body-versionErrorUninstalling").replace("{version}", `${selectedInstalledVersion?.version}`), "error")
+      window.api.utils.logMessage("error", `[component] [MenuUninstallNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
+      addNotification(t("notification-title-versionErrorUninstalling"), t("notification-body-versionErrorUninstalling", { version: selectedInstalledVersion?.version }), "error")
     } finally {
       setIsUninstalling(false)
       setPreventClosing(false)

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6"
-import { InstallationContext } from "@contexts/InstallationContext"
-import { InstallationsContext } from "@contexts/InstallationsContext"
+import { InstallationContext } from "@renderer/contexts/InstallationContext"
+import { InstallationsContext } from "@renderer/contexts/InstallationsContext"
 import { useTranslation } from "react-i18next"
 
 function InstallationsMenu({ className }: { className?: string }): JSX.Element {
@@ -37,7 +37,7 @@ function InstallationsMenu({ className }: { className?: string }): JSX.Element {
                         <span>{current.name}</span>
                         <span className="text-sm text-zinc-400">
                           {current.version}
-                          {current.mods.length > 0 && ` (${t("component-installationsMenu-noInstallationsAvailable").replace("{count}", `${current.mods.length}`)})`}
+                          {current.mods.length > 0 && ` (${t("component-installationsMenu-modsCount", { count: current.mods.length })})`}
                         </span>
                       </div>
                     </button>
@@ -72,7 +72,7 @@ function InstallationsMenu({ className }: { className?: string }): JSX.Element {
                         <span>{current.name}</span>
                         <span className="text-sm text-zinc-400">
                           {current.version}
-                          {current.mods.length > 0 && ` (${t("component-installationsMenu-noInstallationsAvailable").replace("{count}", `${current.mods.length}`)})`}
+                          {current.mods.length > 0 && ` (${t("component-installationsMenu-modsCount", { count: current.mods.length })})`}
                         </span>
                       </div>
                       {isOpen ? <FaAngleDown /> : <FaAngleUp />}

@@ -1,4 +1,4 @@
-import { logMessage } from "./logMessage"
+import { logMessage } from "./logManager"
 
 let shouldPreventClose = false
 

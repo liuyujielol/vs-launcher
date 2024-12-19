@@ -8,7 +8,7 @@ function Home(): JSX.Element {
 
   useEffect(() => {
     ;(async (): Promise<void> => {
-      const res = await window.api.getVersion()
+      const res = await window.api.utils.getAppVersion()
       setVersion(res)
     })()
   }, [])
@@ -21,7 +21,7 @@ function Home(): JSX.Element {
           <MiniLinks to="https://github.com/XurxoMF/vs-launcher/wiki" text={t("top-minimenu-guides")} />|
           <MiniLinks to="https://github.com/XurxoMF/vs-launcher" text={t("top-minimenu-source")} />
         </span>
-        <span>VS Launcher - v{version}</span>
+        <span>VS Launcher - v{{ version }}</span>
       </div>
       <div className="w-full h-full flex flex-col items-center justify-around p-4 pt-8 bg-zinc-900/50">
         <div className="w-full text-center flex flex-col items-center gap-2 text-lg">
@@ -45,7 +45,7 @@ export default Home
 
 const MiniLinks = ({ to, text }: { to: string; text: string }): JSX.Element => {
   return (
-    <a onClick={() => window.api.openOnBrowser(to)} className="flex flex-row flex-nowrap items-center gap-1 cursor-pointer">
+    <a onClick={() => window.api.utils.openOnBrowser(to)} className="flex flex-row flex-nowrap items-center gap-1 cursor-pointer">
       {text} <FiExternalLink />
     </a>
   )
