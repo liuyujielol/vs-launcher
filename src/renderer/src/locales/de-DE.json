@@ -100,27 +100,14 @@
   "component-edditInstallationMenu-edit": "Bearbeiten",
   "component-edditInstallationMenu-close": "Schließen",
 
-  "notification-title-errorExecutingGame": "Fehler beim Starten des Spiels",
-  "notification-title-gameClosedWithError": "Spiel mit einem Fehler geschlossen",
-  "notification-title-versionErrorLookingForAVersion": "Bei der Suche nach einer Version ist ein Fehler aufgetreten",
-  "notification-title-versionAlreadyInstalled": "Version bereits installiert",
-  "notification-title-versionSuccesfullyFound": "Erfolgreich hinzugefügt",
-  "notification-title-versionNotFound": "Version nicht gefunden",
-  "notification-title-versionSuccesfullyInstalled": "Erfolgreich installiert",
-  "notification-title-versionErrorInstalling": "Bei der Installation der Version ist ein Fehler aufgetreten",
-  "notification-title-versionSuccesfullyUninstalled": "Erfolgreich deinstalliert",
-  "notification-title-versionErrorUninstalling": "Bei der Deinstallation der Version ist ein Fehler aufgetreten",
-  "notification-title-installationSuccesfullyAdded": "Instllation erfolgreich hinzugefügt",
-  "notification-title-installationErrorAdding": "Bei dem Hinzufügen der Version ist ein Fehler aufgetreten",
-  "notification-title-installationSuccesfullyDeleted": "Installation erfolgreich entfernt",
-  "notification-title-installationErrorDeleting": "Bei dem Entfernen der Version ist ein Fehler aufgetreten",
-  "notification-title-installationSuccesfullyEdited": "Installation erfolgreich bearbeitet",
-  "notification-title-installationErrorEditing": "Bei dem Bearbeiten der Version ist ein Fehler aufgetreten",
-  "notification-title-noVersionSelected": "Keine Version ausgewählt",
-  "notification-title-noInstallationSelected": "Keine Instllation ausgewählt",
-  "notification-title-folderDoesntExists": "Der Ordner existiert nicht",
-  "notification-title-updateAvailable": "Aktualisierung verfügbar",
-  "notification-title-updateDownloaded": "Aktualisierung heruntergeladen",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "Spielversion {{version}} ist nicht installiert",
   "notification-body-gameClosedWithError": "Spiel mit einem Fehler geschlossen",

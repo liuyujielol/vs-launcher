@@ -11,7 +11,9 @@ import { ensureConfig } from "@src/config/configManager"
 import { getShouldPreventClose } from "@src/utils/shouldPreventClose"
 import icon from "../../resources/icon.png?asset"
 import { logMessage } from "@src/utils/logManager"
-import { registerIpcHandlers, IPC_CHANNELS } from "@src/ipc"
+import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
+
+import "@src/ipc"
 
 autoUpdater.logger = log
 autoUpdater.logger.info("Logger configured for auto-updater")
@@ -31,8 +33,8 @@ function createWindow(): void {
     icon: icon,
     ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
-      preload: join(__dirname, "../preload/index.js"),
-      sandbox: false
+      sandbox: false,
+      preload: join(__dirname, "../preload/index.js")
     }
   })
 
@@ -77,8 +79,6 @@ app.whenReady().then(() => {
   })
 
   ensureConfig()
-
-  registerIpcHandlers()
 
   createWindow()
 

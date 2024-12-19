@@ -1,17 +1,17 @@
 import { useContext, useState } from "react"
 import { FaPlus, FaWhmcs, FaTrashCan, FaFolderOpen } from "react-icons/fa6"
 import { motion, AnimatePresence } from "motion/react"
-import icon from "@assets/icon.png"
-import iconVersions from "@assets/icon-versions.png"
-import iconModdb from "@assets/icon-moddb.png"
-import iconNews from "@assets/icon-news.png"
-import iconChangelog from "@assets/icon-changelog.png"
+import { useTranslation } from "react-i18next"
+import icon from "@renderer/assets/icon.png"
+import iconVersions from "@renderer/assets/icon-versions.png"
+import iconModdb from "@renderer/assets/icon-moddb.png"
+import iconNews from "@renderer/assets/icon-news.png"
+import iconChangelog from "@renderer/assets/icon-changelog.png"
 import { InstallationContext } from "@renderer/contexts/InstallationContext"
 import { NotificationsContext } from "@renderer/contexts/NotificationsContext"
 import { InstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
 import { PreventClosingContext } from "@renderer/contexts/PreventClosingContext"
 import { PlayingContext } from "@renderer/contexts/PlayingContext"
-import { useTranslation } from "react-i18next"
 import LanguagesMenu from "@renderer/components/LanguagesMenu"
 import AbsoluteMenu from "@renderer/components/utils/AbsoluteMenu"
 import MainMenuLink from "@renderer/components/MainMenuLink"
@@ -35,7 +35,7 @@ function MainMenu(): JSX.Element {
   const executeGameManager = async (): Promise<void> => {
     try {
       if (!installedGameVersions.some((igv) => igv.version === installation?.version)) {
-        addNotification(t("notification-title-errorExecutingGame"), t("notification-body-errorVersionNotInstalled", { version: installation?.version }), "error")
+        addNotification(t("notification.title.error"), t("notification-body-errorVersionNotInstalled", { version: installation?.version }), "error")
         return
       }
 
@@ -45,10 +45,10 @@ function MainMenu(): JSX.Element {
       const res = await window.api.gameManager.executeGame(installedGameVersions.find((igv) => igv.version === installation?.version) as InstalledGameVersionType, installation as InstallationType)
 
       if (!res) {
-        addNotification(t("notification-title-gameClosedWithError"), t("notification-body-gameClosedWithError"), "error")
+        addNotification(t("notification.title.error"), t("notification-body-gameClosedWithError"), "error")
       }
     } catch (err) {
-      addNotification(t("notification-title-gameClosedWithError"), t("notification-body-errorExecutingGame"), "error")
+      addNotification(t("notification.title.error"), t("notification-body-errorExecutingGame"), "error")
     } finally {
       setPreventClosing(false)
       setPlaying(false)
@@ -91,7 +91,7 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsEditInstallationMenuOpen(true)
                   } else {
-                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToEdit"), "error")
+                    addNotification(t("notification.title.warning"), t("notification-body-noInstallationSelectedToEdit"), "error")
                   }
                 }}
                 btnType="sm"
@@ -110,7 +110,7 @@ function MainMenu(): JSX.Element {
                   if (installation) {
                     setIsDeleteInstallationMenuOpen(true)
                   } else {
-                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToDelete"), "error")
+                    addNotification(t("notification.title.warning"), t("notification-body-noInstallationSelectedToDelete"), "error")
                   }
                 }}
                 btnType="sm"
@@ -123,12 +123,12 @@ function MainMenu(): JSX.Element {
                 onClick={async () => {
                   if (installation) {
                     if (!(await window.api.pathsManager.checkPathExists(installation!.path))) {
-                      addNotification(t("notification-title-folderDoesntExists"), t("notification-body-folderDoesntExists"), "error")
+                      addNotification(t("notification.title.warning"), t("notification-body-folderDoesntExists"), "error")
                     } else {
                       window.api.pathsManager.openPathOnFileExplorer(installation!.path)
                     }
                   } else {
-                    addNotification(t("notification-title-noInstallationSelected"), t("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
+                    addNotification(t("notification.title.warning"), t("notification-body-noInstallationSelectedToOpenInFileExlorer"), "error")
                   }
                 }}
                 btnType="sm"

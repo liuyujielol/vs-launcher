@@ -99,27 +99,14 @@
   "component-edditInstallationMenu-edit": "Upravit",
   "component-edditInstallationMenu-close": "Zavřít",
 
-  "notification-title-errorExecutingGame": "Chyba při spouštění hry",
-  "notification-title-gameClosedWithError": "Chyba hry",
-  "notification-title-versionErrorLookingForAVersion": "Chyba při hledání verze",
-  "notification-title-versionAlreadyInstalled": "Verze je již nainstalována",
-  "notification-title-versionSuccesfullyFound": "Verze úspěšně přidána",
-  "notification-title-versionNotFound": "Verze nenalezena",
-  "notification-title-versionSuccesfullyInstalled": "Úspěšně nainstalováno",
-  "notification-title-versionErrorInstalling": "Chyba při instalaci verze",
-  "notification-title-versionSuccesfullyUninstalled": "Úspěšně odinstalováno",
-  "notification-title-versionErrorUninstalling": "Chyba při odinstalování verze",
-  "notification-title-installationSuccesfullyAdded": "Úspěšně přidána instalace",
-  "notification-title-installationErrorAdding": "Chyba při přidávání instalace",
-  "notification-title-installationSuccesfullyDeleted": "Úspěšně odstraněna instalace",
-  "notification-title-installationErrorDeleting": "Chyba při odstraňování instalace",
-  "notification-title-installationSuccesfullyEdited": "Úspěšně upravena instalace",
-  "notification-title-installationErrorEditing": "Chyba při úpravě instalace",
-  "notification-title-noVersionSelected": "Žádná verze není vybrána",
-  "notification-title-noInstallationSelected": "Žádná instalace není vybrána",
-  "notification-title-folderDoesntExists": "Složka neexistuje",
-  "notification-title-updateAvailable": "Update available",
-  "notification-title-updateDownloaded": "Update downloaded",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "Herní verze {{version}} není nainstalována",
   "notification-body-gameClosedWithError": "Hra se zavřela s chybou",

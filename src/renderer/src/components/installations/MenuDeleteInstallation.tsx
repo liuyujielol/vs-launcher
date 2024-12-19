@@ -29,10 +29,10 @@ function MenuDeleteInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispat
       setInstallations(installations.filter((current) => current.id !== installation!.id))
 
       window.api.utils.logMessage("info", `[component] [MenuDeleteInstallation] Deleted installation ${installation?.name} with path ${installation?.path}`)
-      addNotification(t("notification-title-installationSuccesfullyDeleted"), t("notification-body-installationSuccesfullyDeleted", { installation: installation!.name }), "success")
+      addNotification(t("notification.title.success"), t("notification-body-installationSuccesfullyDeleted", { installation: installation!.name }), "success")
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [MenuDeleteInstallation] Error while deleting installation ${installation?.name} with path ${installation?.path}: ${err}`)
-      addNotification(t("notification-title-installationErrorDeleting"), t("notification-body-installationErrorDeleting", { installation: installation!.name }), "error")
+      addNotification(t("notification.title.error"), t("notification-body-installationErrorDeleting", { installation: installation!.name }), "error")
     } finally {
       setIsMenuOpen(false)
     }

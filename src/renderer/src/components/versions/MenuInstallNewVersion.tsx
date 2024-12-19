@@ -63,7 +63,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
           "info",
           `[component] [MenuInstallNewVersion] Game version ${selectedGameVersion?.version} installed successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification(t("notification-title-versionSuccesfullyInstalled"), t("notification-body-versionSuccesfullyInstalled", { version: selectedGameVersion?.version }), "success")
+        addNotification(t("notification.title.success"), t("notification-body-versionSuccesfullyInstalled", { version: selectedGameVersion?.version }), "success")
         setInstalledGameVersions([...installedGameVersions, { version: selectedGameVersion?.version as string, path: selectedFolder }])
         setSelectedGameVersion(availableGameVersions.find((agv) => !installedGameVersions.some((igv) => igv.version === agv.version)))
       }
@@ -71,7 +71,7 @@ function MenuInstallNewVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
       window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Version installation finished: ${selectedGameVersion?.version}`)
     } catch (error) {
       window.api.utils.logMessage("error", `[component] [MenuInstallNewVersion] Error while installing game version ${selectedGameVersion?.version}: ${error}`)
-      addNotification(t("notification-title-versionErrorInstalling"), t("notification-body-versionErrorInstalling", { version: selectedGameVersion?.version }), "error")
+      addNotification(t("notification.title.error"), t("notification-body-versionErrorInstalling", { version: selectedGameVersion?.version }), "error")
     } finally {
       setPreventClosing(false)
       setDownloadProgress(0)

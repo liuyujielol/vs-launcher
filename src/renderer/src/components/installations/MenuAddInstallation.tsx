@@ -48,10 +48,10 @@ function MenuAddInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch<
       window.localStorage.setItem("installation", newInstallation.id)
 
       window.api.utils.logMessage("info", `[component] [MenuAddInstallation] Added installation ${installationName} with path ${selectedFolder}`)
-      addNotification(t("notification-title-installationSuccesfullyAdded"), t("notification-body-installationSuccesfullyAdded", { installation: installationName }), "success")
+      addNotification(t("notification.title.success"), t("notification-body-installationSuccesfullyAdded", { installation: installationName }), "success")
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [MenuAddInstallation] Error while adding installation ${installationName} with path ${selectedFolder}: ${err}`)
-      addNotification(t("notification-title-installationErrorAdding"), t("notification-body-installationErrorAdding", { installation: installationName }), "error")
+      addNotification(t("notification.title.error"), t("notification-body-installationErrorAdding", { installation: installationName }), "error")
     } finally {
       setIsMenuOpen(false)
     }

@@ -62,7 +62,7 @@ function Versions(): JSX.Element {
             if (selectedInstalledVersion) {
               setIsUninstallMenuOpen(true)
             } else {
-              addNotification(t("notification-title-noVersionSelected"), t("notification-body-noVersionSelectedToUnistall"), "error")
+              addNotification(t("notification.title.warning"), t("notification-body-noVersionSelectedToUnistall"), "error")
             }
           }}
         >

@@ -99,27 +99,14 @@
   "component-edditInstallationMenu-edit": "Modifier",
   "component-edditInstallationMenu-close": "Fermer",
 
-  "notification-title-errorExecutingGame": "Erreur lors de l'execution du jeu",
-  "notification-title-gameClosedWithError": "Erreur du jeu",
-  "notification-title-versionErrorLookingForAVersion": "Erreur pendant la recherche d'une version",
-  "notification-title-versionAlreadyInstalled": "Version déjà installée",
-  "notification-title-versionSuccesfullyFound": "Ajoutée avec succès",
-  "notification-title-versionNotFound": "Version non trouvée",
-  "notification-title-versionSuccesfullyInstalled": "Installation réussie",
-  "notification-title-versionErrorInstalling": "Erreur pendant l'installation de la version",
-  "notification-title-versionSuccesfullyUninstalled": "Désinstallation réussie",
-  "notification-title-versionErrorUninstalling": "Erreur pendant la désinstallation de la version",
-  "notification-title-installationSuccesfullyAdded": "Installation ajoutée avec succès",
-  "notification-title-installationErrorAdding": "Erreur pendant l'ajout de l'installation",
-  "notification-title-installationSuccesfullyDeleted": "Installation supprimée avec succès",
-  "notification-title-installationErrorDeleting": "Erreur pendant la suppression de votre installation",
-  "notification-title-installationSuccesfullyEdited": "Installation modifiée avec succès",
-  "notification-title-installationErrorEditing": "Erreur pendant la modification de l'installation",
-  "notification-title-noVersionSelected": "Aucune version sélectionnée",
-  "notification-title-noInstallationSelected": "Aucune installation sélectionnée",
-  "notification-title-folderDoesntExists": "Il n'y a aucun fichier",
-  "notification-title-updateAvailable": "Mise à jour disponible",
-  "notification-title-updateDownloaded": "Mise à jour effectuée",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "La version {{version}} n'est pas installée",
   "notification-body-gameClosedWithError": "Jeu fermé avec une erreur",

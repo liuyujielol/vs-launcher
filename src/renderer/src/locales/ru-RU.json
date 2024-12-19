@@ -99,27 +99,14 @@
   "component-edditInstallationMenu-edit": "Сохранить",
   "component-edditInstallationMenu-close": "Отмена",
 
-  "notification-title-errorExecutingGame": "Ошибка при запуске игры",
-  "notification-title-gameClosedWithError": "Ошибка игры",
-  "notification-title-versionErrorLookingForAVersion": "Ошибка во время поиска версии",
-  "notification-title-versionAlreadyInstalled": "Версия уже установлена",
-  "notification-title-versionSuccesfullyFound": "Успешно добавлено",
-  "notification-title-versionNotFound": "Версия не найдена",
-  "notification-title-versionSuccesfullyInstalled": "Успешно установлено",
-  "notification-title-versionErrorInstalling": "Ошибка при установке версии",
-  "notification-title-versionSuccesfullyUninstalled": "Успешно удалено",
-  "notification-title-versionErrorUninstalling": "Ошибка при удалении версии",
-  "notification-title-installationSuccesfullyAdded": "Сборка успешно добавлена",
-  "notification-title-installationErrorAdding": "Ошибка при добавлении сборки",
-  "notification-title-installationSuccesfullyDeleted": "Сборка успешно удалена",
-  "notification-title-installationErrorDeleting": "Ошибка при удалении сборки",
-  "notification-title-installationSuccesfullyEdited": "Сборка успешно изменена",
-  "notification-title-installationErrorEditing": "Ошибка при изменении сборки",
-  "notification-title-noVersionSelected": "Версия не выбрана",
-  "notification-title-noInstallationSelected": "Установленная версия не выбрана",
-  "notification-title-folderDoesntExists": "Папка не найдена",
-  "notification-title-updateAvailable": "Update available",
-  "notification-title-updateDownloaded": "Update downloaded",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "Версия игры {{version}} не установлена",
   "notification-body-gameClosedWithError": "Игра закрылась с ошибкой",

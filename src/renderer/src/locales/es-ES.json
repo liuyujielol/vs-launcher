@@ -99,27 +99,14 @@
   "component-edditInstallationMenu-edit": "Editar",
   "component-edditInstallationMenu-close": "Cerrar",
 
-  "notification-title-errorExecutingGame": "Error ejecutando juego",
-  "notification-title-gameClosedWithError": "Error del jeugo",
-  "notification-title-versionErrorLookingForAVersion": "Error al buscar la versión",
-  "notification-title-versionSuccesfullyFound": "Añadida correctamente",
-  "notification-title-versionNotFound": "Versión no encontrada",
-  "notification-title-versionAlreadyInstalled": "Versión ya instalada",
-  "notification-title-versionSuccesfullyInstalled": "Instalado correctamente",
-  "notification-title-versionErrorInstalling": "Error instalando la versión",
-  "notification-title-versionSuccesfullyUninstalled": "Desinstalado correctamente",
-  "notification-title-versionErrorUninstalling": "Error desinstalando la versión",
-  "notification-title-installationSuccesfullyAdded": "Instalación añadida correctamente",
-  "notification-title-installationErrorAdding": "Error anadiendo instalación",
-  "notification-title-installationSuccesfullyDeleted": "Instalación eliminada correctamente",
-  "notification-title-installationErrorDeleting": "Error eliminando instalación",
-  "notification-title-installationSuccesfullyEdited": "Instalación editada correctamente",
-  "notification-title-installationErrorEditing": "Error editando instalación",
-  "notification-title-noVersionSelected": "No hay ninguna versión seleccionada",
-  "notification-title-noInstallationSelected": "No hay ninguna instalación seleccionada",
-  "notification-title-folderDoesntExists": "No hay ninguna carpeta",
-  "notification-title-updateAvailable": "Actualización disponible",
-  "notification-title-updateDownloaded": "Actualización descargada",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "La versión {{version}} del jeugo no está instalada",
   "notification-body-gameClosedWithError": "El juego se cerro con un error",

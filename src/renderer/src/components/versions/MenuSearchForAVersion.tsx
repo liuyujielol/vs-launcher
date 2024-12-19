@@ -18,14 +18,14 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
 
         if (!res.exists) {
           window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game not found at ${selectedFolder}`)
-          addNotification(t("notification-title-versionNotFound"), t("notification-body-versionNotFound"), "error")
+          addNotification(t("notification.title.error"), t("notification-body-versionNotFound"), "error")
           setGameVersionFound("")
           return
         }
 
         if (installedGameVersions.some((igv) => igv.version === res.installedGameVersion || igv.path === selectedFolder)) {
           window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${res.installedGameVersion} already installed`)
-          addNotification(t("notification-title-versionAlreadyInstalled"), t("notification-body-versionAlreadyInstalled", { version: res.installedGameVersion }), "error")
+          addNotification(t("notification.title.error"), t("notification-body-versionAlreadyInstalled", { version: res.installedGameVersion }), "error")
           return
         }
 
@@ -40,10 +40,10 @@ function MenuSearchForAVersion({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatc
 
       setInstalledGameVersions([...installedGameVersions, { version: gameVersionFound as string, path: selectedFolder }])
       window.api.utils.logMessage("info", `[component] [MenuInstallNewVersion] Game version ${gameVersionFound} found at: ${selectedFolder}`)
-      addNotification(t("notification-title-versionSuccesfullyFound"), t("notification-body-versionSuccesfullyFound", { version: gameVersionFound }), "success")
+      addNotification(t("notification.title.success"), t("notification-body-versionSuccesfullyFound", { version: gameVersionFound }), "success")
     } catch (error) {
       window.api.utils.logMessage("error", `[component] [MenuInstallNewVersion] Error while looking for the game at ${selectedFolder}: ${error}`)
-      addNotification(t("notification-title-versionErrorLookingForAVersion"), t("notification-body-versionErrorLookingForAVersion"), "error")
+      addNotification(t("notification.title.error"), t("notification-body-versionErrorLookingForAVersion"), "error")
     } finally {
       setGameVersionFound("")
       setSelectedFolder("")

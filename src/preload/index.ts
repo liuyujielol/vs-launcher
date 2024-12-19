@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron"
 import { autoUpdater } from "electron-updater"
-import { IPC_CHANNELS } from "@src/ipc"
+import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
 
 import { electronAPI } from "@electron-toolkit/preload"
 import { logMessage } from "@src/utils/logManager"

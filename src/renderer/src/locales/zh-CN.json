@@ -99,27 +99,14 @@
   "component-edditInstallationMenu-edit": "编辑",
   "component-edditInstallationMenu-close": "关闭",
 
-  "notification-title-errorExecutingGame": "启动游戏时出错",
-  "notification-title-gameClosedWithError": "游戏错误",
-  "notification-title-versionErrorLookingForAVersion": "查找游戏版本时出错",
-  "notification-title-versionAlreadyInstalled": "游戏版本已安装",
-  "notification-title-versionSuccesfullyFound": "添加成功",
-  "notification-title-versionNotFound": "未找到游戏版本",
-  "notification-title-versionSuccesfullyInstalled": "安装成功",
-  "notification-title-versionErrorInstalling": "安装游戏版本时出错",
-  "notification-title-versionSuccesfullyUninstalled": "卸载成功",
-  "notification-title-versionErrorUninstalling": "卸载版本时出错",
-  "notification-title-installationSuccesfullyAdded": "安装成功",
-  "notification-title-installationErrorAdding": "安装时出错",
-  "notification-title-installationSuccesfullyDeleted": "删除安装成功",
-  "notification-title-installationErrorDeleting": "删除安装时出错",
-  "notification-title-installationSuccesfullyEdited": "编辑安装成功",
-  "notification-title-installationErrorEditing": "编辑安装时出错",
-  "notification-title-noVersionSelected": "未选择任何版本",
-  "notification-title-noInstallationSelected": "未选择任何安装",
-  "notification-title-folderDoesntExists": "文件夹不存在",
-  "notification-title-updateAvailable": "Update available",
-  "notification-title-updateDownloaded": "Update downloaded",
+  "notification": {
+    "title": {
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Info",
+      "success": "Success"
+    }
+  },
 
   "notification-body-errorVersionNotInstalled": "游戏版本 {{version}} 未安装",
   "notification-body-gameClosedWithError": "游戏因错误而关闭",

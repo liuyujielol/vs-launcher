@@ -33,14 +33,14 @@ function MenuUninstallVersion({
           "info",
           `[component] [MenuUninstallNewVersion] Game version ${selectedInstalledVersion?.version} uninstalled successfully. Updating installed game versions and changing selected game version`
         )
-        addNotification(t("notification-title-versionSuccesfullyUninstalled"), t("notification-body-versionSuccesfullyUninstalled", { version: selectedInstalledVersion?.version }), "success")
+        addNotification(t("notification.title.success"), t("notification-body-versionSuccesfullyUninstalled", { version: selectedInstalledVersion?.version }), "success")
         setInstalledGameVersions(installedGameVersions.filter((version) => version.version !== selectedInstalledVersion?.version))
       }
 
       window.api.utils.logMessage("info", `[component] [MenuUninstallNewVersion] Game version uninstallation finished: ${selectedInstalledVersion?.version}`)
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [MenuUninstallNewVersion] Error while uninstalling game version ${selectedInstalledVersion?.version}: ${err}`)
-      addNotification(t("notification-title-versionErrorUninstalling"), t("notification-body-versionErrorUninstalling", { version: selectedInstalledVersion?.version }), "error")
+      addNotification(t("notification.title.error"), t("notification-body-versionErrorUninstalling", { version: selectedInstalledVersion?.version }), "error")
     } finally {
       setIsUninstalling(false)
       setPreventClosing(false)

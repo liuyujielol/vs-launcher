@@ -8,9 +8,9 @@ import { PreventClosingProvider } from "@renderer/contexts/PreventClosingContext
 import { PlayingProvider } from "@renderer/contexts/PlayingContext"
 import MainMenu from "@renderer/components/MainMenu"
 import NotificationsOverlay from "@renderer/components/NotificationsOverlay"
-import Home from "@routes/Home"
-import Mods from "@routes/Mods"
-import Versions from "@routes/Versions"
+import Home from "@renderer/routes/Home"
+import Mods from "@renderer/routes/Mods"
+import Versions from "@renderer/routes/Versions"
 import "./i18n"
 import i18n from "./i18n"
 

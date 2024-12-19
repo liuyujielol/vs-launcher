@@ -21,7 +21,7 @@ function Home(): JSX.Element {
           <MiniLinks to="https://github.com/XurxoMF/vs-launcher/wiki" text={t("top-minimenu-guides")} />|
           <MiniLinks to="https://github.com/XurxoMF/vs-launcher" text={t("top-minimenu-source")} />
         </span>
-        <span>VS Launcher - v{{ version }}</span>
+        <span>VS Launcher - v{version}</span>
       </div>
       <div className="w-full h-full flex flex-col items-center justify-around p-4 pt-8 bg-zinc-900/50">
         <div className="w-full text-center flex flex-col items-center gap-2 text-lg">

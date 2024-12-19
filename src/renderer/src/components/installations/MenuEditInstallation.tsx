@@ -35,10 +35,10 @@ function MenuEditInstallation({ setIsMenuOpen }: { setIsMenuOpen: React.Dispatch
       window.localStorage.setItem("installation", newInstallation.id)
 
       window.api.utils.logMessage("info", `[component] [MenuEditInstallation] Edited installation ${installationName}`)
-      addNotification(t("notification-title-installationSuccesfullyEdited"), t("notification-body-installationSuccesfullyEdited", { installation: installationName }), "success")
+      addNotification(t("notification.title.success"), t("notification-body-installationSuccesfullyEdited", { installation: installationName }), "success")
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [MenuEditInstallation] Error while editing installation ${installationName}: ${err}`)
-      addNotification(t("notification-title-installationErrorEditing"), t("notification-body-installationErrorEditing", { installation: installationName }), "error")
+      addNotification(t("notification.title.error"), t("notification-body-installationErrorEditing", { installation: installationName }), "error")
     } finally {
       setIsMenuOpen(false)
     }
