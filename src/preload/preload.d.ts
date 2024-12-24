@@ -1,6 +1,10 @@
 import { ElectronAPI } from "@electron-toolkit/preload"
 
 declare global {
+  type ProgressCallback = {
+    (event: Electron.IpcRendererEvent, id: string, progress: number): void
+  }
+
   type BridgeAPI = {
     utils: {
       getAppVersion: () => Promise<string>
@@ -25,13 +29,11 @@ declare global {
       checkPathEmpty: (path: string) => Promise<boolean>
       checkPathExists: (path: string) => Promise<boolean>
       openPathOnFileExplorer: (path: string) => Promise<string>
-    }
-    gameVersionsManager: {
-      downloadGameVersion: (gameVersion: GameVersionType, outputPath: string) => Promise<string>
-      extractGameVersion: (filePath: string, outputPath: string) => Promise<boolean>
-      onDownloadGameVersionProgress: (callback: ProgressCallback) => void
-      onExtractGameVersionProgress: (callback: ProgressCallback) => void
-      uninstallGameVersion: (gameVersion: InstalledGameVersionType) => Promise<boolean>
+      downloadOnPath: (id: string, url: string, outputPath: string) => Promise<string>
+      extractOnPath: (id: string, filePath: string, outputPath: string) => Promise<boolean>
+      onDownloadProgress: (callback: ProgressCallback) => void
+      onExtractProgress: (callback: ProgressCallback) => void
+      changePerms: (paths: string[], perms: number) => void
       lookForAGameVersion: (path: string) => Promise<{ exists: boolean; installedGameVersion: string | undefined }>
     }
     gameManager: {

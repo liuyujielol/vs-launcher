@@ -22,12 +22,12 @@ export const IPC_CHANNELS = {
     CHECK_PATH_EXISTS: "check-path-exists",
     OPEN_PATH_ON_FILE_EXPLORER: "open-path-on-file-explorer"
   },
-  GAME_VERSIONS_MANAGER: {
-    DOWNLOAD_GAME_VERSION: "download-game-version",
-    EXTRACT_GAME_VERSION: "extract-game-version",
-    DOWNLOAD_GAME_VERSION_PROGRESS: "download-game-version-progress",
-    EXTRACT_GAME_VERSION_PROGRESS: "extract-game-version-progress",
-    UNINSTALL_GAME_VERSION: "uninstall-game-version",
+  FILES_MANAGER: {
+    DOWNLOAD_ON_PATH: "download-on-path",
+    EXTRACT_ON_PATH: "extract-on-pathn",
+    DOWNLOAD_PROGRESS: "download-progress",
+    EXTRACT_PROGRESS: "extract-progress",
+    CHANGE_PERMS: "change-perms",
     LOOK_FOR_A_GAME_VERSION: "look-for-a-game-version"
   },
   GAME_MANAGER: {

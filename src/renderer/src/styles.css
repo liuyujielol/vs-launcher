@@ -5,45 +5,10 @@
 #root {
   width: 100vw;
   height: 100vh;
-  @apply bg-zinc-800;
-  @apply text-zinc-200;
   overflow: hidden;
 }
 
 * {
   scrollbar-width: thin;
   scrollbar-color: #7b4f1f transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #7b4f1f;
-  border-radius: 6px;
-  border: none;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: #7b4f1f;
-}
-
-@layer utilities {
-  .bg-image-1 {
-    background-image: url("./assets/background.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  .shadow-image {
-    display: block;
-    margin: 20px auto;
-    filter: drop-shadow(0 4px 6px #18181b);
-  }
 }

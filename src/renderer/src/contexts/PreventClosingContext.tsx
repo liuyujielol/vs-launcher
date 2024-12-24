@@ -1,14 +1,15 @@
-import { createContext } from "react"
+import { createContext, useContext } from "react"
+
 import { usePreventClosing } from "@renderer/hooks/usePreventClosing"
 
-interface PreventClosingType {
+interface PreventClosingContextType {
   preventClosing: boolean
   setPreventClosing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const defaultValue: PreventClosingType = { preventClosing: false, setPreventClosing: () => {} }
+const defaultValue: PreventClosingContextType = { preventClosing: false, setPreventClosing: () => {} }
 
-const PreventClosingContext = createContext<PreventClosingType>(defaultValue)
+const PreventClosingContext = createContext<PreventClosingContextType>(defaultValue)
 
 const PreventClosingProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [preventClosing, setPreventClosing] = usePreventClosing()
@@ -16,4 +17,12 @@ const PreventClosingProvider = ({ children }: { children: React.ReactNode }): JS
   return <PreventClosingContext.Provider value={{ preventClosing, setPreventClosing }}>{children}</PreventClosingContext.Provider>
 }
 
-export { PreventClosingContext, PreventClosingProvider }
+const usePreventClosingContext = (): PreventClosingContextType => {
+  const context = useContext(PreventClosingContext)
+  if (!context) {
+    throw new Error("usePreventClosingContext must be used within an PreventClosingContextType")
+  }
+  return context
+}
+
+export { PreventClosingProvider, usePreventClosingContext }
