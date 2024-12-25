@@ -2,11 +2,14 @@ import { ipcMain, app, shell } from "electron"
 import fse from "fs-extra"
 import { join, dirname } from "path"
 import os from "os"
-import axios from "axios"
 import yauzl from "yauzl"
 import { spawn } from "child_process"
+import { Worker } from "worker_threads"
+
 import { logMessage } from "@src/utils/logManager"
 import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
+
+import downloadWorkerPath from "@src/ipc/workers/downloadWorker?modulePath"
 
 ipcMain.handle(IPC_CHANNELS.PATHS_MANAGER.GET_CURRENT_USER_DATA_PATH, (): string => {
   return app.getPath("appData")
@@ -38,42 +41,23 @@ ipcMain.handle(IPC_CHANNELS.PATHS_MANAGER.OPEN_PATH_ON_FILE_EXPLORER, async (_ev
   return await shell.openPath(path)
 })
 
-ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_ON_PATH, async (event, id: string, url: string, outputPath: string) => {
-  const pathToDownload = join(outputPath, url.split("/").pop() ?? "")
-
-  logMessage("info", `[ipcMain] [download-on-path] Download ID: ${id} Downloading ${url} to ${pathToDownload}...`)
-
-  const { data, headers } = await axios({
-    url,
-    method: "GET",
-    responseType: "stream"
-  })
-
-  const totalLength = headers["content-length"]
-
-  if (!fse.existsSync(outputPath)) {
-    fse.mkdirSync(outputPath, { recursive: true })
-    logMessage("info", `[ipcMain] [download-on-path] Download ID: ${id} Created output directory ${outputPath}`)
-  }
-
-  const writer = fse.createWriteStream(pathToDownload)
-
-  let downloadedLength = 0
-  data.on("data", (chunk) => {
-    downloadedLength += chunk.length
-    event.sender.send(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_PROGRESS, id, Math.round((downloadedLength / totalLength) * 100))
-  })
-
-  data.pipe(writer)
-
+ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_ON_PATH, (event, id, url, outputPath) => {
   return new Promise((resolve, reject) => {
-    writer.on("finish", () => {
-      logMessage("info", `[ipcMain] [download-on-path] Download ID: ${id} Succesfully downloaded ${url} to ${pathToDownload}`)
-      return resolve(pathToDownload)
+    const worker = new Worker(downloadWorkerPath, {
+      workerData: { url, outputPath }
     })
-    writer.on("error", (err) => {
-      logMessage("error", `[ipcMain] [download-on-path] Download ID: ${id} Error downloading ${url} to ${pathToDownload}: ${err}`)
-      return reject(err)
+
+    worker.on("message", (data) => {
+      if (data.type === "progress") {
+        event.sender.send(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_PROGRESS, id, data.progress)
+      } else if (data.type === "finished") {
+        resolve(data.path)
+      }
+    })
+
+    worker.on("error", reject)
+    worker.on("exit", (code) => {
+      if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
     })
   })
 })

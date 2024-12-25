@@ -32,14 +32,14 @@ function LanguagesMenu({ disabled }: { disabled?: boolean }): JSX.Element {
       <DropdownSelected>
         {!hasLanguageSelected() ? (
           <div className="flex items-center">
-            <span>{t("generic.default")}</span>
+            <span className="font-bold text-sm">{t("generic.default")}</span>
           </div>
         ) : (
           languages
             .filter((lang) => lang.code === window.localStorage.getItem("lang"))
             .map((lang) => (
               <div key={lang.code} className="flex gap-2 items-center overflow-hidden">
-                <span className="whitespace-nowrap">{lang.name}</span>
+                <span className="whitespace-nowrap font-bold text-sm">{lang.name}</span>
                 <span className="text-zinc-500 text-xs whitespace-nowrap text-ellipsis overflow-hidden">{lang.credits}</span>
               </div>
             ))
@@ -49,7 +49,7 @@ function LanguagesMenu({ disabled }: { disabled?: boolean }): JSX.Element {
         {languages.map((lang) => (
           <DropdownItem key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
             <div className="flex gap-2 items-center overflow-hidden" title={`${lang.name} - ${lang.credits}`}>
-              <span className="whitespace-nowrap">{lang.name}</span>
+              <span className="whitespace-nowrap font-bold text-sm">{lang.name}</span>
               <span className="text-zinc-500 text-xs whitespace-nowrap text-ellipsis overflow-hidden">{lang.credits}</span>
             </div>
           </DropdownItem>

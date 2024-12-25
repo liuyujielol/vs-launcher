@@ -1,15 +1,11 @@
 import { motion, AnimatePresence } from "motion/react"
 
-import { usePreventClosingContext } from "@renderer/contexts/PreventClosingContext"
-
 function AbsoluteMenu({ isMenuOpen, setIsMenuOpen, children }: { isMenuOpen: boolean; setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>; children: React.ReactNode }): JSX.Element {
-  const { preventClosing } = usePreventClosingContext()
-
   return (
     <AnimatePresence>
       {isMenuOpen && (
         <motion.div
-          onClick={() => !preventClosing && setIsMenuOpen(false)}
+          onClick={() => setIsMenuOpen(false)}
           className={`absolute z-[100] w-full h-full top-0 left-0 flex items-center justify-center bg-zinc-950/90`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

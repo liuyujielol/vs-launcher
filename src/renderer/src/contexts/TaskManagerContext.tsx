@@ -11,6 +11,7 @@ export type TaskStatusType = "pending" | "in-progress" | "completed" | "failed"
 export interface Task {
   id: string
   name: string
+  desc: string
   type: TaskType
   data: { url?: string; outputPath?: string; filePath?: string }
   progress: number
@@ -75,8 +76,9 @@ export const initialState: TaskState = {
 
 export interface TaskContextType {
   state: TaskState
-  startDownload(name: string, url: string, outputPath: string, onFinish: (status: boolean, path: string, error: Error | null) => void): Promise<void>
-  startExtract(name: string, filePath: string, outputPath: string, onFinish: (status: boolean, error: Error | null) => void): Promise<void>
+  startDownload(name: string, desc: string, url: string, outputPath: string, onFinish: (status: boolean, path: string, error: Error | null) => void): Promise<void>
+  startExtract(name: string, desc: string, filePath: string, outputPath: string, onFinish: (status: boolean, error: Error | null) => void): Promise<void>
+  removeTask(id: string): void
 }
 
 const TaskContext = createContext<TaskContextType | null>(null)
@@ -99,12 +101,18 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
     })
   }, [])
 
-  async function startDownload(name: string, url: string, outputPath: string, onFinish: (status: boolean, path: string, error: Error | null) => void): Promise<void> {
+  useEffect(() => {
+    ;((): void => {
+      window.api.utils.setPreventAppClose(state.tasks.some((task) => task.status === "in-progress" || task.status === "pending"))
+    })()
+  }, [state.tasks])
+
+  async function startDownload(name: string, desc: string, url: string, outputPath: string, onFinish: (status: boolean, path: string, error: Error | null) => void): Promise<void> {
     const id = uuidv4()
 
     try {
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Starting download of ${url} to ${outputPath}.`)
-      dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, type: "download", data: { url, outputPath }, progress: 0, status: "pending" } })
+      dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "download", data: { url, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Downloading ${url}...`)
       addNotification(t("notifications.titles.info"), t("notifications.body.downloading"), "info")
@@ -112,22 +120,22 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Downloaded ${url} to ${downloadedFile}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "completed" } } })
-      addNotification(t("notifications.titles.info"), t("notifications.body.downloaded"), "success")
+      addNotification(t("notifications.titles.success"), t("notifications.body.downloaded"), "success")
       onFinish(true, downloadedFile, null)
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [TaskManager] [${id}] Error downloading ${url}: ${err}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "failed" } } })
-      addNotification(t("notifications.titles.info"), t("notifications.body.downloadError"), "error")
+      addNotification(t("notifications.titles.error"), t("notifications.body.downloadError"), "error")
       onFinish(false, "", new Error(`Error downloading ${url}: ${err}`))
     }
   }
 
-  async function startExtract(name: string, filePath: string, outputPath: string, onFinish: (status: boolean, error: Error | null) => void): Promise<void> {
+  async function startExtract(name: string, desc: string, filePath: string, outputPath: string, onFinish: (status: boolean, error: Error | null) => void): Promise<void> {
     const id = uuidv4()
 
     try {
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Starting extraction of ${filePath} to ${outputPath}.`)
-      dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, type: "extract", data: { filePath, outputPath }, progress: 0, status: "pending" } })
+      dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "extract", data: { filePath, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracting ${filePath}...`)
       addNotification(t("notifications.titles.info"), t("notifications.body.extracting"), "info")
@@ -139,17 +147,21 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracted ${filePath} to ${outputPath}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "completed" } } })
-      addNotification(t("notifications.titles.info"), t("notifications.body.extracted"), "success")
+      addNotification(t("notifications.titles.success"), t("notifications.body.extracted"), "success")
       onFinish(true, null)
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [TaskManager] [${id}] Error extracting ${filePath}: ${err}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "failed" } } })
-      addNotification(t("notifications.titles.info"), t("notifications.body.extractError"), "error")
+      addNotification(t("notifications.titles.error"), t("notifications.body.extractError"), "error")
       onFinish(false, new Error(`Error extracting ${filePath}: ${err}`))
     }
   }
 
-  return <TaskContext.Provider value={{ state, startDownload, startExtract }}>{children}</TaskContext.Provider>
+  function removeTask(id: string): void {
+    dispatch({ type: ACTIONS.REMOVE_TASK, payload: { id } })
+  }
+
+  return <TaskContext.Provider value={{ state, startDownload, startExtract, removeTask }}>{children}</TaskContext.Provider>
 }
 
 export const useTaskContext = (): TaskContextType => {

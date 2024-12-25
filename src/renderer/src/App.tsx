@@ -8,14 +8,12 @@ import { InstallationProvider } from "@renderer/contexts/InstallationContext"
 import { InstalledGameVersionsProvider } from "@renderer/contexts/InstalledGameVersionsContext"
 import { InstallationsProvider } from "@renderer/contexts/InstallationsContext"
 import { NotificationsProvider } from "@renderer/contexts/NotificationsContext"
-import { PreventClosingProvider } from "@renderer/contexts/PreventClosingContext"
 import { PlayingProvider } from "@renderer/contexts/PlayingContext"
 import { TaskProvider } from "@renderer/contexts/TaskManagerContext"
 
 import i18n from "./i18n"
 import NotificationsOverlay from "@renderer/components/layout/NotificationsOverlay"
 import PlayingOverlay from "@renderer/components/layout/PlayingOverlay"
-import TasksOverlay from "@renderer/components/layout/TasksOverlay"
 
 import MainMenu from "@renderer/components/layout/MainMenu"
 
@@ -31,40 +29,37 @@ function App(): JSX.Element {
   }, [])
 
   return (
-    <PreventClosingProvider>
-      <NotificationsProvider>
-        <InstalledGameVersionsProvider>
-          <InstallationsProvider>
-            <InstallationProvider>
-              <PlayingProvider>
-                <TaskProvider>
-                  <Router>
-                    <div className="relative w-screen h-screen font-sans text-zinc-200 bg-zinc-800 flex">
-                      <MainMenu />
+    <NotificationsProvider>
+      <InstalledGameVersionsProvider>
+        <InstallationsProvider>
+          <InstallationProvider>
+            <PlayingProvider>
+              <TaskProvider>
+                <Router>
+                  <div className="relative w-screen h-screen font-sans text-zinc-200 bg-zinc-800 flex">
+                    <MainMenu />
 
-                      <main className="relative w-full h-full">
-                        <AppInfo />
+                    <main className="relative w-full h-full">
+                      <AppInfo />
 
-                        <Routes>
-                          <Route path="/" element={<HomePage />} />
-                          <Route path="/installations" element={<InstallationsPage />} />
-                          <Route path="/versions" element={<VersionsPage />} />
-                          <Route path="/mods" element={<ModsPage />} />
-                        </Routes>
-                      </main>
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/installations" element={<InstallationsPage />} />
+                        <Route path="/versions" element={<VersionsPage />} />
+                        <Route path="/mods" element={<ModsPage />} />
+                      </Routes>
+                    </main>
 
-                      <TasksOverlay />
-                      <NotificationsOverlay />
-                      <PlayingOverlay />
-                    </div>
-                  </Router>
-                </TaskProvider>
-              </PlayingProvider>
-            </InstallationProvider>
-          </InstallationsProvider>
-        </InstalledGameVersionsProvider>
-      </NotificationsProvider>
-    </PreventClosingProvider>
+                    <NotificationsOverlay />
+                    <PlayingOverlay />
+                  </div>
+                </Router>
+              </TaskProvider>
+            </PlayingProvider>
+          </InstallationProvider>
+        </InstallationsProvider>
+      </InstalledGameVersionsProvider>
+    </NotificationsProvider>
   )
 }
 

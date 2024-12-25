@@ -9,12 +9,10 @@ import iconMods from "@renderer/assets/icon-moddb.png"
 import iconNews from "@renderer/assets/icon-news.png"
 import iconChangelog from "@renderer/assets/icon-changelog.png"
 
-import { usePreventClosingContext } from "@renderer/contexts/PreventClosingContext"
-
 import LanguagesMenu from "@renderer/components/ui/localization/LanguagesMenu"
 import Button from "@renderer/components/ui/inputs/Button"
 import InstallationsDropdownMenu from "@renderer/features/installations/components/InstallationsDropdownMenu"
-import { useTaskContext } from "@renderer/contexts/TaskManagerContext"
+import TasksOverlay from "@renderer/components/layout/TasksOverlay"
 
 interface MainMenuLinkProps {
   icon: string
@@ -32,9 +30,6 @@ interface MainMenuAProps {
 
 function MainMenu(): JSX.Element {
   const { t } = useTranslation()
-
-  const { preventClosing } = usePreventClosingContext()
-  const { startDownload, startExtract } = useTaskContext()
 
   const LINKS: MainMenuLinkProps[] = [
     {
@@ -84,12 +79,13 @@ function MainMenu(): JSX.Element {
         <Button width="sm" height="sm" title={t("generic.settings")}>
           <PiGearFill className="text-lg" />
         </Button>
+        <TasksOverlay />
         <LanguagesMenu />
       </div>
 
       <div className="h-full flex flex-col gap-2">
         {LINKS.map((link) => (
-          <Link key={link.to} to={link.to} className={`${preventClosing && "pointer-events-none opacity-50"} flex items-start`}>
+          <Link key={link.to} to={link.to} className="flex items-start">
             <LinkContent icon={link.icon} text={link.text} desc={link.desc} link={link.to} external={false} />
           </Link>
         ))}
@@ -101,29 +97,9 @@ function MainMenu(): JSX.Element {
       </div>
 
       <div className="flex flex-col gap-2">
-        <InstallationsDropdownMenu disabled={preventClosing} />
-        <Button width="full" height="md" color="vs" title={t("generic.play")} disabled={preventClosing}>
+        <InstallationsDropdownMenu />
+        <Button width="full" height="md" color="vs" title={t("generic.play")}>
           <span className="text-2xl">{t("generic.play")}</span>
-        </Button>
-        <Button
-          onClick={() =>
-            startDownload("Test de descarga", "https://vslapi.xurxomf.xyz/versions/files/linux/1.19.8.zip", "/home/xurxomf/Descargas/TEST", (status, path, error) => {
-              if (status) {
-                startExtract("Test de extracción", path, "/home/xurxomf/Descargas/TEST", (status, error) => {
-                  console.log(status, error)
-                })
-              } else {
-                console.log(status, path, error)
-              }
-            })
-          }
-          width="full"
-          height="md"
-          color="vs"
-          title="Test download and extract"
-          disabled={preventClosing}
-        >
-          <span className="text-2xl">Test download and extract</span>
         </Button>
       </div>
     </header>

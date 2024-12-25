@@ -16,14 +16,14 @@ function InstallationsDropdownMenu({ disabled }: { disabled?: boolean }): JSX.El
       <DropdownSelected>
         {installations.length < 1 ? (
           <>
-            <span>{t("features.installations.noInstallationsAvailable")}</span>
+            <span className="font-bold">{t("features.installations.noInstallationsAvailable")}</span>
             <span className="text-zinc-500 text-xs flex gap-1 items-center">{t("features.installations.noInstallationsAvailableSub")}</span>
           </>
         ) : (
           <>
             {!installation ? (
               <div className="w-full flex items-center justify-between">
-                <span>{t("features.installations.noInstallationSelected")}</span>
+                <span className="font-bold">{t("features.installations.noInstallationSelected")}</span>
                 <div className="text-sm text-zinc-500 flex flex-col items-end justify-between">
                   <span>X.X.X</span>
                   <span>{t("features.mods.modsCount", { count: 0 })}</span>
@@ -35,7 +35,7 @@ function InstallationsDropdownMenu({ disabled }: { disabled?: boolean }): JSX.El
                   (current) =>
                     current.id === installation.id && (
                       <div key={current.id} className="w-full flex items-center justify-between">
-                        <span>{current.name}</span>
+                        <span className="font-bold">{current.name}</span>
                         <div className="text-sm text-zinc-500 flex flex-col items-end justify-between">
                           <span>{current.version}</span>
                           <span>{t("features.mods.modsCount", { count: current.mods.length })}</span>
@@ -59,7 +59,7 @@ function InstallationsDropdownMenu({ disabled }: { disabled?: boolean }): JSX.El
               }}
             >
               <div className="w-full flex items-center justify-between">
-                <span>{current.name}</span>
+                <span className="font-bold">{current.name}</span>
                 <div className="text-sm text-zinc-500 flex flex-col items-end justify-between">
                   <span>{current.version}</span>
                   <span>{t("features.mods.modsCount", { count: current.mods.length })}</span>

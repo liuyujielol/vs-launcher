@@ -23,7 +23,8 @@
     "selectFolder": "Select folder",
     "confirmation": "Confirmation",
     "minToMaxChars": "{{min}} to {{max}} caharacters",
-    "settings": "Settings"
+    "settings": "Settings",
+    "discard": "Discard"
   },
   "features": {
     "generic": {
@@ -90,6 +91,12 @@
       "title": "GAME RUNNING",
       "desc": "The game is running in the background, please, close it to use VS Launcher!",
       "subDesc": "You cant use VS Launcher while playing to prevent any conflicts with the game."
+    },
+    "tasksOverlay": {
+      "error": "An error has ocurred during the process!",
+      "noTasksAvailable": "There are no tasks queued!",
+      "download": "Download",
+      "extract": "Extract"
     }
   },
   "notifications": {
@@ -120,12 +127,12 @@
       "installationEditingError": "An error ocurred while editing installation {{name}}!",
       "updateAvailable": "New update available! Downloading...",
       "updateDownloaded": "Update downloaded succesfully! Restart VS Launcher to update.",
-      "downloading": "Starting download!",
-      "downloaded": "Download finished!",
-      "downloadError": "Download failed!",
-      "extracting": "Extracting files!",
-      "extracted": "Extraction finished!",
-      "extractError": "Extraction failed!"
+      "downloading": "Starting {{downloadName}}!",
+      "downloaded": "Finished {{downloadName}}!",
+      "downloadError": "Error {{downloadName}}!",
+      "extracting": "Starting {{extractName}}!",
+      "extracted": "Finished {{extractName}}!",
+      "extractError": "Failed {{extractName}}!"
     },
     "delete": "Discard notification"
   }
