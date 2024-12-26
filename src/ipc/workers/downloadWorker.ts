@@ -21,13 +21,17 @@ axios({
 
     const writer = fse.createWriteStream(pathToDownload)
     let downloadedLength = 0
-
+    let lastReportedProgress = 0
     data.on("data", (chunk) => {
       downloadedLength += chunk.length
-      parentPort?.postMessage({
-        type: "progress",
-        progress: Math.round((downloadedLength / totalLength) * 100)
-      })
+      const progress = Math.round((downloadedLength / totalLength) * 100)
+      if (progress > lastReportedProgress + 1) {
+        lastReportedProgress = progress
+        parentPort?.postMessage({
+          type: "progress",
+          progress
+        })
+      }
     })
 
     data.pipe(writer)
