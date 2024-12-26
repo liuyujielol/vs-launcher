@@ -17,15 +17,9 @@ i18n.use(initReactI18next).init({
     "ru-RU": { translation: ruRU, name: "Русский", credits: "by megabezdelnik" },
     "zh-CN": { translation: zhCN, name: "简体中文", credits: "by liuyujielol" },
     "fr-FR": { translation: frFR, name: "Français", credits: "by LorIlcs" },
-<<<<<<< HEAD
-    cs: { translation: cs, name: "Čeština", credits: "by DejFidOFF" },
-    "de-DE": { translation: deDE, name: "Deutsch", credits: "by Brady_The" },
-    "pt-PT": { translation: ptPT, name: "Português", credits: "by bruno-cabrita" }
-=======
     "cs-CZ": { translation: csCZ, name: "Čeština", credits: "by DejFidOFF" },
     "de-DE": { translation: deDE, name: "Deutsch", credits: "by Brady_The" },
     "pt-PT": { translation: ptPT, name: "Português", credits: "by Bruno Cabrita" }
->>>>>>> main
   },
   lng: "en-US",
   fallbackLng: "en-US"
