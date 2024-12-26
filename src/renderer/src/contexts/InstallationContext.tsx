@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect, useContext } from "react"
-import { InstallationsContext } from "@renderer/contexts/InstallationsContext"
+import { createContext, useState, useContext, useEffect } from "react"
+
+import { useInstallationsContext } from "@renderer/contexts/InstallationsContext"
 
 interface InstallationContextType {
   installation: InstallationType | undefined
@@ -11,7 +12,7 @@ const defaultValue: InstallationContextType = { installation: undefined, setInst
 const InstallationContext = createContext<InstallationContextType>(defaultValue)
 
 const InstallationProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const { installations } = useContext(InstallationsContext)
+  const { installations } = useInstallationsContext()
   const [installation, setInstallation] = useState<InstallationType | undefined>()
 
   useEffect(() => {
@@ -26,4 +27,12 @@ const InstallationProvider = ({ children }: { children: React.ReactNode }): JSX.
   return <InstallationContext.Provider value={{ installation, setInstallation }}>{children}</InstallationContext.Provider>
 }
 
-export { InstallationContext, InstallationProvider }
+const useInstallationContext = (): InstallationContextType => {
+  const context = useContext(InstallationContext)
+  if (!context) {
+    throw new Error("useInstallationContext must be used within an InstallationProvider")
+  }
+  return context
+}
+
+export { InstallationProvider, useInstallationContext }

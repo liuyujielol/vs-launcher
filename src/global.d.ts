@@ -31,20 +31,9 @@ declare global {
     macos: string
   }
 
-  type NotificationType = {
-    id: number
-    title: string
-    body: string
-    type: "success" | "error" | "info"
-    onClick?: () => void
-  }
-
-  type ProgressCallback = {
-    (event: Electron.IpcRendererEvent, progress: number): void
-  }
-
-  type LangFileType = {
-    [key: string]: string
+  declare module "*.png" {
+    const value: string
+    export default value
   }
 }
 

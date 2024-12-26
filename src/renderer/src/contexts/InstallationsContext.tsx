@@ -1,4 +1,5 @@
-import { createContext, useEffect, useRef } from "react"
+import { createContext, useContext, useEffect, useRef } from "react"
+
 import { useInstallations } from "@renderer/hooks/useInstallations"
 
 interface InstallationsContextType {
@@ -28,4 +29,12 @@ const InstallationsProvider = ({ children }: { children: React.ReactNode }): JSX
   return <InstallationsContext.Provider value={{ installations, setInstallations }}>{children}</InstallationsContext.Provider>
 }
 
-export { InstallationsContext, InstallationsProvider }
+const useInstallationsContext = (): InstallationsContextType => {
+  const context = useContext(InstallationsContext)
+  if (!context) {
+    throw new Error("useInstallationsContext must be used within an InstallationsProvider")
+  }
+  return context
+}
+
+export { InstallationsProvider, useInstallationsContext }

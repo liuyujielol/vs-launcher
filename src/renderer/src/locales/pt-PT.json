@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "top-minimenu-issues": "Ajuda e Erros",
   "top-minimenu-guides": "Guias",
   "top-minimenu-source": "Fonte",
@@ -132,4 +133,7 @@
   "notification-body-folderDoesntExists": "Isto pode acontecer se nunca abriu o jogo com esta instalação. Abra e feche o jogo para criar as pastas e ficheiros necessários e tente novamente.",
   "notification-body-updateAvailable": "Está disponível uma nova atualização! A transferir em segundo plano...",
   "notification-body-updateDownloaded": "Atualização transferida com sucesso! Feche o VS Launcher e aguarde 1 minuto para que seja atualizada."
+=======
+  "//info": "Localization version: 0.0.0 (19.12.2024) - Launcher Version 0.0.5 - Author: Bruno Cabrita"
+>>>>>>> main
 }

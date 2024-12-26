@@ -29,15 +29,13 @@ const api: BridgeAPI = {
     formatPath: (parts: string[]): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.FORMAT_PATH, parts),
     checkPathEmpty: (path: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.CHECK_PATH_EMPTY, path),
     checkPathExists: (path: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.CHECK_PATH_EXISTS, path),
-    openPathOnFileExplorer: (path: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.OPEN_PATH_ON_FILE_EXPLORER, path)
-  },
-  gameVersionsManager: {
-    downloadGameVersion: (gameVersion: GameVersionType, outputPath: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.DOWNLOAD_GAME_VERSION, gameVersion, outputPath),
-    extractGameVersion: (filePath: string, outputPath: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.EXTRACT_GAME_VERSION, filePath, outputPath),
-    onDownloadGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.GAME_VERSIONS_MANAGER.DOWNLOAD_GAME_VERSION_PROGRESS, callback),
-    onExtractGameVersionProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.GAME_VERSIONS_MANAGER.EXTRACT_GAME_VERSION_PROGRESS, callback),
-    uninstallGameVersion: (gameVersion: InstalledGameVersionType): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.UNINSTALL_GAME_VERSION, gameVersion),
-    lookForAGameVersion: (path: string): Promise<{ exists: boolean; installedGameVersion: string | undefined }> => ipcRenderer.invoke(IPC_CHANNELS.GAME_VERSIONS_MANAGER.LOOK_FOR_A_GAME_VERSION, path)
+    openPathOnFileExplorer: (path: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.PATHS_MANAGER.OPEN_PATH_ON_FILE_EXPLORER, path),
+    downloadOnPath: (id: string, url: string, outputPath: string): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_ON_PATH, id, url, outputPath),
+    extractOnPath: (id: string, filePath: string, outputPath: string): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.FILES_MANAGER.EXTRACT_ON_PATH, id, filePath, outputPath),
+    onDownloadProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_PROGRESS, callback),
+    onExtractProgress: (callback: ProgressCallback) => ipcRenderer.on(IPC_CHANNELS.FILES_MANAGER.EXTRACT_PROGRESS, callback),
+    changePerms: (paths: string[], perms: number): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.FILES_MANAGER.CHANGE_PERMS, paths, perms),
+    lookForAGameVersion: (path: string): Promise<{ exists: boolean; installedGameVersion: string | undefined }> => ipcRenderer.invoke(IPC_CHANNELS.FILES_MANAGER.LOOK_FOR_A_GAME_VERSION, path)
   },
   gameManager: {
     executeGame: (version: InstalledGameVersionType, installation: InstallationType): Promise<boolean> => ipcRenderer.invoke(IPC_CHANNELS.GAME_MANAGER.EXECUTE_GAME, version, installation)

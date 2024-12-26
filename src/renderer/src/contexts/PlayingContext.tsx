@@ -1,13 +1,13 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 
-interface PlayingType {
+interface PlayingContextType {
   playing: boolean
   setPlaying: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const defaultValue: PlayingType = { playing: false, setPlaying: () => {} }
+const defaultValue: PlayingContextType = { playing: false, setPlaying: () => {} }
 
-const PlayingContext = createContext<PlayingType>(defaultValue)
+const PlayingContext = createContext<PlayingContextType>(defaultValue)
 
 const PlayingProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [playing, setPlaying] = useState<boolean>(defaultValue.playing)
@@ -15,4 +15,12 @@ const PlayingProvider = ({ children }: { children: React.ReactNode }): JSX.Eleme
   return <PlayingContext.Provider value={{ playing, setPlaying }}>{children}</PlayingContext.Provider>
 }
 
-export { PlayingContext, PlayingProvider }
+const usePlayingContext = (): PlayingContextType => {
+  const context = useContext(PlayingContext)
+  if (!context) {
+    throw new Error("usePlayingContext must be used within an PlayingProvider")
+  }
+  return context
+}
+
+export { PlayingProvider, usePlayingContext }

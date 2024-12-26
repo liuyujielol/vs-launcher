@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        vs: "#7e501e"
+        vs: "#7e501e",
+        "zinc-850": "#212122"
+      },
+      backgroundImage: {
+        "image-vs": "url('./assets/background.jpg')"
       }
     }
   },

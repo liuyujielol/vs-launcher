@@ -1,4 +1,5 @@
-import { createContext, useRef, useEffect } from "react"
+import { createContext, useRef, useEffect, useContext } from "react"
+
 import { useInstalledGameVersions } from "@renderer/hooks/useInstalledGameVersions"
 
 interface InstalledGameVersionsContextType {
@@ -28,4 +29,12 @@ const InstalledGameVersionsProvider = ({ children }: { children: React.ReactNode
   return <InstalledGameVersionsContext.Provider value={{ installedGameVersions, setInstalledGameVersions }}>{children}</InstalledGameVersionsContext.Provider>
 }
 
-export { InstalledGameVersionsContext, InstalledGameVersionsProvider }
+const useInstalledGameVersionsContext = (): InstalledGameVersionsContextType => {
+  const context = useContext(InstalledGameVersionsContext)
+  if (!context) {
+    throw new Error("useInstalledGameVersionsContext must be used within an InstalledGameVersionsProvider")
+  }
+  return context
+}
+
+export { InstalledGameVersionsProvider, useInstalledGameVersionsContext }

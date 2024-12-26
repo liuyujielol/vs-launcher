@@ -67,8 +67,10 @@ function createWindow(): void {
 }
 
 // This method will be called when Electron has finished initialization and is ready to create browser windows. Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   logMessage("info", "[main] Electron ready")
+
+  await ensureConfig()
 
   // Set app user model id for windows
   electronApp.setAppUserModelId("xyz.xurxomf")
@@ -77,8 +79,6 @@ app.whenReady().then(() => {
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  ensureConfig()
 
   createWindow()
 
