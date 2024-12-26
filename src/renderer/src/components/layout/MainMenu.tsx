@@ -1,7 +1,7 @@
-import { PiGearFill } from "react-icons/pi"
 import { FiExternalLink } from "react-icons/fi"
 import { useTranslation } from "react-i18next"
 import { Link, useLocation } from "react-router-dom"
+import { Button } from "@headlessui/react"
 
 import icon from "@renderer/assets/icon.png"
 import iconVersions from "@renderer/assets/icon-versions.png"
@@ -9,10 +9,10 @@ import iconMods from "@renderer/assets/icon-moddb.png"
 import iconNews from "@renderer/assets/icon-news.png"
 import iconChangelog from "@renderer/assets/icon-changelog.png"
 
-import LanguagesMenu from "@renderer/components/ui/localization/LanguagesMenu"
-import Button from "@renderer/components/ui/inputs/Button"
+import LanguagesMenu from "@renderer/components/ui/LanguagesMenu"
 import InstallationsDropdownMenu from "@renderer/features/installations/components/InstallationsDropdownMenu"
-import TasksOverlay from "@renderer/components/layout/TasksOverlay"
+import TasksMenu from "@renderer/components/ui/TasksMenu"
+import ConfigMenu from "@renderer/components/ui/ConfigMenu"
 
 interface MainMenuLinkProps {
   icon: string
@@ -75,11 +75,9 @@ function MainMenu(): JSX.Element {
 
   return (
     <header className="z-50 shrink-0 w-72 flex flex-col gap-4 p-2 shadow-[0_0_5px_2px] shadow-zinc-900">
-      <div className={`flex shrink-0 gap-2`}>
-        <Button width="sm" height="sm" title={t("generic.settings")}>
-          <PiGearFill className="text-lg" />
-        </Button>
-        <TasksOverlay />
+      <div className={`flex h-7 shrink-0 gap-2`}>
+        <ConfigMenu />
+        <TasksMenu />
         <LanguagesMenu />
       </div>
 
@@ -98,7 +96,7 @@ function MainMenu(): JSX.Element {
 
       <div className="flex flex-col gap-2">
         <InstallationsDropdownMenu />
-        <Button width="full" height="md" color="vs" title={t("generic.play")}>
+        <Button title={t("generic.play")} className="w-full h-14 bg-vs">
           <span className="text-2xl">{t("generic.play")}</span>
         </Button>
       </div>
@@ -117,9 +115,14 @@ interface LinkContentProps {
 function LinkContent({ icon, text, desc, link, external }: LinkContentProps): JSX.Element {
   const location = useLocation()
 
+  function currentLocation(): boolean {
+    if (link === "/") return location.pathname === "/"
+    return location.pathname.startsWith(link)
+  }
+
   return (
     <div
-      className={`w-full flex items-center gap-2 px-2 py-1 rounded duration-100 group hover:translate-x-1 border-l-4 ${location.pathname === link ? "border-vs bg-vs/15" : "border-transparent"} duration-100`}
+      className={`w-full flex items-center gap-2 px-2 py-1 rounded duration-100 group hover:translate-x-1 border-l-4 ${currentLocation() ? "border-vs bg-vs/15" : "border-transparent"} duration-100`}
     >
       <img src={icon} alt={text} className="w-7" />
       <div className={`flex flex-col overflow-hidden whitespace-nowrap`}>

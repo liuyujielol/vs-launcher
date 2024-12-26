@@ -8,6 +8,7 @@ declare global {
   type BridgeAPI = {
     utils: {
       getAppVersion: () => Promise<string>
+      getOs: () => Promise<NodeJS.Platform>
       logMessage: (mode: ErrorTypes, message: string) => void
       setPreventAppClose: (value: boolean) => void
       openOnBrowser: (url: string) => void

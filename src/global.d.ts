@@ -8,6 +8,7 @@ declare global {
   type InstalledGameVersionType = {
     version: string
     path: string
+    installed: boolean
   }
 
   type InstalledModType = {
@@ -28,7 +29,6 @@ declare global {
     version: string
     windows: string
     linux: string
-    macos: string
   }
 
   declare module "*.png" {

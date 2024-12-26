@@ -1,6 +1,7 @@
 export const IPC_CHANNELS = {
   UTILS: {
     GET_APP_VERSION: "get-app-version",
+    GET_OS: "get-os",
     LOG_MESSAGE: "log-message",
     SET_PREVENT_APP_CLOSE: "set-prevent-app-close",
     OPEN_ON_BROWSER: "open-on-browser",

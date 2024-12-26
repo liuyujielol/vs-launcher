@@ -44,7 +44,9 @@
       "searchForInstalledVersion": "Search for an already installed version",
       "versionDetected": "Version detected",
       "areYouSureUninstall": "Are you sure you want to uninstall this version?",
-      "uninstallingNotReversible": "Uninstalling is not reversible but you can download the same version again."
+      "uninstallingNotReversible": "Uninstalling is not reversible but you can download the same version again.",
+      "noVersionSelected": "No version selected",
+      "versionAlreadyInstalled": "Version {{version}} already installed"
     },
     "installations": {
       "addInstallation": "Add installation",
@@ -95,8 +97,8 @@
     "tasksOverlay": {
       "error": "An error has ocurred during the process!",
       "noTasksAvailable": "There are no tasks queued!",
-      "download": "Download",
-      "extract": "Extract"
+      "downloading": "Downloading",
+      "extracting": "Extracting"
     }
   },
   "notifications": {

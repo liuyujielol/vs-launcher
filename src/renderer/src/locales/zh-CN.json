@@ -95,8 +95,8 @@
     "tasksOverlay": {
       "error": "在处理时出现了一个错误！",
       "noTasksAvailable": "未安排任何任务！",
-      "download": "下载",
-      "extract": "解压"
+      "downloading": "下载",
+      "extracting": "解压"
     }
   },
   "notifications": {

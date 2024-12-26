@@ -19,7 +19,9 @@ import MainMenu from "@renderer/components/layout/MainMenu"
 
 import HomePage from "@renderer/features/home/pages/HomePage"
 import InstallationsPage from "@renderer/features/installations/pages/InstallationsPage"
-import VersionsPage from "@renderer/features/versions/pages/VersionsPage"
+import VersionsLayout from "@renderer/features/versions/pages/VersionsLayout"
+import VersionsList from "@renderer/features/versions/pages/VersionsList"
+import AddVersion from "@renderer/features/versions/pages/AddVersion"
 import ModsPage from "@renderer/features/mods/pages/ModsPage"
 
 function App(): JSX.Element {
@@ -36,7 +38,7 @@ function App(): JSX.Element {
             <PlayingProvider>
               <TaskProvider>
                 <Router>
-                  <div className="relative w-screen h-screen font-sans text-zinc-200 bg-zinc-800 flex">
+                  <div className="relative w-screen h-screen flex">
                     <MainMenu />
 
                     <main className="relative w-full h-full">
@@ -45,7 +47,10 @@ function App(): JSX.Element {
                       <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/installations" element={<InstallationsPage />} />
-                        <Route path="/versions" element={<VersionsPage />} />
+                        <Route path="/versions" element={<VersionsLayout />}>
+                          <Route index element={<VersionsList />} />
+                          <Route path="add" element={<AddVersion />} />
+                        </Route>
                         <Route path="/mods" element={<ModsPage />} />
                       </Routes>
                     </main>

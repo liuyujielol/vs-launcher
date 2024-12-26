@@ -95,8 +95,8 @@
     "tasksOverlay": {
       "error": "Ocorreu um erro durante o processo!",
       "noTasksAvailable": "Não há tarefas na fila!",
-      "download": "Descarregar",
-      "extract": "Extrair"
+      "downloading": "Descarregar",
+      "extracting": "Extrair"
     }
   },
   "notifications": {

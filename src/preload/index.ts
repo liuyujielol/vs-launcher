@@ -9,6 +9,7 @@ import { logMessage } from "@src/utils/logManager"
 const api: BridgeAPI = {
   utils: {
     getAppVersion: (): Promise<string> => ipcRenderer.invoke(IPC_CHANNELS.UTILS.GET_APP_VERSION),
+    getOs: (): Promise<NodeJS.Platform> => ipcRenderer.invoke(IPC_CHANNELS.UTILS.GET_OS),
     logMessage: (mode: ErrorTypes, message: string): void => ipcRenderer.send(IPC_CHANNELS.UTILS.LOG_MESSAGE, mode, message),
     setPreventAppClose: (value: boolean): void => ipcRenderer.send(IPC_CHANNELS.UTILS.SET_PREVENT_APP_CLOSE, value),
     openOnBrowser: (url: string): void => ipcRenderer.send(IPC_CHANNELS.UTILS.OPEN_ON_BROWSER, url),

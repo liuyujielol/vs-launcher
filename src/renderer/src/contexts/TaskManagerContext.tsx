@@ -51,7 +51,7 @@ export type TaskAction = AddTaskAction | UpdateTaskAction | RemoveTaskAction
 export function taskReducer(state: TaskState, action: TaskAction): TaskState {
   switch (action.type) {
     case ACTIONS.ADD_TASK:
-      return { ...state, tasks: [...state.tasks, action.payload] }
+      return { ...state, tasks: [action.payload, ...state.tasks] }
 
     case ACTIONS.UPDATE_TASK:
       return {
@@ -115,17 +115,17 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
       dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "download", data: { url, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Downloading ${url}...`)
-      addNotification(t("notifications.titles.info"), t("notifications.body.downloading"), "info")
+      addNotification(t("notifications.titles.info"), t("notifications.body.downloading", { downloadName: name }), "info")
       const downloadedFile = await window.api.pathsManager.downloadOnPath(id, url, outputPath)
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Downloaded ${url} to ${downloadedFile}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "completed" } } })
-      addNotification(t("notifications.titles.success"), t("notifications.body.downloaded"), "success")
+      addNotification(t("notifications.titles.success"), t("notifications.body.downloaded", { downloadName: name }), "success")
       onFinish(true, downloadedFile, null)
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [TaskManager] [${id}] Error downloading ${url}: ${err}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "failed" } } })
-      addNotification(t("notifications.titles.error"), t("notifications.body.downloadError"), "error")
+      addNotification(t("notifications.titles.error"), t("notifications.body.downloadError", { downloadName: name }), "error")
       onFinish(false, "", new Error(`Error downloading ${url}: ${err}`))
     }
   }
@@ -138,7 +138,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
       dispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "extract", data: { filePath, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracting ${filePath}...`)
-      addNotification(t("notifications.titles.info"), t("notifications.body.extracting"), "info")
+      addNotification(t("notifications.titles.info"), t("notifications.body.extracting", { extractName: name }), "info")
       const result = await window.api.pathsManager.extractOnPath(id, filePath, outputPath)
 
       if (!result) {
@@ -147,12 +147,12 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracted ${filePath} to ${outputPath}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "completed" } } })
-      addNotification(t("notifications.titles.success"), t("notifications.body.extracted"), "success")
+      addNotification(t("notifications.titles.success"), t("notifications.body.extracted", { extractName: name }), "success")
       onFinish(true, null)
     } catch (err) {
       window.api.utils.logMessage("error", `[component] [TaskManager] [${id}] Error extracting ${filePath}: ${err}`)
       dispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "failed" } } })
-      addNotification(t("notifications.titles.error"), t("notifications.body.extractError"), "error")
+      addNotification(t("notifications.titles.error"), t("notifications.body.extractError", { extractName: name }), "error")
       onFinish(false, new Error(`Error extracting ${filePath}: ${err}`))
     }
   }

@@ -1,11 +1,16 @@
 import { ipcMain, dialog, app, shell } from "electron"
-import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
+import { platform } from "os"
 
+import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
 import { logMessage } from "@src/utils/logManager"
 import { setShouldPreventClose } from "@src/utils/shouldPreventClose"
 
 ipcMain.handle(IPC_CHANNELS.UTILS.GET_APP_VERSION, () => {
   return app.getVersion()
+})
+
+ipcMain.handle(IPC_CHANNELS.UTILS.GET_OS, () => {
+  return platform()
 })
 
 ipcMain.on(IPC_CHANNELS.UTILS.LOG_MESSAGE, (_event, mode: ErrorTypes, message: string): void => {
