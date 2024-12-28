@@ -24,7 +24,7 @@ const ICON_TYPES = {
 
 function TasksMenu(): JSX.Element {
   const { t } = useTranslation()
-  const { state, removeTask } = useTaskContext()
+  const { tasks, removeTask } = useTaskContext()
 
   return (
     <Popover className="relative">
@@ -37,12 +37,12 @@ function TasksMenu(): JSX.Element {
             {open && (
               <PopoverPanel static as={motion.div} initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} anchor="bottom" className="w-80 m-1 z-50 bg-zinc-850 rounded">
                 <div className="flex flex-col max-h-80 overflow-x-hidden">
-                  {state.tasks.length < 1 && (
+                  {tasks.length < 1 && (
                     <div>
                       <h3 className="text-sm font-bold text-center p-2">{t("components.tasksOverlay.noTasksAvailable")}</h3>
                     </div>
                   )}
-                  {state.tasks.map((task) => (
+                  {tasks.map((task) => (
                     <motion.div key={task.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-80 flex flex-col">
                       <div className="w-full flex justify-between gap-2 p-1">
                         <div className="w-full flex items-center gap-2">

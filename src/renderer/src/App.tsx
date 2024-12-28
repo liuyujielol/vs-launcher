@@ -4,9 +4,7 @@ import { FiExternalLink } from "react-icons/fi"
 import { useTranslation } from "react-i18next"
 import "./i18n"
 
-import { InstallationProvider } from "@renderer/contexts/InstallationContext"
-import { InstalledGameVersionsProvider } from "@renderer/contexts/InstalledGameVersionsContext"
-import { InstallationsProvider } from "@renderer/contexts/InstallationsContext"
+import { ConfigProvider } from "@renderer/contexts/ConfigContext"
 import { NotificationsProvider } from "@renderer/contexts/NotificationsContext"
 import { PlayingProvider } from "@renderer/contexts/PlayingContext"
 import { TaskProvider } from "@renderer/contexts/TaskManagerContext"
@@ -31,40 +29,36 @@ function App(): JSX.Element {
   }, [])
 
   return (
-    <NotificationsProvider>
-      <InstalledGameVersionsProvider>
-        <InstallationsProvider>
-          <InstallationProvider>
-            <PlayingProvider>
-              <TaskProvider>
-                <Router>
-                  <div className="relative w-screen h-screen flex">
-                    <MainMenu />
+    <ConfigProvider>
+      <NotificationsProvider>
+        <PlayingProvider>
+          <TaskProvider>
+            <Router>
+              <div className="relative w-screen h-screen flex">
+                <MainMenu />
 
-                    <main className="relative w-full h-full">
-                      <AppInfo />
+                <main className="relative w-full h-full">
+                  <AppInfo />
 
-                      <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/installations" element={<InstallationsPage />} />
-                        <Route path="/versions" element={<VersionsLayout />}>
-                          <Route index element={<VersionsList />} />
-                          <Route path="add" element={<AddVersion />} />
-                        </Route>
-                        <Route path="/mods" element={<ModsPage />} />
-                      </Routes>
-                    </main>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/installations" element={<InstallationsPage />} />
+                    <Route path="/versions" element={<VersionsLayout />}>
+                      <Route index element={<VersionsList />} />
+                      <Route path="add" element={<AddVersion />} />
+                    </Route>
+                    <Route path="/mods" element={<ModsPage />} />
+                  </Routes>
+                </main>
 
-                    <NotificationsOverlay />
-                    <PlayingOverlay />
-                  </div>
-                </Router>
-              </TaskProvider>
-            </PlayingProvider>
-          </InstallationProvider>
-        </InstallationsProvider>
-      </InstalledGameVersionsProvider>
-    </NotificationsProvider>
+                <NotificationsOverlay />
+                <PlayingOverlay />
+              </div>
+            </Router>
+          </TaskProvider>
+        </PlayingProvider>
+      </NotificationsProvider>
+    </ConfigProvider>
   )
 }
 

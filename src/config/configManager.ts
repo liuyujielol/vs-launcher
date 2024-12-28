@@ -4,9 +4,24 @@ import { join } from "path"
 import { logMessage } from "@src/utils/logManager"
 
 const defaultConfig: ConfigType = {
-  version: 1,
+  version: 1.1,
+  lastUsedInstallation: null,
   installations: [],
   gameVersions: []
+}
+
+const defaultInstallation: InstallationType = {
+  id: "",
+  name: "",
+  path: "",
+  version: "",
+  mods: []
+}
+
+const defaultGameVersion: GameVersionType = {
+  version: "",
+  path: "",
+  installed: true
 }
 
 let configPath: string
@@ -25,7 +40,9 @@ export async function saveConfig(config: ConfigType): Promise<boolean> {
 export async function getConfig(): Promise<ConfigType> {
   try {
     if (!(await ensureConfig())) return defaultConfig
-    return await fse.readJSON(configPath, "utf-8")
+    const config = await fse.readJSON(configPath, "utf-8")
+    const ensuredConfig = ensureConfigProperties(config)
+    return ensuredConfig
   } catch (err) {
     logMessage("error", `[config] Error getting config at ${configPath}. Using default config.`)
     await saveConfig(defaultConfig)
@@ -46,4 +63,30 @@ export async function ensureConfig(): Promise<boolean> {
     logMessage("error", `[config] Error ensuring config at ${configPath}: ${err}`)
     return false
   }
+}
+
+const ensureConfigProperties = (config: ConfigType): ConfigType => {
+  const installations = config.installations.map((installation) => ({
+    id: installation.id ?? defaultInstallation.id,
+    name: installation.name ?? defaultInstallation.name,
+    path: installation.path ?? defaultInstallation.path,
+    version: installation.version ?? defaultInstallation.version,
+    mods: installation.mods ?? defaultInstallation.mods
+  }))
+
+  const gameVersions = config.gameVersions.map((gameVersion) => ({
+    version: gameVersion.version ?? defaultGameVersion.version,
+    path: gameVersion.path ?? defaultGameVersion.path,
+    installed: gameVersion.installed ?? defaultGameVersion.installed
+  }))
+
+  const fixedConfig = {
+    ...config,
+    version: !config.version || config.version < defaultConfig.version ? defaultConfig.version : config.version,
+    lastUsedInstallation: config.lastUsedInstallation ?? defaultConfig.lastUsedInstallation,
+    installations,
+    gameVersions
+  }
+
+  return fixedConfig
 }

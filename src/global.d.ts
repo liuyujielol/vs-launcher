@@ -1,17 +1,16 @@
 declare global {
-  type ConfigType = {
+  type BasicConfigType = {
     version: number
-    installations: InstallationType[]
-    gameVersions: InstalledGameVersionType[]
+    lastUsedInstallation: InstallationType | null
   }
 
-  type InstalledGameVersionType = {
+  type GameVersionType = {
     version: string
     path: string
     installed: boolean
   }
 
-  type InstalledModType = {
+  type ModType = {
     modid: number
     releaseid: number
     filename: string
@@ -22,10 +21,15 @@ declare global {
     name: string
     path: string
     version: string
-    mods: ModsType[]
+    mods: ModType[]
   }
 
-  type GameVersionType = {
+  type ConfigType = BasicConfigType & {
+    installations: InstallationType[]
+    gameVersions: GameVersionType[]
+  }
+
+  type DownloadableGameVersionType = {
     version: string
     windows: string
     linux: string

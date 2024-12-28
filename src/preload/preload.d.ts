@@ -38,7 +38,7 @@ declare global {
       lookForAGameVersion: (path: string) => Promise<{ exists: boolean; installedGameVersion: string | undefined }>
     }
     gameManager: {
-      executeGame: (version: InstalledGameVersionType, installation: InstallationType) => Promise<boolean>
+      executeGame: (version: GameVersionType, installation: InstallationType) => Promise<boolean>
     }
   }
 

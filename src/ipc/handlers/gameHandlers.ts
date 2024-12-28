@@ -6,7 +6,7 @@ import os from "os"
 import { logMessage } from "@src/utils/logManager"
 import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
 
-ipcMain.handle(IPC_CHANNELS.GAME_MANAGER.EXECUTE_GAME, async (_event, version: InstalledGameVersionType, installation: InstallationType): Promise<boolean> => {
+ipcMain.handle(IPC_CHANNELS.GAME_MANAGER.EXECUTE_GAME, async (_event, version: GameVersionType, installation: InstallationType): Promise<boolean> => {
   logMessage("info", `[execute-game] Executing game version ${version.version}`)
 
   if (os.platform() === "linux") {

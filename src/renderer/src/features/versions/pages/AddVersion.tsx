@@ -7,24 +7,24 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 
 import { useNotificationsContext } from "@renderer/contexts/NotificationsContext"
-import { useInstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { CONFIG_ACTIONS, useConfigContext } from "@renderer/contexts/ConfigContext"
 import { useTaskContext } from "@renderer/contexts/TaskManagerContext"
 
 function AddVersion(): JSX.Element {
   const { t } = useTranslation()
   const { addNotification } = useNotificationsContext()
-  const { installedGameVersions, setInstalledGameVersions } = useInstalledGameVersionsContext()
+  const { config, configDispatch } = useConfigContext()
   const { startDownload, startExtract } = useTaskContext()
 
-  const [gameVersions, setGameVersions] = useState<GameVersionType[]>([])
-  const [version, setVersion] = useState<GameVersionType>()
+  const [gameVersions, setGameVersions] = useState<DownloadableGameVersionType[]>([])
+  const [version, setVersion] = useState<DownloadableGameVersionType>()
   const [folder, setFolder] = useState<string>("")
   const [folderByUser, setFolderByUser] = useState<boolean>(false)
 
   useEffect(() => {
     ;(async (): Promise<void> => {
       window.api.utils.logMessage("info", `[component] [AddVersion] Fetching available game versions`)
-      const { data }: { data: GameVersionType[] } = await axios("https://vslapi.xurxomf.xyz/versions")
+      const { data }: { data: DownloadableGameVersionType[] } = await axios("https://vslapi.xurxomf.xyz/versions")
       setGameVersions(data)
     })()
   }, [])
@@ -36,31 +36,31 @@ function AddVersion(): JSX.Element {
   }, [version])
 
   useEffect(() => {
-    setVersion(gameVersions.find((gv) => !installedGameVersions.some((igv) => igv.version === gv.version)))
+    setVersion(gameVersions.find((gv) => !config.gameVersions.some((igv) => igv.version === gv.version)))
   }, [gameVersions])
 
   const handleAddInstallation = async (): Promise<void> => {
     if (!version) return addNotification(t("notifications.titles.error"), t("features.versions.noVersionSelected"), "error")
 
-    if (installedGameVersions.some((igv) => igv.version === version.version))
+    if (config.gameVersions.some((igv) => igv.version === version.version))
       return addNotification(t("notifications.titles.error"), t("features.versions.versionAlreadyInstalled", { version: version.version }), "error")
 
     const os = await window.api.utils.getOs()
     const url = os === "win32" ? version.windows : version.linux
 
-    const newGameVersion: InstalledGameVersionType = {
+    const newGameVersion: GameVersionType = {
       version: version!.version,
       path: folder,
       installed: false
     }
 
-    setInstalledGameVersions([newGameVersion, ...installedGameVersions])
+    configDispatch({ type: CONFIG_ACTIONS.ADD_GAME_VERSION, payload: newGameVersion })
 
     startDownload(`version ${newGameVersion.version}`, `Donwloading game version ${newGameVersion.version}`, url, folder, (status, path) => {
-      if (!status) return setInstalledGameVersions(installedGameVersions.filter((igv) => igv.version !== newGameVersion.version))
+      if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
       startExtract(`version ${newGameVersion.version}`, `Extracting game version ${newGameVersion.version}`, path, folder, (status) => {
-        if (!status) return setInstalledGameVersions(installedGameVersions.filter((igv) => igv.version !== newGameVersion.version))
-        setInstalledGameVersions([newGameVersion, ...installedGameVersions])
+        if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
+        configDispatch({ type: CONFIG_ACTIONS.EDIT_GAME_VERSION, payload: { version: newGameVersion.version, updates: { installed: true } } })
       })
     })
   }
@@ -101,7 +101,7 @@ function AddVersion(): JSX.Element {
                           <ListboxOption
                             key={gv.version}
                             value={gv}
-                            disabled={installedGameVersions.some((igv) => igv.version === gv.version)}
+                            disabled={config.gameVersions.some((igv) => igv.version === gv.version)}
                             className="cursor-pointer data-[disabled]:opacity-50 hover:pl-1 duration-100 odd:bg-zinc-850 even:bg-zinc-800"
                           >
                             <div className="flex gap-2 h-8 px-2 py-1 items-center overflow-hidden" title={gv.version}>

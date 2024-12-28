@@ -3,12 +3,12 @@ import { Link } from "react-router-dom"
 import { Button } from "@headlessui/react"
 import { PiFolderFill, PiPlusCircleFill, PiTrashFill } from "react-icons/pi"
 
-import { useInstalledGameVersionsContext } from "@renderer/contexts/InstalledGameVersionsContext"
+import { useConfigContext } from "@renderer/contexts/ConfigContext"
 
 function VersionsList(): JSX.Element {
-  const { installedGameVersions } = useInstalledGameVersionsContext()
+  const { config } = useConfigContext()
 
-  const [selected, setSelected] = useState<InstalledGameVersionType | undefined>()
+  const [selected, setSelected] = useState<GameVersionType | undefined>()
 
   return (
     <>
@@ -16,7 +16,7 @@ function VersionsList(): JSX.Element {
 
       <div className="mx-auto w-full max-w-[800px]">
         <ul className="w-full flex flex-col">
-          {installedGameVersions.map((gv) => (
+          {config.gameVersions.map((gv) => (
             <li
               key={gv.version}
               onClick={() => setSelected(gv)}
