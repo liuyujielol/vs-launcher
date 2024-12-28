@@ -59,8 +59,7 @@
       "ifDontDeleteData": "Se não eliminar os dados, poderá acessá-los aqui:",
       "noInstallationsAvailable": "Não tem instalações",
       "noInstallationsAvailableSub": "Crie uma nova na página de Instalações",
-      "noInstallationSelected": "Nenhuma instalação selecionada",
-      "openOnFileExplorer": "Abrir pasta no explorador de arquivos"
+      "noInstallationSelected": "Nenhuma instalação selecionada"
     },
     "mods": {
       "modsCount": "{{count}} mods",

@@ -17,7 +17,7 @@ function AddVersion(): JSX.Element {
   const { startDownload, startExtract } = useTaskContext()
 
   const [gameVersions, setGameVersions] = useState<DownloadableGameVersionType[]>([])
-  const [version, setVersion] = useState<DownloadableGameVersionType>()
+  const [version, setVersion] = useState<DownloadableGameVersionType>({ version: "", windows: "", linux: "" })
   const [folder, setFolder] = useState<string>("")
   const [folderByUser, setFolderByUser] = useState<boolean>(false)
 
@@ -36,11 +36,11 @@ function AddVersion(): JSX.Element {
   }, [version])
 
   useEffect(() => {
-    setVersion(gameVersions.find((gv) => !config.gameVersions.some((igv) => igv.version === gv.version)))
+    setVersion(gameVersions.find((gv) => !config.gameVersions.some((igv) => igv.version === gv.version)) || { version: "", windows: "", linux: "" })
   }, [gameVersions])
 
   const handleAddInstallation = async (): Promise<void> => {
-    if (!version) return addNotification(t("notifications.titles.error"), t("features.versions.noVersionSelected"), "error")
+    if (version.version === "") return addNotification(t("notifications.titles.error"), t("features.versions.noVersionSelected"), "error")
 
     if (config.gameVersions.some((igv) => igv.version === version.version))
       return addNotification(t("notifications.titles.error"), t("features.versions.versionAlreadyInstalled", { version: version.version }), "error")
@@ -70,75 +70,77 @@ function AddVersion(): JSX.Element {
       <h1 className="text-3xl text-center font-bold">Install a new version</h1>
 
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
-        <div className="w-full flex flex-col gap-1">
-          <h2 className="text-lg">Version</h2>
-          <Listbox value={version} onChange={setVersion}>
-            {({ open }) => (
-              <>
-                <ListboxButton className="bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none w-full h-8 flex items-center justify-between gap-2 rounded overflow-hidden">
-                  {gameVersions
-                    .filter((gv) => gv.version === version?.version)
-                    .map((gv) => (
-                      <div key={gv.version} className="flex gap-2 px-2 py-1 items-center overflow-hidden">
-                        <span className="whitespace-nowrap font-bold text-sm">{gv.version}</span>
-                      </div>
-                    ))}
-                  <PiCaretDownBold className="text-sm text-zinc-500 shrink-0 mr-2 data-[open]:rotate-180" />
-                </ListboxButton>
-                <AnimatePresence>
-                  {open && (
-                    <ListboxOptions
-                      static
-                      as={motion.div}
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      anchor="bottom"
-                      className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 mt-2 rounded z-50"
-                    >
-                      <div className="flex flex-col max-h-40">
-                        {gameVersions.map((gv) => (
-                          <ListboxOption
-                            key={gv.version}
-                            value={gv}
-                            disabled={config.gameVersions.some((igv) => igv.version === gv.version)}
-                            className="cursor-pointer data-[disabled]:opacity-50 hover:pl-1 duration-100 odd:bg-zinc-850 even:bg-zinc-800"
-                          >
-                            <div className="flex gap-2 h-8 px-2 py-1 items-center overflow-hidden" title={gv.version}>
-                              <span className="whitespace-nowrap font-bold text-sm">{gv.version}</span>
-                            </div>
-                          </ListboxOption>
-                        ))}
-                      </div>
-                    </ListboxOptions>
-                  )}
-                </AnimatePresence>
-              </>
-            )}
-          </Listbox>
-        </div>
+        <div className="w-full flex gap-8">
+          <div className="w-80">
+            <Listbox value={version} onChange={setVersion}>
+              {({ open }) => (
+                <>
+                  <ListboxButton className="bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none w-full h-8 flex items-center justify-between gap-2 rounded overflow-hidden">
+                    {gameVersions.length === 0 && <div className="flex gap-2 px-2 py-1 items-center">No versions available</div>}
+                    {gameVersions
+                      .filter((gv) => gv.version === version?.version)
+                      .map((gv) => (
+                        <div key={gv.version} className="flex gap-2 px-2 py-1 items-center overflow-hidden">
+                          <span className="whitespace-nowrap font-bold text-sm">{gv.version}</span>
+                        </div>
+                      ))}
+                    <PiCaretDownBold className="text-sm text-zinc-500 shrink-0 mr-2 data-[open]:rotate-180" />
+                  </ListboxButton>
+                  <AnimatePresence>
+                    {open && (
+                      <ListboxOptions
+                        static
+                        as={motion.div}
+                        initial={{ height: 0 }}
+                        animate={{ height: "auto" }}
+                        exit={{ height: 0 }}
+                        anchor="bottom"
+                        className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 mt-1 rounded z-50"
+                      >
+                        <div className="flex flex-col max-h-40">
+                          {gameVersions.map((gv) => (
+                            <ListboxOption
+                              key={gv.version}
+                              value={gv}
+                              disabled={config.gameVersions.some((igv) => igv.version === gv.version)}
+                              className="cursor-pointer data-[disabled]:opacity-50 hover:pl-1 duration-100 odd:bg-zinc-850 even:bg-zinc-800"
+                            >
+                              <div className="flex gap-2 h-8 px-2 py-1 items-center overflow-hidden" title={gv.version}>
+                                <span className="whitespace-nowrap font-bold text-sm">{gv.version}</span>
+                              </div>
+                            </ListboxOption>
+                          ))}
+                        </div>
+                      </ListboxOptions>
+                    )}
+                  </AnimatePresence>
+                </>
+              )}
+            </Listbox>
+          </div>
 
-        <div className="w-full flex flex-col gap-1">
-          <h2 className="text-lg">Folder</h2>
-          <div className="w-full flex gap-2">
-            <Button
-              onClick={async () => {
-                const path = await window.api.utils.selectFolderDialog()
-                if (path && path.length > 0) {
-                  setFolder(path)
-                  setFolderByUser(true)
-                }
-              }}
-              className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
-            >
-              <span className="px-2 py-1">Browse</span>
-            </Button>
-            <Input
-              placeholder="Version folder"
-              value={folder}
-              onChange={(e) => setFolder(e.target.value)}
-              className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none"
-            />
+          <div className="w-full">
+            <div className="w-full flex gap-2">
+              <Button
+                onClick={async () => {
+                  const path = await window.api.utils.selectFolderDialog()
+                  if (path && path.length > 0) {
+                    setFolder(path)
+                    setFolderByUser(true)
+                  }
+                }}
+                className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
+              >
+                <span className="px-2 py-1">Browse</span>
+              </Button>
+              <Input
+                type="text"
+                placeholder="Version folder"
+                value={folder}
+                onChange={(e) => setFolder(e.target.value)}
+                className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none"
+              />
+            </div>
           </div>
         </div>
       </div>

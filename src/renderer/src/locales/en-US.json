@@ -21,6 +21,7 @@
     "downloaded": "Download progress",
     "extracted": "Extract progress",
     "selectFolder": "Select folder",
+    "openOnFileExplorer": "Open folder on the file explorer",
     "confirmation": "Confirmation",
     "minToMaxChars": "{{min}} to {{max}} caharacters",
     "settings": "Settings",
@@ -46,7 +47,8 @@
       "areYouSureUninstall": "Are you sure you want to uninstall this version?",
       "uninstallingNotReversible": "Uninstalling is not reversible but you can download the same version again.",
       "noVersionSelected": "No version selected",
-      "versionAlreadyInstalled": "Version {{version}} already installed"
+      "versionAlreadyInstalled": "Version {{version}} already installed",
+      "noVersionsFoundDescOnPage": "Install a new one with the <button/> button!"
     },
     "installations": {
       "addInstallation": "Add installation",
@@ -61,8 +63,7 @@
       "ifDontDeleteData": "If you dont delete data you will be able to access it here:",
       "noInstallationsAvailable": "You don't have installations",
       "noInstallationsAvailableSub": "Create a new one on the Installations page",
-      "noInstallationSelected": "No installation selected",
-      "openOnFileExplorer": "Open folder on the file explorer"
+      "noInstallationSelected": "No installation selected"
     },
     "mods": {
       "modsCount": "{{count}} mods",
@@ -110,7 +111,7 @@
     },
     "body": {
       "errorExecutingGame": "An error ocurred while executing the game!",
-      "folderDoesntExists": "The folder doesn't exist! Execute the game first!",
+      "folderDoesntExists": "The folder you're trying to open does not exists!",
       "noVersionSelected": "You've to select a version!",
       "versionNotInstalled": "Version {{version}} is not installed!",
       "versionNotFoundOnTheFolder": "No version found in that folder!",

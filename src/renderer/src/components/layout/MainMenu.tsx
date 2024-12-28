@@ -96,7 +96,7 @@ function MainMenu(): JSX.Element {
 
       <div className="flex flex-col gap-2">
         <InstallationsDropdownMenu />
-        <Button title={t("generic.play")} className="w-full h-14 bg-vs">
+        <Button title={t("generic.play")} className="w-full h-14 bg-vs rounded">
           <span className="text-2xl">{t("generic.play")}</span>
         </Button>
       </div>

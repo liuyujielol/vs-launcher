@@ -59,8 +59,7 @@
       "ifDontDeleteData": "如果您不删除数据您将可以在这里访问它们:",
       "noInstallationsAvailable": "您没有任何安装",
       "noInstallationsAvailableSub": "在安装页面安装一个新版本",
-      "noInstallationSelected": "未选择任何安装",
-      "openOnFileExplorer": "在文件资源管理器中打开文件夹"
+      "noInstallationSelected": "未选择任何安装"
     },
     "mods": {
       "modsCount": "{{count}} 个模组",
