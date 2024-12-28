@@ -56,9 +56,9 @@ function AddVersion(): JSX.Element {
 
     configDispatch({ type: CONFIG_ACTIONS.ADD_GAME_VERSION, payload: newGameVersion })
 
-    startDownload(`version ${newGameVersion.version}`, `Donwloading game version ${newGameVersion.version}`, url, folder, (status, path) => {
+    startDownload(`game version ${newGameVersion.version}`, `Donwloading game version ${newGameVersion.version}`, url, folder, (status, path) => {
       if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
-      startExtract(`version ${newGameVersion.version}`, `Extracting game version ${newGameVersion.version}`, path, folder, (status) => {
+      startExtract(`game version ${newGameVersion.version}`, `Extracting game version ${newGameVersion.version}`, path, folder, (status) => {
         if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
         configDispatch({ type: CONFIG_ACTIONS.EDIT_GAME_VERSION, payload: { version: newGameVersion.version, updates: { installed: true } } })
       })

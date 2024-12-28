@@ -43,7 +43,7 @@ export type TaskAction = AddTaskAction | UpdateTaskAction | RemoveTaskAction
 export function taskReducer(state: TaskType[], action: TaskAction): TaskType[] {
   switch (action.type) {
     case ACTIONS.ADD_TASK:
-      return [...state, action.payload]
+      return [action.payload, ...state]
     case ACTIONS.UPDATE_TASK:
       return state.map((task) => (task.id === action.payload.id ? { ...task, ...action.payload.updates } : task))
     case ACTIONS.REMOVE_TASK:

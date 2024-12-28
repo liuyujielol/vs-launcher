@@ -48,7 +48,7 @@ function TasksMenu(): JSX.Element {
                         <div className="w-full flex items-center gap-2">
                           <span className={`text-xl p-2 ${FONT_COLOR_TYPES[task.status]}`}>{ICON_TYPES[task.type]}</span>
                           <div className="flex flex-col items-start justify-center select-none">
-                            <h3 className="font-bold text-sm">{`${t(NAME_BY_TYPE[task.type])} ${task.name}`}</h3>
+                            <h3 className="font-bold text-sm">{`${t(NAME_BY_TYPE[task.type])}`}</h3>
                             <p className="text-xs text-zinc-500">{task.desc}</p>
                             {task.status === "failed" && <p className={`text-xs ${FONT_COLOR_TYPES["failed"]}`}>{t("components.tasksOverlay.error")}</p>}
                           </div>

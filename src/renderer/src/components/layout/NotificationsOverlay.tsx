@@ -45,7 +45,7 @@ function NotificationsOverlay(): JSX.Element {
               if (options?.onClick) options?.onClick()
             }}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-start">
               <span className={`text-xl p-2 rounded-full border ${BORDER_COLOR_TYPES[type]} ${FONT_COLOR_TYPES[type]}`}>{ICON_TYPES[type]}</span>
               <div className="flex flex-col items-start justify-center select-none">
                 <h3 className="font-bold text-sm">{title}</h3>

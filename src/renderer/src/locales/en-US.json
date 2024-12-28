@@ -129,12 +129,12 @@
       "installationEditingError": "An error ocurred while editing installation {{name}}!",
       "updateAvailable": "New update available! Downloading...",
       "updateDownloaded": "Update downloaded succesfully! Restart VS Launcher to update.",
-      "downloading": "Starting {{downloadName}}!",
-      "downloaded": "Finished {{downloadName}}!",
-      "downloadError": "Error {{downloadName}}!",
-      "extracting": "Starting {{extractName}}!",
-      "extracted": "Finished {{extractName}}!",
-      "extractError": "Failed {{extractName}}!"
+      "downloading": "Starting download: {{downloadName}}!",
+      "downloaded": "Finished download: {{downloadName}}!",
+      "downloadError": "Error downloading: {{downloadName}}!",
+      "extracting": "Starting extraction: {{extractName}}!",
+      "extracted": "Finished extraction: {{extractName}}!",
+      "extractError": "Error extracting: {{extractName}}!"
     },
     "delete": "Discard notification"
   }
