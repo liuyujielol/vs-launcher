@@ -1,7 +1,7 @@
 declare global {
   type BasicConfigType = {
     version: number
-    lastUsedInstallation: InstallationType | null
+    lastUsedInstallation: string | null
   }
 
   type GameVersionType = {
@@ -31,6 +31,8 @@ declare global {
 
   type DownloadableGameVersionType = {
     version: string
+    type: "stable" | "rc" | "pre"
+    releaseDate: string
     windows: string
     linux: string
   }

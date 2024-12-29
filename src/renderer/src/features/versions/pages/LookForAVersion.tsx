@@ -1,0 +1,98 @@
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { Button } from "@headlessui/react"
+import { Link } from "react-router-dom"
+
+import { useNotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { CONFIG_ACTIONS, useConfigContext } from "@renderer/contexts/ConfigContext"
+
+function LookForAVersion(): JSX.Element {
+  const { t } = useTranslation()
+  const { addNotification } = useNotificationsContext()
+  const { config, configDispatch } = useConfigContext()
+
+  const [folder, setFolder] = useState<string>("")
+  const [versionFound, setVersionFound] = useState<string>("")
+
+  const handleAddVersion = async (): Promise<void> => {
+    try {
+      if (!folder || !versionFound) return addNotification(t("notifications.titles.warning"), "No folder selected or no version found", "warning")
+
+      if (config.gameVersions.some((gv) => gv.version === versionFound))
+        return addNotification(t("notifications.titles.error"), t("features.versions.versionAlreadyInstalled", { version: versionFound }), "error")
+
+      const newGameVersion: GameVersionType = {
+        version: versionFound,
+        path: folder,
+        installed: true
+      }
+
+      configDispatch({ type: CONFIG_ACTIONS.ADD_GAME_VERSION, payload: newGameVersion })
+      addNotification(t("notifications.titles.success"), t("features.versions.versionSuccessfullyAdded", { version: versionFound }), "success")
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setFolder("")
+      setVersionFound("")
+    }
+  }
+
+  return (
+    <>
+      <h1 className="text-3xl text-center font-bold">Install a new version</h1>
+
+      <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
+        <div className="w-full flex gap-4">
+          <div className="w-48 flex flex-col gap-4 text-right">
+            <h3 className="text-lg">Version found</h3>
+          </div>
+
+          <div className="w-full flex gap-2">
+            <span className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{versionFound}</span>
+          </div>
+        </div>
+
+        <div className="w-full flex gap-4">
+          <div className="w-48 flex flex-col gap-4 text-right">
+            <h3 className="text-lg">Folder</h3>
+          </div>
+
+          <div className="w-full flex gap-2">
+            <Button
+              onClick={async () => {
+                const path = await window.api.utils.selectFolderDialog()
+                if (path && path.length > 0) {
+                  const res = await window.api.pathsManager.lookForAGameVersion(path)
+
+                  if (!res.exists) {
+                    setFolder("")
+                    setVersionFound("")
+                    return addNotification(t("notifications.titles.error"), t("features.versions.noVersionFoundOnThatFolder"), "error")
+                  }
+
+                  setFolder(path)
+                  setVersionFound(res.installedGameVersion as string)
+                }
+              }}
+              className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
+            >
+              <span className="px-2 py-1">Browse</span>
+            </Button>
+            <span className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{folder}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-2 justify-center items-center">
+        <Button onClick={handleAddVersion} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">Add</span>
+        </Button>
+        <Link to="/versions" title="Cancel" className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">Cancel</span>
+        </Link>
+      </div>
+    </>
+  )
+}
+
+export default LookForAVersion

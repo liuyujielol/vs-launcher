@@ -16,11 +16,16 @@ import PlayingOverlay from "@renderer/components/layout/PlayingOverlay"
 import MainMenu from "@renderer/components/layout/MainMenu"
 
 import HomePage from "@renderer/features/home/pages/HomePage"
-import InstallationsPage from "@renderer/features/installations/pages/InstallationsPage"
+import InstallationsLayout from "@renderer/features/installations/pages/InstallationsLayout"
+import ListInslallations from "@renderer/features/installations/pages/ListInstallations"
+import AddInslallation from "@renderer/features/installations/pages/AddInstallation"
+import EditInslallation from "@renderer/features/installations/pages/EditInstallation"
 import VersionsLayout from "@renderer/features/versions/pages/VersionsLayout"
-import VersionsList from "@renderer/features/versions/pages/VersionsList"
+import ListVersions from "@renderer/features/versions/pages/ListVersions"
 import AddVersion from "@renderer/features/versions/pages/AddVersion"
-import ModsPage from "@renderer/features/mods/pages/ModsPage"
+import LookForAVersion from "@renderer/features/versions/pages/LookForAVersion"
+import ModsLayout from "@renderer/features/mods/pages/ModsLayout"
+import ListMods from "@renderer/features/mods/pages/ListMods"
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -42,12 +47,19 @@ function App(): JSX.Element {
 
                   <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/installations" element={<InstallationsPage />} />
-                    <Route path="/versions" element={<VersionsLayout />}>
-                      <Route index element={<VersionsList />} />
-                      <Route path="add" element={<AddVersion />} />
+                    <Route path="/installations" element={<InstallationsLayout />}>
+                      <Route index element={<ListInslallations />} />
+                      <Route path="add" element={<AddInslallation />} />
+                      <Route path="edit/:id" element={<EditInslallation />} />
                     </Route>
-                    <Route path="/mods" element={<ModsPage />} />
+                    <Route path="/versions" element={<VersionsLayout />}>
+                      <Route index element={<ListVersions />} />
+                      <Route path="add" element={<AddVersion />} />
+                      <Route path="look-for-a-version" element={<LookForAVersion />} />
+                    </Route>
+                    <Route path="/mods" element={<ModsLayout />}>
+                      <Route index element={<ListMods />} />
+                    </Route>
                   </Routes>
                 </main>
 

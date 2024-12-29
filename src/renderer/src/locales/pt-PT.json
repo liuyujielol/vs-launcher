@@ -1,66 +1,27 @@
 {
-  "//info": "Localization version: 0.0.0 (19.12.2024) - Launcher Version 0.0.5 - Author: Bruno Cabrita",
   "generic": {
-    "add": "Adicionar",
     "delete": "Eliminar",
-    "install": "Instalar",
-    "installed_masc": "Instalado",
-    "installed_fem": "Instalada",
     "uninstall": "Desinstalar",
-    "edit": "Editar",
     "cancel": "Cancelar",
-    "close": "Fechar",
-    "select": "Selecionar",
-    "openMenu": "Abrir menu",
-    "closeMenu": "Fechar menu",
     "issues": "Problemas",
     "guides": "Guias",
     "source": "Fonte",
-    "default": "Padrão",
     "play": "Jogar",
-    "downloaded": "Descarregado",
-    "extracted": "Extraído",
-    "selectFolder": "Selecionar pasta",
-    "confirmation": "Confirmação",
-    "minToMaxChars": "{{min}} a {{max}} caracteres",
-    "settings": "Configurações",
     "discard": "Descartar"
   },
   "features": {
-    "generic": {
-      "notReadyYet": "Esta seção ainda não está pronta!",
-      "comeBackLater": "Volte na próxima atualização e pode ser que já esteja pronta ^^"
-    },
+    "generic": {},
     "home": {
       "title": "Bem-vindo ao VS Launcher",
       "description": "O lançador não oficial do Vintage Story com todos os recursos que precisa."
     },
     "versions": {
-      "installVersion": "Instalar versão",
       "uninstallVersion": "Desinstalar versão",
-      "selectVersion": "Selecionar versão",
       "noVersionsFound": "Nenhuma versão encontrada",
-      "noVersionsFoundDesc": "Instale uma nova na página {{link}}",
-      "searchForInstalledVersion": "Procurar por uma versão já instalada",
-      "versionDetected": "Versão detectada",
       "areYouSureUninstall": "Tem certeza de que deseja desinstalar esta versão?",
       "uninstallingNotReversible": "A desinstalação não é reversível, mas pode descarregar a mesma versão novamente."
     },
-    "installations": {
-      "addInstallation": "Adicionar instalação",
-      "deleteInstallation": "Eliminar instalação",
-      "editInstallation": "Editar instalação",
-      "nameInstallation": "Nomeie a sua instalação",
-      "placeholderNameNewInstallation": "Minha nova instalação",
-      "folderInUse": "Cuidado, esta pasta está em uso por outra instalação!",
-      "recomendedNewFolder": "É recomendado usar uma pasta limpa para cada instalação, mas se já tinha o jogo instalado, pode selecionar a mesma pasta que estava a usar antes com os mesmos mundos, mods etc.",
-      "areYouSureDelete": "Tem certeza de que deseja eliminar esta instalação?",
-      "deleteData": "Eliminar dados (não reversível):",
-      "ifDontDeleteData": "Se não eliminar os dados, poderá acessá-los aqui:",
-      "noInstallationsAvailable": "Não tem instalações",
-      "noInstallationsAvailableSub": "Crie uma nova na página de Instalações",
-      "noInstallationSelected": "Nenhuma instalação selecionada"
-    },
+    "installations": {},
     "mods": {
       "modsCount": "{{count}} mods",
       "modsCount_zero": "{{count}} mods",
@@ -91,11 +52,11 @@
       "desc": "O jogo está em execução em segundo plano, por favor feche-o para usar o VS Launcher!",
       "subDesc": "Não pode usar o VS Launcher enquanto joga para evitar quaisquer conflitos com o jogo."
     },
-    "tasksOverlay": {
-      "error": "Ocorreu um erro durante o processo!",
-      "noTasksAvailable": "Não há tarefas na fila!",
+    "tasksMenu": {
       "downloading": "Descarregar",
-      "extracting": "Extrair"
+      "extracting": "Extrair",
+      "error": "Ocorreu um erro durante o processo!",
+      "noTasksAvailable": "Não há tarefas na fila!"
     }
   },
   "notifications": {
@@ -106,24 +67,9 @@
       "success": "Sucesso"
     },
     "body": {
-      "errorExecutingGame": "Ocorreu um erro ao executar o jogo!",
       "folderDoesntExists": "A pasta não existe! Execute o jogo primeiro!",
-      "noVersionSelected": "Tem que selecionar uma versão!",
-      "versionNotInstalled": "Versão {{version}} não está instalada!",
-      "versionNotFoundOnTheFolder": "Nenhuma versão encontrada nessa pasta!",
-      "versionAlreadyInstalled": "Versão {{version}} já está instalada!",
-      "versionAddedSuccesfully": "Versão {{version}} adicionada com sucesso!",
-      "versionInstalledSuccesfully": "Versão {{version}} instalada com sucesso!",
-      "versionInstallationFailed": "Ocorreu um erro ao instalar a versão {{version}}!",
       "versionUninstalledSuccesfully": "Versão {{version}} desinstalada com sucesso!",
       "versionUninstallationFailed": "Ocorreu um erro ao desinstalar a versão {{version}}!",
-      "noInstallationSelected": "Tem que selecionar uma instalação!",
-      "installationAddedSuccesfully": "Instalação {{name}} adicionada com sucesso!",
-      "installationAddingError": "Ocorreu um erro ao adicionar a instalação {{name}}!",
-      "installationDeletedSuccesfully": "Instalação {{name}} eliminada com sucesso!",
-      "installationDeletingError": "Ocorreu um erro ao eliminar a instalação {{name}}!",
-      "installationEditedSuccesfully": "Instalação {{name}} editada com sucesso!",
-      "installationEditingError": "Ocorreu um erro ao editar a instalação {{name}}!",
       "updateAvailable": "Nova atualização disponível! A descarregar...",
       "updateDownloaded": "Atualização descarregada com sucesso! Reinicie o VS Launcher para atualizar.",
       "downloading": "Iniciando {{downloadName}}!",

@@ -97,7 +97,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
     const id = uuidv4()
 
     try {
-      window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Starting download of ${url} to ${outputPath}.`)
+      window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Adding download of ${url} to ${outputPath}.`)
       tasksDispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "download", data: { url, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Downloading ${url}...`)
@@ -120,7 +120,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
     const id = uuidv4()
 
     try {
-      window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Starting extraction of ${filePath} to ${outputPath}.`)
+      window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Adding extraction of ${filePath} to ${outputPath}.`)
       tasksDispatch({ type: ACTIONS.ADD_TASK, payload: { id, name, desc, type: "extract", data: { filePath, outputPath }, progress: 0, status: "pending" } })
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracting ${filePath}...`)
@@ -130,6 +130,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }): JSX.E
       if (!result) {
         throw new Error("Extraction failed")
       }
+
+      window.api.pathsManager.changePerms([outputPath], 0o755)
 
       window.api.utils.logMessage("info", `[component] [TaskManager] [${id}] Extracted ${filePath} to ${outputPath}`)
       tasksDispatch({ type: ACTIONS.UPDATE_TASK, payload: { id, updates: { status: "completed" } } })

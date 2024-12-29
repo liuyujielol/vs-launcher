@@ -6,8 +6,8 @@ import { useTaskContext } from "@renderer/contexts/TaskManagerContext"
 import { useTranslation } from "react-i18next"
 
 const NAME_BY_TYPE = {
-  download: "components.tasksOverlay.downloading",
-  extract: "components.tasksOverlay.extracting"
+  download: "components.tasksMenu.downloading",
+  extract: "components.tasksMenu.extracting"
 }
 
 const FONT_COLOR_TYPES = {
@@ -35,12 +35,20 @@ function TasksMenu(): JSX.Element {
           </PopoverButton>
           <AnimatePresence>
             {open && (
-              <PopoverPanel static as={motion.div} initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} anchor="bottom" className="w-80 m-1 z-50 bg-zinc-850 rounded">
+              <PopoverPanel
+                static
+                as={motion.div}
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                exit={{ height: 0 }}
+                anchor="bottom"
+                className="w-80 translate-y-1 translate-x-2 z-50 bg-zinc-850 rounded"
+              >
                 <div className="flex flex-col max-h-80">
                   <AnimatePresence>
                     {tasks.length < 1 && (
                       <div>
-                        <h3 className="text-sm font-bold text-center p-2">{t("components.tasksOverlay.noTasksAvailable")}</h3>
+                        <h3 className="text-sm font-bold text-center p-2">{t("components.tasksMenu.noTasksAvailable")}</h3>
                       </div>
                     )}
                     {tasks.map((task) => (
@@ -51,7 +59,7 @@ function TasksMenu(): JSX.Element {
                             <div className="flex flex-col items-start justify-center select-none">
                               <h3 className="font-bold text-sm">{`${t(NAME_BY_TYPE[task.type])}`}</h3>
                               <p className="text-xs text-zinc-500">{task.desc}</p>
-                              {task.status === "failed" && <p className={`text-xs ${FONT_COLOR_TYPES["failed"]}`}>{t("components.tasksOverlay.error")}</p>}
+                              {task.status === "failed" && <p className={`text-xs ${FONT_COLOR_TYPES["failed"]}`}>{t("components.tasksMenu.error")}</p>}
                             </div>
                           </div>
                           {(task.status === "completed" || task.status === "failed") && (

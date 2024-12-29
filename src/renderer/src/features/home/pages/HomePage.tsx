@@ -5,7 +5,7 @@ function HomePage(): JSX.Element {
 
   return (
     <div className="relative h-screen bg-image-1 overflow-hidden bg-image-vs bg-center bg-cover">
-      <div className="w-full h-full flex flex-col items-center justify-around p-4 pt-8 bg-zinc-900/50">
+      <div className="w-full h-full flex flex-col items-center justify-around p-4 pt-8 bg-zinc-900/60">
         <div className="w-full text-center flex flex-col items-center gap-2 text-lg">
           <h1 className="text-4xl font-bold">{t("features.home.title")}</h1>
           <p>{t("features.home.description")}</p>

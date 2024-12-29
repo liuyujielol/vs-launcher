@@ -22,6 +22,7 @@ axios({
     const writer = fse.createWriteStream(pathToDownload)
     let downloadedLength = 0
     let lastReportedProgress = 0
+
     data.on("data", (chunk) => {
       downloadedLength += chunk.length
       const progress = Math.round((downloadedLength / totalLength) * 100)

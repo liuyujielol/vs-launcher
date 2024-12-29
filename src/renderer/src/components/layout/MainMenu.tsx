@@ -9,6 +9,10 @@ import iconMods from "@renderer/assets/icon-moddb.png"
 import iconNews from "@renderer/assets/icon-news.png"
 import iconChangelog from "@renderer/assets/icon-changelog.png"
 
+import { useConfigContext } from "@renderer/contexts/ConfigContext"
+import { useNotificationsContext } from "@renderer/contexts/NotificationsContext"
+import { usePlayingContext } from "@renderer/contexts/PlayingContext"
+
 import LanguagesMenu from "@renderer/components/ui/LanguagesMenu"
 import InstallationsDropdownMenu from "@renderer/features/installations/components/InstallationsDropdownMenu"
 import TasksMenu from "@renderer/components/ui/TasksMenu"
@@ -30,6 +34,9 @@ interface MainMenuAProps {
 
 function MainMenu(): JSX.Element {
   const { t } = useTranslation()
+  const { config } = useConfigContext()
+  const { addNotification } = useNotificationsContext()
+  const { setPlaying } = usePlayingContext()
 
   const LINKS: MainMenuLinkProps[] = [
     {
@@ -96,7 +103,25 @@ function MainMenu(): JSX.Element {
 
       <div className="flex flex-col gap-2">
         <InstallationsDropdownMenu />
-        <Button title={t("generic.play")} className="w-full h-14 bg-vs rounded">
+        <Button
+          title={t("generic.play")}
+          onClick={async () => {
+            try {
+              const installationToRun = config.installations.find((installation) => installation.id === config.lastUsedInstallation)
+              if (!installationToRun) return addNotification(t("notifications.titles.warning"), "No installation selected", "warning")
+              const gameVersionToRun = config.gameVersions.find((gv) => gv.version === installationToRun.version)
+              if (!gameVersionToRun || !gameVersionToRun.installed) return addNotification(t("notifications.titles.warning"), "Game version not installed", "warning")
+              setPlaying(true)
+              const closeStatus = await window.api.gameManager.executeGame(gameVersionToRun, installationToRun)
+              if (!closeStatus) return addNotification(t("notifications.titles.error"), "Game exited with errors", "error")
+            } catch (err) {
+              addNotification(t("notifications.titles.error"), "Error executing game", "error")
+            } finally {
+              setPlaying(false)
+            }
+          }}
+          className="w-full h-14 bg-vs rounded"
+        >
           <span className="text-2xl">{t("generic.play")}</span>
         </Button>
       </div>

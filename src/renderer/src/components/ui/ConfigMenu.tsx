@@ -12,7 +12,15 @@ function ConfigMenu(): JSX.Element {
           </PopoverButton>
           <AnimatePresence>
             {open && (
-              <PopoverPanel static as={motion.div} initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} anchor="bottom" className="w-80 m-1 z-50 bg-zinc-850 rounded">
+              <PopoverPanel
+                static
+                as={motion.div}
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                exit={{ height: 0 }}
+                anchor="bottom"
+                className="w-80 translate-y-1 translate-x-2 z-50 bg-zinc-850 rounded"
+              >
                 <div className="flex flex-col max-h-80">
                   <AnimatePresence>
                     <div>

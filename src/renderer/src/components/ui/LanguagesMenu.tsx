@@ -52,7 +52,7 @@ function LanguagesMenu(): JSX.Element {
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 anchor="bottom"
-                className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 mt-1 rounded z-50"
+                className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 translate-y-1 rounded z-50"
               >
                 <div className="flex flex-col max-h-40">
                   {languages.map((lang) => (

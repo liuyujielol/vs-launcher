@@ -24,7 +24,7 @@ export interface SetVersion {
 
 export interface SetLastUsedInstallation {
   type: CONFIG_ACTIONS.SET_LAST_USED_INSTALLATION
-  payload: InstallationType | null
+  payload: string | null
 }
 
 export interface AddInstallation {
@@ -71,8 +71,10 @@ const configReducer = (config: ConfigType, action: ConfigAction): ConfigType => 
       return action.payload
     case CONFIG_ACTIONS.SET_VERSION:
       return { ...config, version: action.payload }
+    case CONFIG_ACTIONS.SET_LAST_USED_INSTALLATION:
+      return { ...config, lastUsedInstallation: action.payload }
     case CONFIG_ACTIONS.ADD_INSTALLATION:
-      return { ...config, installations: [...config.installations, action.payload] }
+      return { ...config, installations: [action.payload, ...config.installations] }
     case CONFIG_ACTIONS.DELETE_INSTALLATION:
       return {
         ...config,
@@ -84,7 +86,7 @@ const configReducer = (config: ConfigType, action: ConfigAction): ConfigType => 
         installations: config.installations.map((installation) => (installation.id === action.payload.id ? { ...installation, ...action.payload.updates } : installation))
       }
     case CONFIG_ACTIONS.ADD_GAME_VERSION:
-      return { ...config, gameVersions: [...config.gameVersions, action.payload] }
+      return { ...config, gameVersions: [action.payload, ...config.gameVersions] }
     case CONFIG_ACTIONS.DELETE_GAME_VERSION:
       return {
         ...config,

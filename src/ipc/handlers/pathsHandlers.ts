@@ -1,14 +1,15 @@
 import { ipcMain, app, shell } from "electron"
 import fse from "fs-extra"
-import { join, dirname } from "path"
+import { join } from "path"
 import os from "os"
-import yauzl from "yauzl"
 import { spawn } from "child_process"
 import { Worker } from "worker_threads"
 
 import { logMessage } from "@src/utils/logManager"
 import { IPC_CHANNELS } from "@src/ipc/ipcChannels"
 
+import extractWorker from "@src/ipc/workers/extractWorker?modulePath"
+import changePermsWorker from "@src/ipc/workers/changePermsWorker?modulePath"
 import downloadWorkerPath from "@src/ipc/workers/downloadWorker?modulePath"
 
 ipcMain.handle(IPC_CHANNELS.PATHS_MANAGER.GET_CURRENT_USER_DATA_PATH, (): string => {
@@ -17,9 +18,12 @@ ipcMain.handle(IPC_CHANNELS.PATHS_MANAGER.GET_CURRENT_USER_DATA_PATH, (): string
 
 ipcMain.handle(IPC_CHANNELS.PATHS_MANAGER.DELETE_PATH, (_event, path: string): boolean => {
   try {
+    logMessage("info", `[ipcMain] [delete-path] Deleting path: ${path}`)
     fse.removeSync(path)
+    logMessage("info", `[ipcMain] [delete-path] Path deleted: ${path}`)
     return true
   } catch (err) {
+    logMessage("error", `[ipcMain] [delete-path] Error deleting path: ${err}`)
     return false
   }
 })
@@ -55,7 +59,11 @@ ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_ON_PATH, (event, id, url, out
       }
     })
 
-    worker.on("error", reject)
+    worker.on("error", (error) => {
+      logMessage("error", `[ipcMain] [download-on-path] Worker error: ${error.message}`)
+      reject(false)
+    })
+
     worker.on("exit", (code) => {
       if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
     })
@@ -63,91 +71,60 @@ ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.DOWNLOAD_ON_PATH, (event, id, url, out
 })
 
 ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.EXTRACT_ON_PATH, async (event, id: string, filePath: string, outputPath: string) => {
-  logMessage("info", `[ipcMain] [extract-on-path] Extraction ID: ${id} Extracting ${filePath} to ${outputPath}...`)
-
   return new Promise((resolve, reject) => {
-    // lazyEntries para poder leer manualmente
-    yauzl.open(filePath, { lazyEntries: true }, (err, zipfile) => {
-      if (err) {
-        logMessage("error", `[ipcMain] [extract-on-path] Extraction ID: ${id} Error opening ZIP file ${filePath}: ${err}`)
-        return reject(`Error opening ZIP file: ${err}`)
+    const worker = new Worker(extractWorker, {
+      workerData: { id, filePath, outputPath }
+    })
+
+    worker.on("message", (message) => {
+      if (message.type === "progress") {
+        event.sender.send(IPC_CHANNELS.FILES_MANAGER.EXTRACT_PROGRESS, id, message.progress)
+      } else if (message.type === "finished") {
+        resolve(true)
       }
+    })
 
-      const totalFiles = zipfile.entryCount
-      let extractedCount = 0
+    worker.on("error", (error) => {
+      logMessage("error", `[ipcMain] [extract-on-path] Worker error: ${error.message}`)
+      reject(error)
+    })
 
-      zipfile.readEntry() // Comenzar la lectura
-
-      zipfile.on("entry", (entry) => {
-        const fullPath = join(outputPath, entry.fileName)
-
-        // Si la entrada es un directorio, lo creamos
-        if (/\/$/.test(entry.fileName)) {
-          fse.ensureDirSync(fullPath)
-          extractedCount++
-          return zipfile.readEntry() // Leer siguiente entrada
-        }
-
-        // Si la entrada es un archivo, lo extraemos
-        zipfile.openReadStream(entry, (err, readStream) => {
-          if (err) {
-            logMessage("error", `[ipcMain] [extract-on-path] Extraction ID: ${id} Error opening file ${entry.fileName}: ${err}`)
-            return reject(`Error opening file ${entry.fileName}: ${err}`)
-          }
-
-          fse.ensureDirSync(dirname(fullPath)) // Aseguramos que el directorio exista antes de escribir el archivo
-
-          const writeStream = fse.createWriteStream(fullPath)
-
-          readStream.pipe(writeStream) // Cuando el archivo se escribe completamente
-
-          writeStream.on("finish", () => {
-            extractedCount++
-            const progress = Math.round((extractedCount / totalFiles) * 100)
-            event.sender.send(IPC_CHANNELS.FILES_MANAGER.EXTRACT_PROGRESS, id, progress)
-
-            if (extractedCount === totalFiles) {
-              zipfile.close()
-
-              fse.unlink(filePath, (err) => {
-                if (err) {
-                  logMessage("error", `[ipcMain] [extract-on-path] Extraction ID: ${id} Error deleting ZIP file ${filePath}: ${err}`)
-                  return reject(`Error deleting ZIP: ${err}`)
-                }
-                logMessage("info", `[ipcMain] [extract-on-path] Extraction ID: ${id} ZIP file ${filePath} deleted`)
-                return resolve(true)
-              })
-            } else {
-              zipfile.readEntry()
-            }
-          })
-
-          writeStream.on("error", (err) => {
-            logMessage("error", `[ipcMain] [extract-on-path] Extraction ID: ${id} Error writing file ${entry.fileName}: ${err}`)
-            return reject(`Error writing file ${err}`)
-          })
-        })
-      })
-
-      zipfile.on("error", (err) => {
-        logMessage("error", `[ipcMain] [extract-on-path] Extraction ID: ${id} Error while extracting: ${err}`)
-        return reject(`Error while extracting: ${err}`)
-      })
+    worker.on("exit", (code) => {
+      if (code !== 0) {
+        reject(new Error(`Worker stopped with exit code ${code}`))
+      }
     })
   })
 })
 
-ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.CHANGE_PERMS, (_event, paths: string[], perms: number) => {
+ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.CHANGE_PERMS, async (_event, paths: string[], perms: number) => {
   if (os.platform() === "linux") {
-    logMessage("info", `[ipcMain] [extract-game-version] Linux platform detected`)
+    logMessage("info", `[ipcMain] [change-perms] Linux platform detected`)
 
-    for (const path of paths) {
-      if (fse.existsSync(path)) {
-        fse.chmodSync(path, perms)
-        logMessage("info", `[ipcMain] [extract-game-version] Changed perms to ${perms} to ${path}`)
-      }
-    }
+    return new Promise((resolve, reject) => {
+      const worker = new Worker(changePermsWorker, {
+        workerData: { paths, perms }
+      })
+
+      worker.on("message", (message) => {
+        if (message === "done") {
+          logMessage("info", `[ipcMain] [change-perms] Permissions changed successfully`)
+          resolve(true)
+        }
+      })
+
+      worker.on("error", (error) => {
+        logMessage("error", `[ipcMain] [change-perms] Worker error: ${error.message}`)
+        reject(false)
+      })
+
+      worker.on("exit", (code) => {
+        if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`))
+      })
+    })
   }
+
+  return Promise.reject(true)
 })
 
 ipcMain.handle(IPC_CHANNELS.FILES_MANAGER.LOOK_FOR_A_GAME_VERSION, async (_event, path: string) => {
