@@ -37,8 +37,8 @@ function LanguagesMenu(): JSX.Element {
               .filter((lang) => lang.code === selectedLanguage)
               .map((lang) => (
                 <div key={lang.code} className="flex gap-2 px-2 py-1 items-center overflow-hidden">
-                  <span className="whitespace-nowrap font-bold text-sm">{lang.name}</span>
-                  <span className="whitespace-nowrap text-ellipsis overflow-hidden text-zinc-500 text-xs">{lang.credits}</span>
+                  <p className="whitespace-nowrap font-bold text-sm">{lang.name}</p>
+                  <p className="whitespace-nowrap text-ellipsis overflow-hidden text-zinc-500 text-xs">{lang.credits}</p>
                 </div>
               ))}
             <PiCaretDownBold className="text-sm text-zinc-500 shrink-0 mr-2 data-[open]:rotate-180" />
@@ -52,14 +52,14 @@ function LanguagesMenu(): JSX.Element {
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 anchor="bottom"
-                className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 translate-y-1 rounded z-50"
+                className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 translate-y-1 rounded"
               >
                 <div className="flex flex-col max-h-40">
                   {languages.map((lang) => (
                     <ListboxOption key={lang.code} value={lang.code} className="hover:pl-1 duration-100 odd:bg-zinc-850 even:bg-zinc-800">
                       <div className="flex gap-2 h-7 px-2 py-1 items-center overflow-hidden" title={`${lang.name} - ${lang.credits}`}>
-                        <span className="whitespace-nowrap font-bold text-sm">{lang.name}</span>
-                        <span className="text-zinc-500 text-xs whitespace-nowrap text-ellipsis overflow-hidden">{lang.credits}</span>
+                        <p className="whitespace-nowrap font-bold text-sm">{lang.name}</p>
+                        <p className="text-zinc-500 text-xs whitespace-nowrap text-ellipsis overflow-hidden">{lang.credits}</p>
                       </div>
                     </ListboxOption>
                   ))}

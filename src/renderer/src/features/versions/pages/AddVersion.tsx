@@ -87,7 +87,7 @@ function AddVersion(): JSX.Element {
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("features.versions.labelGameVersion")}</h3>
+            <p className="text-lg">{t("features.versions.labelGameVersion")}</p>
             <div className="flex flex-col gap-1 text-sm">
               <div className="flex items-center select-none">
                 <label htmlFor="stable-version" className="w-full cursor-pointer pr-2">
@@ -129,9 +129,9 @@ function AddVersion(): JSX.Element {
               <div className="shrink-0 w-24 text-center p-1">{t("generic.type")}</div>
             </div>
             <div className="w-full">
-              {gameVersions.map((gv) => (
-                <>
-                  {versionFilters[gv.type] && (
+              {gameVersions.map(
+                (gv) =>
+                  versionFilters[gv.type] && (
                     <div
                       key={gv.version}
                       onClick={() => !config.gameVersions.find((igv) => igv.version === gv.version) && setVersion(gv)}
@@ -140,25 +140,24 @@ function AddVersion(): JSX.Element {
                     ${config.gameVersions.find((igv) => igv.version === gv.version) ? "text-zinc-500" : "cursor-pointer duration-100 hover:pl-1"}`}
                     >
                       <div className="w-full p-1">
-                        <span>{gv.version}</span>
+                        <p>{gv.version}</p>
                       </div>
                       <div className="shrink-0 w-36 text-center p-1">
-                        <span>{new Date(gv.releaseDate).toLocaleDateString("es")}</span>
+                        <p>{new Date(gv.releaseDate).toLocaleDateString("es")}</p>
                       </div>
                       <div className="shrink-0 w-24 text-center p-1">
-                        <span>{gv.type}</span>
+                        <p>{gv.type}</p>
                       </div>
                     </div>
-                  )}
-                </>
-              ))}
+                  )
+              )}
             </div>
           </div>
         </div>
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("generic.folder")}</h3>
+            <p className="text-lg">{t("generic.folder")}</p>
           </div>
 
           <div className="w-full flex gap-2">
@@ -173,7 +172,7 @@ function AddVersion(): JSX.Element {
               title={t("generic.browse")}
               className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
             >
-              <span className="px-2 py-1">{t("generic.browse")}</span>
+              <p className="px-2 py-1">{t("generic.browse")}</p>
             </Button>
             <Input
               type="text"
@@ -188,10 +187,10 @@ function AddVersion(): JSX.Element {
 
       <div className="flex gap-2 justify-center items-center">
         <Button onClick={handleInstallVersion} title={t("generic.install")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.install")}</span>
+          <p className="px-2 py-1">{t("generic.install")}</p>
         </Button>
         <Link to="/versions" title={t("generic.cancel")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.cancel")}</span>
+          <p className="px-2 py-1">{t("generic.cancel")}</p>
         </Link>
       </div>
     </>

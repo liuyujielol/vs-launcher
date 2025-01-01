@@ -81,7 +81,7 @@ function MainMenu(): JSX.Element {
   ]
 
   return (
-    <header className="z-50 shrink-0 w-68 flex flex-col gap-4 p-2 shadow-[0_0_5px_2px] shadow-zinc-900">
+    <header className="z-99 w-[280px] flex flex-col gap-4 p-2 shadow-[0_0_5px_2px] shadow-zinc-900">
       <div className={`flex h-7 shrink-0 gap-2`}>
         <Link to="/config" className="shrink-0 w-7 h-7 bg-zinc-850 rounded flex items-center justify-center shadow shadow-zinc-900 hover:shadow-none">
           <PiGearFill />
@@ -125,7 +125,7 @@ function MainMenu(): JSX.Element {
           }}
           className="w-full h-14 bg-vs rounded"
         >
-          <span className="text-2xl">{t("generic.play")}</span>
+          <p className="text-2xl">{t("generic.play")}</p>
         </Button>
       </div>
     </header>
@@ -155,10 +155,10 @@ function LinkContent({ icon, text, desc, link, external }: LinkContentProps): JS
       <img src={icon} alt={text} className="w-7" />
       <div className={`flex flex-col overflow-hidden whitespace-nowrap`}>
         <div className="font-bold text-sm flex items-center gap-2">
-          <span className="overflow-hidden text-ellipsis">{text}</span>
+          <p className="overflow-hidden text-ellipsis">{text}</p>
           {external && <FiExternalLink className="text-zinc-500" />}
         </div>
-        <span className="text-zinc-500 text-xs overflow-hidden text-ellipsis">{desc}</span>
+        <p className="text-zinc-500 text-xs overflow-hidden text-ellipsis">{desc}</p>
       </div>
     </div>
   )

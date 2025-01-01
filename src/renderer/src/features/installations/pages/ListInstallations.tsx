@@ -24,7 +24,7 @@ function ListInslallations(): JSX.Element {
         <ul className="w-full flex flex-col">
           {config.installations.length < 1 && (
             <div className="w-full flex flex-col items-center justify-center gap-2 rounded bg-zinc-850 p-4">
-              <h2 className="text-2xl">{t("features.installations.noInstallationsFound")}</h2>
+              <p className="text-2xl">{t("features.installations.noInstallationsFound")}</p>
               <p className="w-full flex gap-1 items-center justify-center">
                 <Trans i18nKey="features.installations.noInstallationsFoundDescOnPage" components={{ button: <PiPlusCircleFill className="text-lg" /> }} />
               </p>
@@ -33,11 +33,11 @@ function ListInslallations(): JSX.Element {
           {config.installations.map((installation) => (
             <li key={installation.id} className={`w-full px-2 py-1 hover:pl-3 hover:pr-1 duration-100 odd:bg-zinc-850 rounded cursor-pointer flex gap-2 justify-between items-center`}>
               <div className="flex flex-col gap-1 overflow-hidden">
-                <span>{installation.name}</span>
+                <p>{installation.name}</p>
                 <div className="w-full flex gap-2 items-center text-sm text-zinc-500 whitespace-nowrap">
-                  <span>{installation.version}</span>
-                  <span>{t("features.mods.modsCount", { count: installation.mods.length })}</span>
-                  <span className="overflow-hidden text-ellipsis">{installation.path}</span>
+                  <p>{installation.version}</p>
+                  <p>{t("features.mods.modsCount", { count: installation.mods.length })}</p>
+                  <p className="overflow-hidden text-ellipsis">{installation.path}</p>
                 </div>
               </div>
 
@@ -83,7 +83,7 @@ function ListInslallations(): JSX.Element {
             static
             open={installationToDelete !== null}
             onClose={() => setInstallationToDelete(null)}
-            className="w-full h-full absolute top-0 left-0 z-[100] flex justify-center items-center backdrop-blur-sm"
+            className="w-full h-full absolute top-0 left-0 z-[200] flex justify-center items-center backdrop-blur-sm"
           >
             <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0 }}>
               <DialogPanel className="flex flex-col gap-4 text-center bg-zinc-850 rounded p-8 max-w-[600px]">
@@ -91,10 +91,10 @@ function ListInslallations(): JSX.Element {
                 <Description className="flex flex-col gap-2">
                   <p>{t("features.installations.areYouSureDelete")}</p>
                   <p className="text-zinc-500">{t("features.installations.deletingNotReversible")}</p>
-                  <span className="flex gap-2 items-center justify-center">
+                  <div className="flex gap-2 items-center justify-center">
                     <Input id="delete-data" type="checkbox" checked={deleteData} onChange={(e) => setDeleData(e.target.checked)} />
                     <label htmlFor="delete-data">{t("features.installations.deleteData")}</label>
-                  </span>
+                  </div>
                 </Description>
                 <div className="flex gap-4 items-center justify-center">
                   <button

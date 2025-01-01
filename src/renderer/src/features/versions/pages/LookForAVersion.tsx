@@ -44,17 +44,17 @@ function LookForAVersion(): JSX.Element {
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("features.versions.versionFound")}</h3>
+            <p className="text-lg">{t("features.versions.versionFound")}</p>
           </div>
 
           <div className="w-full flex gap-2">
-            <span className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{versionFound}</span>
+            <p className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{versionFound}</p>
           </div>
         </div>
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("generic.folder")}</h3>
+            <p className="text-lg">{t("generic.folder")}</p>
           </div>
 
           <div className="w-full flex gap-2">
@@ -77,19 +77,19 @@ function LookForAVersion(): JSX.Element {
               title={t("generic.browse")}
               className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
             >
-              <span className="px-2 py-1">{t("generic.browse")}</span>
+              <p className="px-2 py-1">{t("generic.browse")}</p>
             </Button>
-            <span className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{folder}</span>
+            <p className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{folder}</p>
           </div>
         </div>
       </div>
 
       <div className="flex gap-2 justify-center items-center">
         <Button onClick={handleAddVersion} title={t("generic.add")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.add")}</span>
+          <p className="px-2 py-1">{t("generic.add")}</p>
         </Button>
         <Link to="/versions" title={t("generic.cancel")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.cancel")}</span>
+          <p className="px-2 py-1">{t("generic.cancel")}</p>
         </Link>
       </div>
     </>

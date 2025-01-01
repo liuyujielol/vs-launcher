@@ -53,7 +53,7 @@ function AddInslallation(): JSX.Element {
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("generic.name")}</h3>
+            <p className="text-lg">{t("generic.name")}</p>
           </div>
 
           <div className="w-full flex flex-col gap-1">
@@ -68,13 +68,13 @@ function AddInslallation(): JSX.Element {
               minLength={5}
               maxLength={50}
             />
-            <span className="text-sm text-zinc-500 pl-1">{t("generic.minMaxLength", { min: 5, max: 50 })}</span>
+            <p className="text-sm text-zinc-500 pl-1">{t("generic.minMaxLength", { min: 5, max: 50 })}</p>
           </div>
         </div>
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("features.versions.labelGameVersion")}</h3>
+            <p className="text-lg">{t("features.versions.labelGameVersion")}</p>
           </div>
 
           <div className="w-full max-h-[250px] bg-zinc-850 rounded overflow-x-hidden shadow shadow-zinc-900 overflow-y-scroll">
@@ -84,7 +84,7 @@ function AddInslallation(): JSX.Element {
             <div className="w-full">
               {config.gameVersions.length < 1 && (
                 <div className="w-full p-1 flex items-center justify-center">
-                  <span>{t("features.versions.noVersionsFound")}</span>
+                  <p>{t("features.versions.noVersionsFound")}</p>
                 </div>
               )}
               {config.gameVersions.map((gv) => (
@@ -102,7 +102,7 @@ function AddInslallation(): JSX.Element {
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">{t("generic.folder")}</h3>
+            <p className="text-lg">{t("generic.folder")}</p>
           </div>
 
           <div className="w-full flex gap-2">
@@ -117,7 +117,7 @@ function AddInslallation(): JSX.Element {
               title={t("generic.browse")}
               className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
             >
-              <span className="px-2 py-1">{t("generic.browse")}</span>
+              <p className="px-2 py-1">{t("generic.browse")}</p>
             </Button>
             <Input
               type="text"
@@ -132,10 +132,10 @@ function AddInslallation(): JSX.Element {
 
       <div className="flex gap-2 justify-center items-center">
         <Button onClick={handleAddInstallation} title={t("generic.add")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.add")}</span>
+          <p className="px-2 py-1">{t("generic.add")}</p>
         </Button>
         <Link to="/installations" title={t("generic.goBack")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">{t("generic.goBack")}</span>
+          <p className="px-2 py-1">{t("generic.goBack")}</p>
         </Link>
       </div>
     </>

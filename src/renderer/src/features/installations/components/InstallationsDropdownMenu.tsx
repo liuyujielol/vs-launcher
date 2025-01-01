@@ -16,8 +16,8 @@ function InstallationsDropdownMenu(): JSX.Element {
     <div className="w-full bg-zinc-850 rounded text-sm shadow shadow-zinc-900 hover:shadow-none">
       {config.installations.length < 1 ? (
         <div className="w-full flex flex-col items-center justify-between px-4 py-2 ">
-          <span className="font-bold">{t("features.installations.noInstallationsFound")}</span>
-          <span className="text-zinc-500 text-xs flex gap-1 items-center flex-wrap justify-center">
+          <p className="font-bold">{t("features.installations.noInstallationsFound")}</p>
+          <p className="text-zinc-500 text-xs flex gap-1 items-center flex-wrap justify-center">
             <Trans
               i18nKey="features.installations.noInstallationsFoundDesc"
               components={{
@@ -28,7 +28,7 @@ function InstallationsDropdownMenu(): JSX.Element {
                 )
               }}
             />
-          </span>
+          </p>
         </div>
       ) : (
         <Listbox
@@ -45,10 +45,10 @@ function InstallationsDropdownMenu(): JSX.Element {
               <ListboxButton className="w-full flex gap-2 items-center px-2 py-1">
                 {config.lastUsedInstallation === null || !config.installations.some((installation) => installation.id === config.lastUsedInstallation) ? (
                   <div className="w-full flex items-center justify-between gap-2">
-                    <span className="font-bold text-start">{t("features.installations.noInstallationSelected")}</span>
+                    <p className="font-bold text-start">{t("features.installations.noInstallationSelected")}</p>
                     <div className="shrink-0 text-sm text-zinc-500 flex flex-col items-end justify-center">
-                      <span>X.X.X</span>
-                      <span>{t("features.mods.modsCount", { count: 0 })}</span>
+                      <p>X.X.X</p>
+                      <p>{t("features.mods.modsCount", { count: 0 })}</p>
                     </div>
                   </div>
                 ) : (
@@ -57,10 +57,10 @@ function InstallationsDropdownMenu(): JSX.Element {
                       (current) =>
                         current.id === config.lastUsedInstallation && (
                           <div key={current.id} className="w-full flex items-center justify-between gap-2">
-                            <span className="font-bold text-start">{current.name}</span>
+                            <p className="font-bold text-start">{current.name}</p>
                             <div className="shrink-0 text-sm text-zinc-500 flex flex-col items-end justify-center">
-                              <span>{current.version}</span>
-                              <span>{t("features.mods.modsCount", { count: current.mods.length })}</span>
+                              <p>{current.version}</p>
+                              <p>{t("features.mods.modsCount", { count: current.mods.length })}</p>
                             </div>
                           </div>
                         )
@@ -78,16 +78,16 @@ function InstallationsDropdownMenu(): JSX.Element {
                     animate={{ height: "fit-content" }}
                     exit={{ height: 0 }}
                     anchor="top"
-                    className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 -translate-y-1 rounded z-50 text-sm"
+                    className="w-[var(--button-width)] bg-zinc-850 shadow shadow-zinc-900 -translate-y-1 rounded text-sm"
                   >
                     <div className="flex flex-col max-h-80">
                       {config.installations.map((current) => (
                         <ListboxOption key={current.id} value={current.id} className="even:bg-zinc-800 cursor-pointer">
                           <div key={current.id} className="w-full flex items-center justify-between gap-2 px-2 py-1">
-                            <span className="font-bold text-start">{current.name}</span>
+                            <p className="font-bold text-start">{current.name}</p>
                             <div className="shrink-0 text-sm text-zinc-500 flex flex-col items-end justify-center">
-                              <span>{current.version}</span>
-                              <span>{t("features.mods.modsCount", { count: current.mods.length })}</span>
+                              <p>{current.version}</p>
+                              <p>{t("features.mods.modsCount", { count: current.mods.length })}</p>
                             </div>
                           </div>
                         </ListboxOption>

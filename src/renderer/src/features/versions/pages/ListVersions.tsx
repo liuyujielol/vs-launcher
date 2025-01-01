@@ -23,7 +23,7 @@ function ListVersions(): JSX.Element {
         <ul className="w-full flex flex-col">
           {config.gameVersions.length < 1 && (
             <div className="w-full flex flex-col items-center justify-center gap-2 rounded bg-zinc-850 p-4">
-              <h2 className="text-2xl">{t("features.versions.noVersionsFound")}</h2>
+              <p className="text-2xl">{t("features.versions.noVersionsFound")}</p>
               <p className="w-full flex gap-1 items-center justify-center">
                 <Trans i18nKey="features.versions.noVersionsFoundDescOnPage" components={{ button: <PiPlusCircleFill className="text-lg" /> }} />
               </p>
@@ -32,8 +32,8 @@ function ListVersions(): JSX.Element {
           {config.gameVersions.map((gv) => (
             <li key={gv.version} className={`w-full px-2 py-1 hover:pl-3 hover:pr-1 duration-100 odd:bg-zinc-850 rounded cursor-pointer group overflow-hidden`}>
               <div className="flex gap-2 justify-between items-center">
-                <span>{gv.version}</span>
-                <span className="hidden group-hover:block text-sm text-zinc-500 overflow-hidden text-ellipsis whitespace-nowrap">{gv.path}</span>
+                <p>{gv.version}</p>
+                <p className="hidden group-hover:block text-sm text-zinc-500 overflow-hidden text-ellipsis whitespace-nowrap">{gv.path}</p>
                 <div className="flex gap-2">
                   <Button
                     className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
@@ -80,7 +80,7 @@ function ListVersions(): JSX.Element {
             static
             open={versionToDelete !== null}
             onClose={() => setVersionToDelete(null)}
-            className="w-full h-full absolute top-0 left-0 z-[100] flex justify-center items-center backdrop-blur-sm"
+            className="w-full h-full absolute top-0 left-0 z-[200] flex justify-center items-center backdrop-blur-sm"
           >
             <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0 }}>
               <DialogPanel className="flex flex-col gap-4 text-center bg-zinc-850 rounded p-8 max-w-[600px]">

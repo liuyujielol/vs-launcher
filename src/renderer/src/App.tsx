@@ -47,7 +47,7 @@ function App(): JSX.Element {
               <div className="relative w-screen h-screen flex">
                 <MainMenu />
 
-                <main className="relative w-full h-full">
+                <main className="relative w-full h-full flex-1">
                   <AppInfo />
 
                   <Routes>
@@ -94,12 +94,12 @@ function AppInfo(): JSX.Element {
 
   return (
     <div className="w-full absolute z-[100] p-1 px-4 select-none bg-gradient-to-b from-zinc-950/60 to-zinc-950/0 flex justify-between items-center text-xs text-zinc-500">
-      <span className="flex flex-nowrap gap-1">
+      <div className="flex flex-nowrap gap-1">
         <MiniLinks to="https://github.com/XurxoMF/vs-launcher/issues" text={t("generic.issues")} />|
         <MiniLinks to="https://github.com/XurxoMF/vs-launcher/wiki" text={t("generic.guides")} />|
         <MiniLinks to="https://github.com/XurxoMF/vs-launcher" text={t("generic.source")} />
-      </span>
-      <span>VS Launcher - v{version}</span>
+      </div>
+      <p>VS Launcher - v{version}</p>
     </div>
   )
 }

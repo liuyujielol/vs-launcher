@@ -42,22 +42,22 @@ function TasksMenu(): JSX.Element {
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 anchor="bottom"
-                className="w-80 translate-y-1 translate-x-2 z-50 bg-zinc-850 rounded"
+                className="w-80 translate-y-1 translate-x-2 bg-zinc-850 rounded"
               >
                 <div className="flex flex-col max-h-80">
                   <AnimatePresence>
                     {tasks.length < 1 && (
                       <div>
-                        <h3 className="text-sm font-bold text-center p-2">{t("components.tasksMenu.noTasksAvailable")}</h3>
+                        <p className="text-sm font-bold text-center p-2">{t("components.tasksMenu.noTasksAvailable")}</p>
                       </div>
                     )}
                     {tasks.map((task) => (
                       <motion.div key={task.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full flex flex-col">
                         <div className="w-full flex justify-between gap-2 p-1">
                           <div className="w-full flex items-center gap-2">
-                            <span className={`text-xl p-2 ${FONT_COLOR_TYPES[task.status]}`}>{ICON_TYPES[task.type]}</span>
+                            <p className={`text-xl p-2 ${FONT_COLOR_TYPES[task.status]}`}>{ICON_TYPES[task.type]}</p>
                             <div className="flex flex-col items-start justify-center select-none">
-                              <h3 className="font-bold text-sm">{`${t(NAME_BY_TYPE[task.type])}`}</h3>
+                              <p className="font-bold text-sm">{`${t(NAME_BY_TYPE[task.type])}`}</p>
                               <p className="text-xs text-zinc-500">{task.desc}</p>
                               {task.status === "failed" && <p className={`text-xs ${FONT_COLOR_TYPES["failed"]}`}>{t("components.tasksMenu.error")}</p>}
                             </div>
