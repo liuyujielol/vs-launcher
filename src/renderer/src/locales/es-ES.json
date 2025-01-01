@@ -1,14 +1,146 @@
 {
   "components": {
     "gameRunningOverlay": {
-      "desc": "El juego se está ejecutando en segundo plano, por favor, ciérralo para usar VS Launcher!",
+      "desc": "¡El juego se está ejecutando en segundo plano, por favor, ciérralo para usar VS Launcher!",
       "subDesc": "No puedes usar VS Launcher mientras juegas para evitar conflictos con el juego.",
       "title": "JUEGO EN EJECUCIÓN"
     },
     "mainMenu": {
       "changelogDesc": "Changelog de Vintage Story",
       "changelogTitle": "Changelog",
-      "homeDesc": "Página principal"
+      "homeDesc": "Página principal",
+      "homeTitle": "Inicio",
+      "installationsDesc": "Gestiona tus instalaciones",
+      "installationsTitle": "Instalaciones",
+      "modsDesc": "Gestiona los mods instalados",
+      "modsTitle": "Mods",
+      "newsDesc": "Noticias de VS Launcher",
+      "newsTitle": "Noticias",
+      "versionsDesc": "Gestiona tus versiones del juego",
+      "versionsTitle": "Versiones"
+    },
+    "tasksMenu": {
+      "downloading": "Descargando",
+      "error": "¡Ha ocurrido un error durante el proceso!",
+      "extracting": "Extrayendo",
+      "noTasksAvailable": "¡No hay tareas en cola!"
+    }
+  },
+  "features": {
+    "generic": {
+      "notImplemented": "¡Esta página aún no está lista!",
+      "notImplementedDesc": "¡Vuelve en la próxima versión y puede que esté lista!"
+    },
+    "home": {
+      "description": "El Launcher no oficial de Vintage Story con todas las funciones que necesitas.",
+      "title": "Bienvenid@ a VS Launcher"
+    },
+    "installations": {
+      "addTitle": "Añade una nueva instalación",
+      "areYouSureDelete": "¿Estás seguro de que quieres eliminar esta instalación?",
+      "defaultName": "Mi Nueva Instalación",
+      "deleteData": "Eliminar datos",
+      "deleteInstallation": "Eliminar instalación",
+      "deletingNotReversible": "La eliminación no es reversible, por lo que, si marcas la opción de eliminar datos, no podrás restaurar tus mundos, datos y otra información.",
+      "editTitle": "Editar instalación",
+      "errorAddingInstallation": "¡Ha ocurrido un error al añadir la instalación!",
+      "errorDeletingInstallation": "¡Ha ocurrido un error al eliminar la instalación!",
+      "errorEditingInstallation": "¡Ha ocurrido un error al editar la instalación!",
+      "folderAlreadyInUse": "¡Esa carpeta ya está siendo utilizada por otra instalación!",
+      "installationNameMinMaxCharacters": "¡El nombre de la instalación debe tener entre {{min}} y {{max}} caracteres!",
+      "installationSuccessfullyAdded": "¡Instalación añadida correctamente!",
+      "installationSuccessfullyDeleted": "¡Instalación eliminada con éxito!",
+      "installationSuccessfullyEdited": "¡Instalación editada con éxito!",
+      "listTitle": "Lista de instalaciones",
+      "noInstallationFound": "¡Instalación no encontrada!",
+      "noInstallationFoundDesc": "¡La instalación que has seleccionado no existe!",
+      "noInstallationSelected": "¡No se seleccionó ninguna instalación!",
+      "noInstallationsFound": "¡No se encontraron instalaciones!",
+      "noInstallationsFoundDesc": "Añade una nueva en la página <link />",
+      "noInstallationsFoundDescOnPage": "Añade una nueva con el botón <button/>"
+    },
+    "mods": {
+      "modsCount": "{{count}} mods",
+      "modsCount_few": "{{count}} mods",
+      "modsCount_many": "{{count}} mods",
+      "modsCount_one": "{{count}} mod",
+      "modsCount_other": "{{count}} mods",
+      "modsCount_two": "{{count}} mods",
+      "modsCount_zero": "{{count}} mods"
+    },
+    "versions": {
+      "areYouSureUninstall": "¿Estás seguro de que quieres desinstalar esta versión?",
+      "gameVersionDownloadDesc": "¡Descargando la versión {{versión}} del juego!",
+      "gameVersionExtractDesc": "¡Extrayendo la versión {{versión}} del juego!",
+      "gameVersionTaskName": "versión {{versión}} del juego ",
+      "installTitle": "Instala una nueva versión",
+      "labelGameVersion": "Versión del juego",
+      "labelPreReleases": "Prelanzamientos",
+      "labelRCs": "Candidatas a estables",
+      "labelStables": "Estables",
+      "listTitle": "Lista de versiones",
+      "lookForAVersion": "Busca una versión",
+      "missingFolderOrVersion": "¡No has seleccionado ninguna carpeta o no hay ninguna versión del juego en la que has seleccionado!",
+      "noVersionFoundOnThatFolder": "¡No se encontró ninguna versión en la carpeta que has seleccionado!",
+      "noVersionSelected": "¡No se seleccionó ninguna versión!",
+      "noVersionsFound": "¡No se encontraron versiones!",
+      "noVersionsFoundDescOnPage": "Instala una nueva con el botón <button/>",
+      "searchForAGameVersion": "Busca una versión del juego",
+      "uninstallVersion": "Desinstalar versión",
+      "uninstallingNotReversible": "¡La desinstalación no es reversible pero puedes descargar la misma versión nuevamente!",
+      "versionAlreadyInstalled": "¡La versión {{version}} ya está instalada!",
+      "versionFolder": "Carpeta de versión",
+      "versionFound": "Versión encontrada",
+      "versionNotInstalled": "¡La versión {{version}} no está instalada!",
+      "versionSuccessfullyAdded": "¡Esa versión se agregó con éxito!",
+      "versionUninstallationFailed": "¡Ocurrió un error al desinstalar la versión {{version}}!",
+      "versionUninstalledSuccesfully": "¡La versión {{version}} se desinstaló correctamente!"
+    }
+  },
+  "generic": {
+    "add": "Añadir",
+    "browse": "Buscar",
+    "byAnonymous": "por anónimo",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "discard": "Descartar",
+    "folder": "Carpeta",
+    "goBack": "Volver",
+    "guides": "Guías",
+    "install": "Instalar",
+    "issues": "Problemas",
+    "minMaxLength": "{{min}} a {{max}} caracteres",
+    "name": "Nombre",
+    "openOnFileExplorer": "Abrir carpeta en el explorador de archivos",
+    "play": "Jugar",
+    "releaseDate": "Fecha de lanzamiento",
+    "save": "Guardar",
+    "source": "Fuente",
+    "type": "Tipo",
+    "uninstall": "Desinstalar",
+    "version": "Versión"
+  },
+  "notifications": {
+    "body": {
+      "downloadError": "¡Error al descargar: {{downloadName}}!",
+      "downloaded": "¡Descarga finalizada: {{downloadName}}!",
+      "downloading": "¡Iniciando descarga: {{downloadName}}!",
+      "errorExecutingGame": "¡Ha ocurrido un error al ejecutar el juego!",
+      "extractError": "¡Error al extraer: {{extractName}}!",
+      "extracted": "¡Extracción finalizada: {{extractName}}!",
+      "extracting": "¡Iniciando extracción: {{extractName}}!",
+      "folderDoesntExists": "¡La carpeta que estás intentando abrir no existe!",
+      "gameExitedWithErrors": "¡Vintage Story se cerró con errores!",
+      "missingFields": "¡Por favor completa todos los campos!",
+      "updateAvailable": "¡Nueva actualización disponible! \nDescargando...",
+      "updateDownloaded": "¡Actualización descargada con éxito! \nReinicia VS Launcher para actualizar."
+    },
+    "discard": "Descartar notificación",
+    "titles": {
+      "error": "Error",
+      "info": "Información",
+      "success": "Éxito",
+      "warning": "Advertencia"
     }
   }
 }
