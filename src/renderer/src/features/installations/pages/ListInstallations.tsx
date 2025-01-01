@@ -18,7 +18,7 @@ function ListInslallations(): JSX.Element {
 
   return (
     <>
-      <h1 className="text-3xl text-center font-bold">Installations list</h1>
+      <h1 className="text-3xl text-center font-bold">{t("features.installations.listTitle")}</h1>
 
       <div className="mx-auto w-full max-w-[800px]">
         <ul className="w-full flex flex-col">
@@ -72,7 +72,7 @@ function ListInslallations(): JSX.Element {
       </div>
 
       <div className="flex gap-2 justify-center items-center">
-        <Link to="/installations/add" className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+        <Link to="/installations/add" title={t("generic.add")} className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
           <PiPlusCircleFill className="text-lg" />
         </Link>
       </div>
@@ -93,23 +93,28 @@ function ListInslallations(): JSX.Element {
                   <p className="text-zinc-500">{t("features.installations.deletingNotReversible")}</p>
                   <span className="flex gap-2 items-center justify-center">
                     <Input id="delete-data" type="checkbox" checked={deleteData} onChange={(e) => setDeleData(e.target.checked)} />
-                    <label htmlFor="delete-data">Delete installation data</label>
+                    <label htmlFor="delete-data">{t("features.installations.deleteData")}</label>
                   </span>
                 </Description>
                 <div className="flex gap-4 items-center justify-center">
-                  <button className="px-2 py-1 bg-zinc-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded" onClick={() => setInstallationToDelete(null)}>
+                  <button
+                    title={t("generic.cancel")}
+                    className="px-2 py-1 bg-zinc-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
+                    onClick={() => setInstallationToDelete(null)}
+                  >
                     {t("generic.cancel")}
                   </button>
                   <button
+                    title={t("generic.uninstall")}
                     className="px-2 py-1 bg-red-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
                     onClick={async () => {
                       try {
                         if (!(await window.api.pathsManager.deletePath(installationToDelete.path))) throw new Error("Error deleting installation data!")
 
                         configDispatch({ type: CONFIG_ACTIONS.DELETE_INSTALLATION, payload: { id: installationToDelete.id } })
-                        addNotification(t("notifications.titles.success"), "Installation deleted successfully", "success")
+                        addNotification(t("notifications.titles.success"), t("features.installations.installationSuccessfullyDeleted"), "success")
                       } catch (err) {
-                        addNotification(t("notifications.titles.error"), "An error ocurred while deleting installation.", "error")
+                        addNotification(t("notifications.titles.error"), t("features.installations.errorDeletingInstallation"), "error")
                       } finally {
                         setInstallationToDelete(null)
                         setDeleData(false)

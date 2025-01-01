@@ -19,35 +19,35 @@ function EditInslallation(): JSX.Element {
   const [version, setVersion] = useState<GameVersionType>(config.gameVersions.find((gv) => gv.version === installation?.version) ?? config.gameVersions[0])
 
   const handleAddInstallation = async (): Promise<void> => {
-    if (!installation) return addNotification(t("notifications.titles.warning"), "Installation not found", "warning")
+    if (!installation) return addNotification(t("notifications.titles.warning"), t("features.installations.noInstallationFound"), "warning")
 
-    if (!id || !name || !version) return addNotification(t("notifications.titles.warning"), "Please fill all the fields", "warning")
+    if (!id || !name || !version) return addNotification(t("notifications.titles.warning"), t("notifications.body.missingFields"), "warning")
 
-    if (name.length < 5 || name.length > 50) return addNotification(t("notifications.titles.warning"), "Installation name must be between 5 and 50 characters", "warning")
+    if (name.length < 5 || name.length > 50) return addNotification(t("notifications.titles.warning"), t("features.installations.installationNameMinMaxCharacters"), "warning")
 
     try {
       configDispatch({ type: CONFIG_ACTIONS.EDIT_INSTALLATION, payload: { id, updates: { name, version: version.version } } })
-      addNotification(t("notifications.titles.success"), "Installation added successfully", "success")
+      addNotification(t("notifications.titles.success"), t("features.installations.installationSuccessfullyEdited"), "success")
     } catch (error) {
-      addNotification(t("notifications.titles.error"), "Error adding installation", "error")
+      addNotification(t("notifications.titles.error"), t("features.installations.errorEditingInstallation"), "error")
     }
   }
 
   return (
     <>
-      <h1 className="text-3xl text-center font-bold">Edit installation</h1>
+      <h1 className="text-3xl text-center font-bold">{t("features.installations.editTitle")}</h1>
 
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         {!installation ? (
           <div className="w-full flex flex-col items-center justify-center gap-2 rounded bg-zinc-850 p-4">
             <h2 className="text-2xl">{t("features.installations.noInstallationFound")}</h2>
-            <p className="w-full flex gap-1 items-center justify-center">{"The installation you tried to edit does not exist."}</p>
+            <p className="w-full flex gap-1 items-center justify-center">{t("features.installations.noInstallationFoundDesc")}</p>
           </div>
         ) : (
           <>
             <div className="w-full flex gap-4">
               <div className="w-48 flex flex-col gap-4 text-right">
-                <h3 className="text-lg">Name</h3>
+                <h3 className="text-lg">{t("generic.name")}</h3>
               </div>
 
               <div className="w-full flex flex-col gap-1">
@@ -58,7 +58,7 @@ function EditInslallation(): JSX.Element {
                   onChange={(e) => {
                     setName(e.target.value)
                   }}
-                  placeholder="My New Installation"
+                  placeholder={t("features.installations.defaultName")}
                   minLength={5}
                   maxLength={50}
                 />
@@ -68,12 +68,12 @@ function EditInslallation(): JSX.Element {
 
             <div className="w-full flex gap-4">
               <div className="w-48 flex flex-col gap-4 text-right">
-                <h3 className="text-lg">Game version</h3>
+                <h3 className="text-lg">{t("features.versions.labelGameVersion")}</h3>
               </div>
 
               <div className="w-full max-h-[250px] bg-zinc-850 rounded overflow-x-hidden shadow shadow-zinc-900 overflow-y-scroll">
                 <div className="w-full sticky top-0 bg-zinc-850 flex">
-                  <div className="w-full text-center p-1">Version</div>
+                  <div className="w-full text-center p-1">{t("generic.version")}</div>
                 </div>
                 <div className="w-full">
                   {config.gameVersions.length < 1 && (
@@ -98,11 +98,11 @@ function EditInslallation(): JSX.Element {
       </div>
 
       <div className="flex gap-2 justify-center items-center">
-        <Button onClick={handleAddInstallation} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Save</span>
+        <Button onClick={handleAddInstallation} title={t("generic.save")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.save")}</span>
         </Button>
-        <Link to="/installations" title="Cancel" className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Cancel</span>
+        <Link to="/installations" title={t("generic.cancel")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.cancel")}</span>
         </Link>
       </div>
     </>

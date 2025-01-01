@@ -54,7 +54,7 @@ function NotificationsOverlay(): JSX.Element {
             </div>
             <button
               className="p-1 text-zinc-500"
-              title={t("notifications.delete")}
+              title={t("notifications.discard")}
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()

@@ -19,7 +19,9 @@
       "uninstallVersion": "Desinstalar versão",
       "noVersionsFound": "Nenhuma versão encontrada",
       "areYouSureUninstall": "Tem certeza de que deseja desinstalar esta versão?",
-      "uninstallingNotReversible": "A desinstalação não é reversível, mas pode descarregar a mesma versão novamente."
+      "uninstallingNotReversible": "A desinstalação não é reversível, mas pode descarregar a mesma versão novamente.",
+      "versionUninstalledSuccesfully": "Versão {{version}} desinstalada com sucesso!",
+      "versionUninstallationFailed": "Ocorreu um erro ao desinstalar a versão {{version}}!"
     },
     "installations": {},
     "mods": {
@@ -68,8 +70,6 @@
     },
     "body": {
       "folderDoesntExists": "A pasta não existe! Execute o jogo primeiro!",
-      "versionUninstalledSuccesfully": "Versão {{version}} desinstalada com sucesso!",
-      "versionUninstallationFailed": "Ocorreu um erro ao desinstalar a versão {{version}}!",
       "updateAvailable": "Nova atualização disponível! A descarregar...",
       "updateDownloaded": "Atualização descarregada com sucesso! Reinicie o VS Launcher para atualizar.",
       "downloading": "Iniciando {{downloadName}}!",
@@ -79,6 +79,6 @@
       "extracted": "Finalizado {{extractName}}!",
       "extractError": "Falha {{extractName}}!"
     },
-    "delete": "Descartar"
+    "discard": "Descartar"
   }
 }

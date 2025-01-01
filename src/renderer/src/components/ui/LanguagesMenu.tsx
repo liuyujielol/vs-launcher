@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from "@headlessui/react"
 
 function LanguagesMenu(): JSX.Element {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const [selectedLanguage, setSelectedLanguage] = useState<string>(window.localStorage.getItem("lang") || "en-US")
 
   const getLanguages = (): { code: string; name: string; credits: string }[] => {
@@ -15,7 +15,7 @@ function LanguagesMenu(): JSX.Element {
     return Object.keys(resources).map((code) => ({
       code,
       name: resources[code]?.name.toString() || code,
-      credits: resources[code]?.credits.toString() || "by anonymous"
+      credits: resources[code]?.credits.toString() || t("generic.byAnonymous")
     }))
   }
 

@@ -2,6 +2,7 @@ import { FiExternalLink } from "react-icons/fi"
 import { useTranslation } from "react-i18next"
 import { Link, useLocation } from "react-router-dom"
 import { Button } from "@headlessui/react"
+import { PiGearFill } from "react-icons/pi"
 
 import icon from "@renderer/assets/icon.png"
 import iconVersions from "@renderer/assets/icon-versions.png"
@@ -16,7 +17,6 @@ import { usePlayingContext } from "@renderer/contexts/PlayingContext"
 import LanguagesMenu from "@renderer/components/ui/LanguagesMenu"
 import InstallationsDropdownMenu from "@renderer/features/installations/components/InstallationsDropdownMenu"
 import TasksMenu from "@renderer/components/ui/TasksMenu"
-import ConfigMenu from "@renderer/components/ui/ConfigMenu"
 
 interface MainMenuLinkProps {
   icon: string
@@ -81,9 +81,11 @@ function MainMenu(): JSX.Element {
   ]
 
   return (
-    <header className="z-50 shrink-0 w-72 flex flex-col gap-4 p-2 shadow-[0_0_5px_2px] shadow-zinc-900">
+    <header className="z-50 shrink-0 w-68 flex flex-col gap-4 p-2 shadow-[0_0_5px_2px] shadow-zinc-900">
       <div className={`flex h-7 shrink-0 gap-2`}>
-        <ConfigMenu />
+        <Link to="/config" className="shrink-0 w-7 h-7 bg-zinc-850 rounded flex items-center justify-center shadow shadow-zinc-900 hover:shadow-none">
+          <PiGearFill />
+        </Link>
         <TasksMenu />
         <LanguagesMenu />
       </div>
@@ -108,14 +110,15 @@ function MainMenu(): JSX.Element {
           onClick={async () => {
             try {
               const installationToRun = config.installations.find((installation) => installation.id === config.lastUsedInstallation)
-              if (!installationToRun) return addNotification(t("notifications.titles.warning"), "No installation selected", "warning")
+              if (!installationToRun) return addNotification(t("notifications.titles.warning"), t("features.installations.noInstallationSelected"), "warning")
               const gameVersionToRun = config.gameVersions.find((gv) => gv.version === installationToRun.version)
-              if (!gameVersionToRun || !gameVersionToRun.installed) return addNotification(t("notifications.titles.warning"), "Game version not installed", "warning")
+              if (!gameVersionToRun || !gameVersionToRun.installed)
+                return addNotification(t("notifications.titles.warning"), t("features.versions.versionNotInstalled", { version: installationToRun.version }), "warning")
               setPlaying(true)
               const closeStatus = await window.api.gameManager.executeGame(gameVersionToRun, installationToRun)
-              if (!closeStatus) return addNotification(t("notifications.titles.error"), "Game exited with errors", "error")
+              if (!closeStatus) return addNotification(t("notifications.titles.error"), t("notifications.body.gameExitedWithErrors"), "error")
             } catch (err) {
-              addNotification(t("notifications.titles.error"), "Error executing game", "error")
+              addNotification(t("notifications.titles.error"), t("notifications.body.errorExecutingGame"), "error")
             } finally {
               setPlaying(false)
             }

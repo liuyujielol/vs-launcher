@@ -17,7 +17,7 @@ function ListVersions(): JSX.Element {
 
   return (
     <>
-      <h1 className="text-3xl text-center font-bold">Versions list</h1>
+      <h1 className="text-3xl text-center font-bold">{t("features.versions.listTitle")}</h1>
 
       <div className="mx-auto w-full max-w-[800px]">
         <ul className="w-full flex flex-col">
@@ -62,10 +62,14 @@ function ListVersions(): JSX.Element {
       </div>
 
       <div className="flex gap-2 justify-center items-center">
-        <Link to="/versions/add" className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+        <Link to="/versions/add" title={t("generic.add")} className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
           <PiPlusCircleFill className="text-lg" />
         </Link>
-        <Link to="/versions/look-for-a-version" className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+        <Link
+          to="/versions/look-for-a-version"
+          title={t("features.versions.searchForAGameVersion")}
+          className="w-7 h-7 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
+        >
           <PiMagnifyingGlassFill className="text-lg" />
         </Link>
       </div>
@@ -86,19 +90,24 @@ function ListVersions(): JSX.Element {
                   <p className="text-zinc-500">{t("features.versions.uninstallingNotReversible")}</p>
                 </Description>
                 <div className="flex gap-4 items-center justify-center">
-                  <button className="px-2 py-1 bg-zinc-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded" onClick={() => setVersionToDelete(null)}>
+                  <button
+                    title={t("generic.cancel")}
+                    className="px-2 py-1 bg-zinc-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
+                    onClick={() => setVersionToDelete(null)}
+                  >
                     {t("generic.cancel")}
                   </button>
                   <button
+                    title={t("generic.uninstall")}
                     className="px-2 py-1 bg-red-800 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
                     onClick={async () => {
                       try {
                         const deleted = await window.api.pathsManager.deletePath(versionToDelete!.path)
                         if (!deleted) throw new Error("Error deleting fame gersion data")
                         configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: versionToDelete!.version } })
-                        addNotification(t("notifications.titles.success"), t("notifications.body.versionUninstalledSuccesfully", { version: versionToDelete!.version }), "success")
+                        addNotification(t("notifications.titles.success"), t("features.versions.versionUninstalledSuccesfully", { version: versionToDelete!.version }), "success")
                       } catch (err) {
-                        addNotification(t("notifications.titles.error"), t("notifications.body.versionUninstallationFailed", { version: versionToDelete!.version }), "error")
+                        addNotification(t("notifications.titles.error"), t("features.versions.versionUninstallationFailed", { version: versionToDelete!.version }), "error")
                       } finally {
                         setVersionToDelete(null)
                       }

@@ -58,28 +58,40 @@ function AddVersion(): JSX.Element {
 
     configDispatch({ type: CONFIG_ACTIONS.ADD_GAME_VERSION, payload: newGameVersion })
 
-    startDownload(`game version ${newGameVersion.version}`, `Donwloading game version ${newGameVersion.version}`, url, folder, (status, path) => {
-      if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
-
-      startExtract(`game version ${newGameVersion.version}`, `Extracting game version ${newGameVersion.version}`, path, folder, (status) => {
+    startDownload(
+      t("features.versions.gameVersionTaskName", { version: newGameVersion.version }),
+      t("features.versions.gameVersionDownloadDesc", { version: newGameVersion.version }),
+      url,
+      folder,
+      (status, path) => {
         if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
-        configDispatch({ type: CONFIG_ACTIONS.EDIT_GAME_VERSION, payload: { version: newGameVersion.version, updates: { installed: true } } })
-      })
-    })
+
+        startExtract(
+          t("features.versions.gameVersionTaskName", { version: newGameVersion.version }),
+          t("features.versions.gameVersionExtractDesc", { version: newGameVersion.version }),
+          path,
+          folder,
+          (status) => {
+            if (!status) return configDispatch({ type: CONFIG_ACTIONS.DELETE_GAME_VERSION, payload: { version: newGameVersion.version } })
+            configDispatch({ type: CONFIG_ACTIONS.EDIT_GAME_VERSION, payload: { version: newGameVersion.version, updates: { installed: true } } })
+          }
+        )
+      }
+    )
   }
 
   return (
     <>
-      <h1 className="text-3xl text-center font-bold">Install a new version</h1>
+      <h1 className="text-3xl text-center font-bold">{t("features.versions.installTitle")}</h1>
 
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">Game version</h3>
+            <h3 className="text-lg">{t("features.versions.labelGameVersion")}</h3>
             <div className="flex flex-col gap-1 text-sm">
               <div className="flex items-center select-none">
                 <label htmlFor="stable-version" className="w-full cursor-pointer pr-2">
-                  Stables
+                  {t("features.versions.labelStables")}
                 </label>
                 <Input
                   type="checkbox"
@@ -91,13 +103,13 @@ function AddVersion(): JSX.Element {
               </div>
               <div className="flex items-center select-none">
                 <label htmlFor="rc-version" className="w-full cursor-pointer pr-2">
-                  Release Candidates
+                  {t("features.versions.labelRCs")}
                 </label>
                 <Input type="checkbox" id="rc-version" checked={versionFilters.rc} onChange={(e) => setVersionFilters({ ...versionFilters, rc: e.target.checked })} className="bg-vs cursor-pointer" />
               </div>
               <div className="flex items-center select-none">
                 <label htmlFor="pre-version" className="w-full cursor-pointer pr-2">
-                  Pre Releases
+                  {t("features.versions.labelPreReleases")}
                 </label>
                 <Input
                   type="checkbox"
@@ -112,9 +124,9 @@ function AddVersion(): JSX.Element {
 
           <div className="w-full max-h-[250px] bg-zinc-850 rounded overflow-x-hidden shadow shadow-zinc-900 overflow-y-scroll">
             <div className="w-full sticky top-0 bg-zinc-850 flex">
-              <div className="w-full text-center p-1">Version</div>
-              <div className="shrink-0 w-36 text-center p-1">Release Date</div>
-              <div className="shrink-0 w-24 text-center p-1">Type</div>
+              <div className="w-full text-center p-1">{t("generic.version")}</div>
+              <div className="shrink-0 w-36 text-center p-1">{t("generic.releaseDate")}</div>
+              <div className="shrink-0 w-24 text-center p-1">{t("generic.type")}</div>
             </div>
             <div className="w-full">
               {gameVersions.map((gv) => (
@@ -146,7 +158,7 @@ function AddVersion(): JSX.Element {
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">Folder</h3>
+            <h3 className="text-lg">{t("generic.folder")}</h3>
           </div>
 
           <div className="w-full flex gap-2">
@@ -158,13 +170,14 @@ function AddVersion(): JSX.Element {
                   setFolderByUser(true)
                 }
               }}
+              title={t("generic.browse")}
               className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
             >
-              <span className="px-2 py-1">Browse</span>
+              <span className="px-2 py-1">{t("generic.browse")}</span>
             </Button>
             <Input
               type="text"
-              placeholder="Version folder"
+              placeholder={t("features.versions.versionFolder")}
               value={folder}
               onChange={(e) => setFolder(e.target.value)}
               className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none"
@@ -174,11 +187,11 @@ function AddVersion(): JSX.Element {
       </div>
 
       <div className="flex gap-2 justify-center items-center">
-        <Button onClick={handleInstallVersion} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Install</span>
+        <Button onClick={handleInstallVersion} title={t("generic.install")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.install")}</span>
         </Button>
-        <Link to="/versions" title="Cancel" className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Cancel</span>
+        <Link to="/versions" title={t("generic.cancel")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.cancel")}</span>
         </Link>
       </div>
     </>

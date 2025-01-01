@@ -17,13 +17,13 @@ function InstallationsDropdownMenu(): JSX.Element {
       {config.installations.length < 1 ? (
         <div className="w-full flex flex-col items-center justify-between px-4 py-2 ">
           <span className="font-bold">{t("features.installations.noInstallationsFound")}</span>
-          <span className="text-zinc-500 text-xs flex gap-1 items-center">
+          <span className="text-zinc-500 text-xs flex gap-1 items-center flex-wrap justify-center">
             <Trans
               i18nKey="features.installations.noInstallationsFoundDesc"
               components={{
                 link: (
                   <Link to="/installations" className="text-vs">
-                    Installations
+                    {t("components.mainMenu.installationsTitle")}
                   </Link>
                 )
               }}

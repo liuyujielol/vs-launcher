@@ -16,7 +16,7 @@ function LookForAVersion(): JSX.Element {
 
   const handleAddVersion = async (): Promise<void> => {
     try {
-      if (!folder || !versionFound) return addNotification(t("notifications.titles.warning"), "No folder selected or no version found", "warning")
+      if (!folder || !versionFound) return addNotification(t("notifications.titles.warning"), t("features.versions.missingFolderOrVersion"), "warning")
 
       if (config.gameVersions.some((gv) => gv.version === versionFound))
         return addNotification(t("notifications.titles.error"), t("features.versions.versionAlreadyInstalled", { version: versionFound }), "error")
@@ -39,12 +39,12 @@ function LookForAVersion(): JSX.Element {
 
   return (
     <>
-      <h1 className="text-3xl text-center font-bold">Install a new version</h1>
+      <h1 className="text-3xl text-center font-bold">{t("features.versions.lookForAVersion")}</h1>
 
       <div className="mx-auto w-[800px] flex flex-col gap-4 items-start justify-center">
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">Version found</h3>
+            <h3 className="text-lg">{t("features.versions.versionFound")}</h3>
           </div>
 
           <div className="w-full flex gap-2">
@@ -54,7 +54,7 @@ function LookForAVersion(): JSX.Element {
 
         <div className="w-full flex gap-4">
           <div className="w-48 flex flex-col gap-4 text-right">
-            <h3 className="text-lg">Folder</h3>
+            <h3 className="text-lg">{t("generic.folder")}</h3>
           </div>
 
           <div className="w-full flex gap-2">
@@ -74,9 +74,10 @@ function LookForAVersion(): JSX.Element {
                   setVersionFound(res.installedGameVersion as string)
                 }
               }}
+              title={t("generic.browse")}
               className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded"
             >
-              <span className="px-2 py-1">Browse</span>
+              <span className="px-2 py-1">{t("generic.browse")}</span>
             </Button>
             <span className="w-full h-8 bg-zinc-850 px-2 py-1 rounded-md shadow shadow-zinc-900 hover:shadow-none">{folder}</span>
           </div>
@@ -84,11 +85,11 @@ function LookForAVersion(): JSX.Element {
       </div>
 
       <div className="flex gap-2 justify-center items-center">
-        <Button onClick={handleAddVersion} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Add</span>
+        <Button onClick={handleAddVersion} title={t("generic.add")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.add")}</span>
         </Button>
-        <Link to="/versions" title="Cancel" className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
-          <span className="px-2 py-1">Cancel</span>
+        <Link to="/versions" title={t("generic.cancel")} className="w-fit h-8 bg-zinc-850 shadow shadow-zinc-900 hover:shadow-none flex items-center justify-center rounded">
+          <span className="px-2 py-1">{t("generic.cancel")}</span>
         </Link>
       </div>
     </>

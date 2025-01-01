@@ -19,7 +19,9 @@
       "uninstallVersion": "卸载游戏版本",
       "noVersionsFound": "未找到任何版本",
       "areYouSureUninstall": "您确定要卸载此版本吗？",
-      "uninstallingNotReversible": "卸载过程不可逆，但是您随时可以再次下载该版本。"
+      "uninstallingNotReversible": "卸载过程不可逆，但是您随时可以再次下载该版本。",
+      "versionUninstalledSuccesfully": "版本 {{version}} 卸载成功！",
+      "versionUninstallationFailed": "在卸载版本 {{version}} 时出现错误！"
     },
     "installations": {},
     "mods": {
@@ -68,8 +70,6 @@
     },
     "body": {
       "folderDoesntExists": "该文件夹不存在！请先执行游戏！",
-      "versionUninstalledSuccesfully": "版本 {{version}} 卸载成功！",
-      "versionUninstallationFailed": "在卸载版本 {{version}} 时出现错误！",
       "updateAvailable": "启动器有更新可用！正在下载...",
       "updateDownloaded": "更新下载成功！重新启动《复古物语》启动器以完成更新。",
       "downloading": "开始下载 {{downloadName}}！",
@@ -79,6 +79,6 @@
       "extracted": "{{extractName}} 解压完成！",
       "extractError": "解压 {{extractName}} 失败！"
     },
-    "delete": "忽略通知"
+    "discard": "忽略通知"
   }
 }

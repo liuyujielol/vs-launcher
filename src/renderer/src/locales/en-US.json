@@ -9,7 +9,18 @@
     "play": "Play",
     "openOnFileExplorer": "Open folder on the file explorer",
     "discard": "Discard",
-    "minMaxLength": "{{min}} to {{max}} characters"
+    "minMaxLength": "{{min}} to {{max}} characters",
+    "byAnonymous": "by anonymous",
+    "folder": "Folder",
+    "browse": "Browse",
+    "add": "Add",
+    "goBack": "Go back",
+    "save": "Save",
+    "name": "Name",
+    "version": "Version",
+    "releaseDate": "Release Date",
+    "type": "Type",
+    "install": "Install"
   },
   "features": {
     "generic": {
@@ -29,7 +40,24 @@
       "noVersionSelected": "No version selected",
       "versionAlreadyInstalled": "Version {{version}} already installed",
       "noVersionFoundOnThatFolder": "No version found on the folder you've selected!",
-      "versionSuccessfullyAdded": "That version was succesfully added"
+      "versionSuccessfullyAdded": "That version was succesfully added",
+      "versionUninstalledSuccesfully": "Version {{version}} uninstalled successfully!",
+      "versionUninstallationFailed": "An error ocurred while uninstalling version {{version}}!",
+      "versionNotInstalled": "Version {{version}} not installed!",
+      "labelGameVersion": "Game version",
+      "versionFolder": "Version folder",
+      "gameVersionDownloadDesc": "Downloading game version {{version}}",
+      "gameVersionTaskName": "game version {{version}}",
+      "gameVersionExtractDesc": "Extracting game version {{version}}",
+      "installTitle": "Install a new version",
+      "labelStables": "Stables",
+      "labelRCs": "Release Candidates",
+      "labelPreReleases": "Pre Releases",
+      "listTitle": "Versions list",
+      "searchForAGameVersion": "Search for a game version",
+      "missingFolderOrVersion": "You've no folder selected or there it no game version on the one you've selected!",
+      "lookForAVersion": "Look for a version",
+      "versionFound": "Version found"
     },
     "installations": {
       "noInstallationsFound": "No installations found",
@@ -39,7 +67,21 @@
       "areYouSureDelete": "Are you sure you want to delete this installation?",
       "deletingNotReversible": "Deletion is not reversible so, if you check the delete data option, you'll not be able to restore your worlds, data and other info.",
       "noInstallationFound": "Installation not found",
-      "noInstallationSelected": "No installation selected"
+      "noInstallationSelected": "No installation selected",
+      "installationNameMinMaxCharacters": "Installation name must be between {{min}} and {{max}} characters",
+      "defaultName": "My New Installation",
+      "folderAlreadyInUse": "That folder is already used by another installation!",
+      "installationSuccessfullyAdded": "Installation added successfully!",
+      "errorAddingInstallation": "Error adding installation!",
+      "addTitle": "Add a new installation",
+      "installationSuccessfullyEdited": "Installation edited succesfully!",
+      "errorEditingInstallation": "Error editing installation!",
+      "editTitle": "Edit installation",
+      "noInstallationFoundDesc": "The feature you've selected does not exists!",
+      "listTitle": "Installations list",
+      "deleteData": "Delete data",
+      "installationSuccessfullyDeleted": "Installation deleted succesfully!",
+      "errorDeletingInstallation": "An error ocurred while deleting installation!"
     },
     "mods": {
       "modsCount": "{{count}} mods",
@@ -69,7 +111,7 @@
     "gameRunningOverlay": {
       "title": "GAME RUNNING",
       "desc": "The game is running in the background, please, close it to use VS Launcher!",
-      "subDesc": "You cant use VS Launcher while playing to prevent any conflicts with the game."
+      "subDesc": "You can't use VS Launcher while playing to prevent any conflicts with the game."
     },
     "tasksMenu": {
       "downloading": "Downloading",
@@ -87,8 +129,6 @@
     },
     "body": {
       "folderDoesntExists": "The folder you're trying to open does not exists!",
-      "versionUninstalledSuccesfully": "Version {{version}} uninstalled successfully!",
-      "versionUninstallationFailed": "An error ocurred while uninstalling version {{version}}!",
       "updateAvailable": "New update available! Downloading...",
       "updateDownloaded": "Update downloaded succesfully! Restart VS Launcher to update.",
       "downloading": "Starting download: {{downloadName}}!",
@@ -96,8 +136,11 @@
       "downloadError": "Error downloading: {{downloadName}}!",
       "extracting": "Starting extraction: {{extractName}}!",
       "extracted": "Finished extraction: {{extractName}}!",
-      "extractError": "Error extracting: {{extractName}}!"
+      "extractError": "Error extracting: {{extractName}}!",
+      "gameExitedWithErrors": "Vintage Story exited with errors!",
+      "errorExecutingGame": "There was an error executing the game!",
+      "missingFields": "Please fill all the fields!"
     },
-    "delete": "Discard notification"
+    "discard": "Discard notification"
   }
 }

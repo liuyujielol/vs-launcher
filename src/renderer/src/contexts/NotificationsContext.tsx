@@ -26,13 +26,13 @@ const defaultValue: NotificationsContextType = { notifications: [], addNotificat
 const NotificationsContext = createContext<NotificationsContextType>(defaultValue)
 
 const NotificationsProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const [notifications, setNotifications] = useState<NotificationType[]>([])
   const { t } = useTranslation()
+  const [notifications, setNotifications] = useState<NotificationType[]>([])
 
-  const firstExecuted = useRef(true)
+  const firstExecutedNotificationsContext = useRef(true)
   useEffect(() => {
-    if (firstExecuted.current) {
-      firstExecuted.current = false
+    if (firstExecutedNotificationsContext.current) {
+      firstExecutedNotificationsContext.current = false
 
       window.api.appUpdater.onUpdateAvailable(() => {
         addNotification(t("notifications.titles.info"), t("notifications.body.updateAvailable"), "info")

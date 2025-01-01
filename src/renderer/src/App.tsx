@@ -16,16 +16,21 @@ import PlayingOverlay from "@renderer/components/layout/PlayingOverlay"
 import MainMenu from "@renderer/components/layout/MainMenu"
 
 import HomePage from "@renderer/features/home/pages/HomePage"
+
 import InstallationsLayout from "@renderer/features/installations/pages/InstallationsLayout"
 import ListInslallations from "@renderer/features/installations/pages/ListInstallations"
 import AddInslallation from "@renderer/features/installations/pages/AddInstallation"
 import EditInslallation from "@renderer/features/installations/pages/EditInstallation"
+
 import VersionsLayout from "@renderer/features/versions/pages/VersionsLayout"
 import ListVersions from "@renderer/features/versions/pages/ListVersions"
 import AddVersion from "@renderer/features/versions/pages/AddVersion"
 import LookForAVersion from "@renderer/features/versions/pages/LookForAVersion"
+
 import ModsLayout from "@renderer/features/mods/pages/ModsLayout"
 import ListMods from "@renderer/features/mods/pages/ListMods"
+
+import ConfigPage from "@renderer/features/config/pages/ConfigPage"
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -60,6 +65,7 @@ function App(): JSX.Element {
                     <Route path="/mods" element={<ModsLayout />}>
                       <Route index element={<ListMods />} />
                     </Route>
+                    <Route path="/config" element={<ConfigPage />} />
                   </Routes>
                 </main>
 
@@ -100,7 +106,7 @@ function AppInfo(): JSX.Element {
 
 function MiniLinks({ to, text }: { to: string; text: string }): JSX.Element {
   return (
-    <a onClick={() => window.api.utils.openOnBrowser(to)} className="flex flex-row flex-nowrap items-center gap-1 cursor-pointer">
+    <a title={text} onClick={() => window.api.utils.openOnBrowser(to)} className="flex flex-row flex-nowrap items-center gap-1 cursor-pointer">
       {text} <FiExternalLink />
     </a>
   )

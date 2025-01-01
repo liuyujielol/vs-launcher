@@ -1,1 +1,14 @@
-{}
+{
+  "components": {
+    "gameRunningOverlay": {
+      "desc": "El juego se está ejecutando en segundo plano, por favor, ciérralo para usar VS Launcher!",
+      "subDesc": "No puedes usar VS Launcher mientras juegas para evitar conflictos con el juego.",
+      "title": "JUEGO EN EJECUCIÓN"
+    },
+    "mainMenu": {
+      "changelogDesc": "Changelog de Vintage Story",
+      "changelogTitle": "Changelog",
+      "homeDesc": "Página principal"
+    }
+  }
+}
